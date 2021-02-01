@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Unit
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static Player Instance;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        Instance = this;
     }
 }
