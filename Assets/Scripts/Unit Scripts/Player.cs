@@ -63,7 +63,6 @@ public class Player : Unit
         /// The player wants to open their inventory.
         if (Input.GetKeyDown(KeyCode.Tab)) OpenInventory();
 
-        //if (Input.GetKey(KeyCode.))
 
     }
 
