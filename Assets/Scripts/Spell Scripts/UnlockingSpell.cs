@@ -6,6 +6,7 @@ public class UnlockingSpell : Spell
 {
     public override void TriggerSpellEffect()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Casting the Unlocking Spell");
     }
+
 }

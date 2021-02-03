@@ -13,4 +13,5 @@ public class AttackSpell : Spell
     {
         Debug.Log("Casting the Attack Spell");
     }
+
 }

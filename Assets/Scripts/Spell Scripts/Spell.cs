@@ -13,4 +13,9 @@ public abstract class Spell : MonoBehaviour
     /// Date: 2/2/2021
     /// <summary> The abstract function that all spells have to write their own functionality. </summary>
     public abstract void TriggerSpellEffect();
+
+    public void OnTriggerEnter()
+    {
+        TriggerSpellEffect();
+    }
 }

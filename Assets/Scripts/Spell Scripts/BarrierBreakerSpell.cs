@@ -6,6 +6,7 @@ public class BarrierBreakerSpell : Spell
 {
     public override void TriggerSpellEffect()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Casting the Barrier Breaker Spell");
     }
+
 }

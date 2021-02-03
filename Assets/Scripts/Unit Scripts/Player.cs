@@ -20,7 +20,15 @@ public class Player : Unit
 
     
     /// <summary> The currently selected spell of the player. </summary>
-    [HideInInspector] public Spell SelectedSpell { get; set; }
+    [HideInInspector] public GameObject SelectedSpell { get; set; }
+
+    public List<GameObject> spells = new List<GameObject>();
+
+    /// <summary> The location that the spell is cast at. </summary>
+    public GameObject spellCastLoc;
+
+    /// <summary> The speed at which the spell is fired. </summary>
+    public float spellSpeed = 500;
 
 
     protected override void Awake()
@@ -33,6 +41,8 @@ public class Player : Unit
         }
 
         Instance = this;
+
+        if (spells[0] != null) SelectedSpell = spells[0];
     }
 
     public void FixedUpdate()
@@ -45,6 +55,11 @@ public class Player : Unit
         {
             Move();
         }
+    }
+
+    private void Update()
+    {
+        Rotate();
 
         /// The player wants to cast a spell.
         if (Input.GetMouseButtonDown(0)) CastSpell();
@@ -64,8 +79,6 @@ public class Player : Unit
 
         /// The player wants to open their inventory.
         if (Input.GetKeyDown(KeyCode.Tab)) OpenInventory();
-
-
     }
 
     /// Author: Chase O'Connor
@@ -83,7 +96,21 @@ public class Player : Unit
                               Input.GetAxis("Vertical"));
 
         base.Move();
+    }
 
+    /// Author: Chase O'Connor
+    /// Date: 2/2/2021
+    /// <summary>
+    /// Rotates the player to face the cursor
+    /// </summary>
+    public void Rotate()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out RaycastHit hit, 1000f, 1 << 31);
+
+        if (hit.collider == null) return;
+
+        transform.LookAt(new Vector3(hit.point.x, 1f, hit.point.z));
     }
 
     /// Author: Chase O'Connor
@@ -92,6 +119,9 @@ public class Player : Unit
     private void CastSpell()
     {
         Debug.Log("Casting selected spell");
+        GameObject firedSpell = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity);
+
+        firedSpell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
     }
 
     /// Author: Chase O'Connor
