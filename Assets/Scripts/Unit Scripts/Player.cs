@@ -12,13 +12,15 @@ public class Player : Unit
     /// <summary> The singleton instance of the player. </summary>
     public static Player Instance;
 
-    /// Author: Chase O'Connor
-    /// Date: 2/2/2021
     /// <summary>
     /// A flag to tell the player that they are next to an interactable
     /// item.
     /// </summary>
     public bool NextToInteractable { get; set; } = false;
+
+    
+    /// <summary> The currently selected spell of the player. </summary>
+    [HideInInspector] public Spell SelectedSpell { get; set; }
 
 
     protected override void Awake()
