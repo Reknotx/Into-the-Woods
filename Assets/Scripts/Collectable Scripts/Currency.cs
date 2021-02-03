@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Currency : Collectable
 {
-    public override void Collect()
+    public override void Interact()
     {
         throw new System.NotImplementedException();
     }

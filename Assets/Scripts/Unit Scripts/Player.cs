@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// Author: Chase O'Connor
 /// Date: 2/2/2021
@@ -17,15 +18,23 @@ public class Player : Unit
     /// item.
     /// </summary>
     public bool NextToInteractable { get; set; } = false;
-
+    
+    /// <summary> This is temporary text, for Gif purposes. </summary>
+    public Text InteractText;
     
     /// <summary> The currently selected spell of the player. </summary>
     [HideInInspector] public GameObject SelectedSpell { get; set; }
 
+    /// <summary> The list of spells the player can cast. </summary>
     public List<GameObject> spells = new List<GameObject>();
+
+    /// <summary> The interactable items that are nearby. </summary>
+    [HideInInspector] public List<GameObject> nearbyInteractables = new List<GameObject>();
 
     /// <summary> The location that the spell is cast at. </summary>
     public GameObject spellCastLoc;
+
+    public GameObject tempInventoryPanel;
 
     /// <summary> The speed at which the spell is fired. </summary>
     public float spellSpeed = 500;
@@ -43,6 +52,8 @@ public class Player : Unit
         Instance = this;
 
         if (spells[0] != null) SelectedSpell = spells[0];
+
+        if (tempInventoryPanel != null) tempInventoryPanel.SetActive(false);
     }
 
     public void FixedUpdate()
@@ -78,7 +89,7 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.F) && NextToInteractable) InteractWithItem();
 
         /// The player wants to open their inventory.
-        if (Input.GetKeyDown(KeyCode.Tab)) OpenInventory();
+        if (Input.GetKeyDown(KeyCode.Tab) && tempInventoryPanel != null) OpenInventory();
     }
 
     /// Author: Chase O'Connor
@@ -162,6 +173,20 @@ public class Player : Unit
     private void InteractWithItem()
     {
         Debug.Log("Interacting with an item.");
+
+        ///Think about this one later, might be good idea. Remember how casting works.
+        //Physics.SphereCast(transform.parent.position, 2.5f, transform.forward, out RaycastHit hit, 1, 1 << 12);
+        //if (hit.collider != null) Debug.Log(hit.collider.name);
+
+        if (nearbyInteractables.Count != 0)
+        {
+            GameObject interactable = nearbyInteractables[0];
+            Debug.Log(interactable.name);
+            nearbyInteractables.Remove(interactable);
+            Destroy(interactable);
+
+            if (nearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
+        }
     }
 
     /// Author: Chase O'Connor
@@ -169,8 +194,5 @@ public class Player : Unit
     /// <summary> 
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
-    private void OpenInventory()
-    {
-
-    }
+    private void OpenInventory() => tempInventoryPanel.SetActive(!tempInventoryPanel.activeSelf);
 }

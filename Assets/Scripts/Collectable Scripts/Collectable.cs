@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Collectable : MonoBehaviour
+public abstract class Collectable : Interactable
 {
-    public abstract void Collect();
 }

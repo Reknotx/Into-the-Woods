@@ -12,10 +12,10 @@ public abstract class Spell : MonoBehaviour
     /// Author: Chase O'Connor
     /// Date: 2/2/2021
     /// <summary> The abstract function that all spells have to write their own functionality. </summary>
-    public abstract void TriggerSpellEffect();
+    public abstract void TriggerSpellEffect(GameObject other);
 
-    public void OnTriggerEnter()
+    public void OnTriggerEnter(Collider other)
     {
-        TriggerSpellEffect();
+        TriggerSpellEffect(other.gameObject);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BarrierBreakerSpell : Spell
 {
-    public override void TriggerSpellEffect()
+    public override void TriggerSpellEffect(GameObject other)
     {
         Debug.Log("Casting the Barrier Breaker Spell");
     }
