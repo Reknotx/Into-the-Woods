@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class AttackSpell : Spell
 {
-    public override void CastSpell()
+    public override void TriggerSpellEffect()
     {
         Debug.Log("Casting the Attack Spell");
     }

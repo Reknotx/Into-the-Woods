@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnlockingSpell : Spell
 {
-    public override void CastSpell()
+    public override void TriggerSpellEffect()
     {
         throw new System.NotImplementedException();
     }
