@@ -10,34 +10,60 @@ using UnityEngine.UI;
 /// </summary>
 public class Player : Unit
 {
+    #region Fields
     /// <summary> The singleton instance of the player. </summary>
     public static Player Instance;
 
-    /// <summary>
-    /// A flag to tell the player that they are next to an interactable
-    /// item.
-    /// </summary>
-    public bool NextToInteractable { get; set; } = false;
-    
     /// <summary> This is temporary text, for Gif purposes. </summary>
     public Text InteractText;
-    
-    /// <summary> The currently selected spell of the player. </summary>
-    [HideInInspector] public GameObject SelectedSpell { get; set; }
 
+    #region GameObject references
     /// <summary> The list of spells the player can cast. </summary>
     public List<GameObject> spells = new List<GameObject>();
-
-    /// <summary> The interactable items that are nearby. </summary>
-    [HideInInspector] public List<GameObject> nearbyInteractables = new List<GameObject>();
 
     /// <summary> The location that the spell is cast at. </summary>
     public GameObject spellCastLoc;
 
     public GameObject tempInventoryPanel;
 
+    #endregion
+    
     /// <summary> The speed at which the spell is fired. </summary>
     public float spellSpeed = 500;
+    #endregion
+
+    #region Properties
+    ///<summary> The nearby interactable items. </summary>
+    /// <value> A list of interactable items in the player's vicinity. </value>
+    public List<GameObject> NearbyInteractables { get; set; } = new List<GameObject>();
+
+    /// <summary> The currently selected spell. </summary>
+    /// <value> The GameObject that will be spawned when the player attacks. </value>
+    public GameObject SelectedSpell { get; set; }
+
+    /// <summary> Indicates if the player is near an interactable. </summary>
+    /// <value> A flag to tell the player that they are next to an interactable item. </value>
+    public bool NextToInteractable { get; set; } = false;
+
+    /// <summary>The health of the player.</summary>
+    /// <value> The Health property gets/sets the value of the _health field in Unit,
+    /// and sends an update to the UI. </value>
+    public override int Health 
+    { 
+        get => base.Health;
+
+        set
+        {
+            base.Health = value;
+
+            //if (healthText != null)
+            //{
+            //    healthText.text = "Health: " + base.Health;
+            //}
+        }
+
+    }
+    #endregion
 
 
     protected override void Awake()
@@ -92,6 +118,7 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.Tab) && tempInventoryPanel != null) OpenInventory();
     }
 
+    #region Movement
     /// Author: Chase O'Connor
     /// Date: 2/2/2021
     /// <summary>
@@ -114,7 +141,7 @@ public class Player : Unit
     /// <summary>
     /// Rotates the player to face the cursor
     /// </summary>
-    public void Rotate()
+    private void Rotate()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out RaycastHit hit, 1000f, 1 << 31);
@@ -123,7 +150,9 @@ public class Player : Unit
 
         transform.LookAt(new Vector3(hit.point.x, 1f, hit.point.z));
     }
+    #endregion
 
+    #region Player Command Functions
     /// Author: Chase O'Connor
     /// Date: 2/2/2021
     /// <summary> Casts's a spell when the player presses the left mouse button. </summary>
@@ -178,14 +207,14 @@ public class Player : Unit
         //Physics.SphereCast(transform.parent.position, 2.5f, transform.forward, out RaycastHit hit, 1, 1 << 12);
         //if (hit.collider != null) Debug.Log(hit.collider.name);
 
-        if (nearbyInteractables.Count != 0)
+        if (NearbyInteractables.Count != 0)
         {
-            GameObject interactable = nearbyInteractables[0];
+            GameObject interactable = NearbyInteractables[0];
             Debug.Log(interactable.name);
-            nearbyInteractables.Remove(interactable);
+            NearbyInteractables.Remove(interactable);
             Destroy(interactable);
 
-            if (nearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
+            if (NearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
         }
     }
 
@@ -195,4 +224,5 @@ public class Player : Unit
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
     private void OpenInventory() => tempInventoryPanel.SetActive(!tempInventoryPanel.activeSelf);
+    #endregion
 }
