@@ -8,6 +8,10 @@ using UnityEngine;
 /// </summary>
 public abstract class Interactable : MonoBehaviour
 {
+    /// <summary>
+    /// The unique logic of the interactable item when the player
+    /// interacts with it.
+    /// </summary>
     public abstract void Interact();
 
 }

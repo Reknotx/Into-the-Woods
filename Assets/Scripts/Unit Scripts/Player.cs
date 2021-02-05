@@ -56,15 +56,21 @@ public class Player : Unit
 
         set
         {
-            if (value < base.Health && _bonusHealth > 0)
+            if (value < base.Health)
             {
-                BonusHealth--;
+                ///Removing health
+                if (_bonusHealth > 0)
+                    BonusHealth--;
+                else
+                    base.Health = value;
             }
             else
             {
+                ///Adding health
                 base.Health = value;
+                base.Health = Mathf.Clamp(base.Health, 0, 20);
             }
-
+            
             //if (healthText != null)
             //{
             //    healthText.text = "Health: " + base.Health;
@@ -79,10 +85,7 @@ public class Player : Unit
     {
         get => _bonusHealth;
 
-        set
-        {
-            _bonusHealth = value;
-        }
+        set { _bonusHealth = value; }
     }
     #endregion
 
@@ -230,10 +233,13 @@ public class Player : Unit
 
         if (NearbyInteractables.Count != 0)
         {
-            GameObject interactable = NearbyInteractables[0];
+            Interactable interactable = NearbyInteractables[0].GetComponent<Interactable>();
             Debug.Log(interactable.name);
-            NearbyInteractables.Remove(interactable);
-            Destroy(interactable);
+
+            interactable.Interact();
+
+            NearbyInteractables.Remove(interactable.gameObject);
+            Destroy(interactable.gameObject);
 
             if (NearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
         }
