@@ -62,6 +62,7 @@ public class HealthUI : MonoBehaviour
     public GameObject healthBG14;
     public GameObject healthBG15;
 
+    //integers used in script
     private int playerHealth;
     public int avacado1Health = 2;
     public int avacado2Health = 2;
@@ -69,6 +70,7 @@ public class HealthUI : MonoBehaviour
     public int avacado4Health = 2;
     public int avacado5Health = 2;
 
+    //booleans to check if the player has avocados
     public bool hasAvacado1;
     public bool hasAvacado2;
     public bool hasAvacado3;
@@ -102,6 +104,8 @@ public class HealthUI : MonoBehaviour
     void Update()
     {
         Debug.Log("Health: " + playerHealth);
+
+        //temporary code to test that the UI works
         if (Input.GetKeyDown("a"))
         {
             if (hasAvacado1 == true && hasAvacado2 == false && hasAvacado3 == false && hasAvacado4 == false && hasAvacado5 == false)
@@ -130,6 +134,7 @@ public class HealthUI : MonoBehaviour
             }
         }
 
+        //temporary code to add avocados and test the UI
         if (Input.GetKeyDown("d"))
         {
             if (hasAvacado1 == false && hasAvacado2 == false && hasAvacado3 == false && hasAvacado4 == false && hasAvacado5 == false)
@@ -170,11 +175,20 @@ public class HealthUI : MonoBehaviour
 
         healthCheck();
     }
+
+    ///  Author: JT Esmond
+    ///  Date: 2/4/2021
+    ///  <summary>
+    ///  Function that runs all aspects of the health UI
+    ///  </summary>
     public void healthCheck()
     {
         //playerHealth = Player.Instance.health;
+
+        //outer conditionals check if the player has any avacados in their inventory
         if (hasAvacado1 == false && hasAvacado2 == false && hasAvacado3 == false && hasAvacado4 == false && hasAvacado5 == false)
         {
+            //this set of conditionals check to see how much health the player has, determines what hearts to display on the players health bar
             if (playerHealth == 20)
             {
                 healthFull1.SetActive(true);
@@ -663,6 +677,9 @@ public class HealthUI : MonoBehaviour
         }
         else if (hasAvacado1 == true && hasAvacado2 == false && hasAvacado3 == false && hasAvacado4 == false && hasAvacado5 == false)
         {
+            /*after the outer conditional determines that the player has 1 avocado in their inventory, then checks how much health the avocado has and displays the correct amount of health
+            * after the avocado loses all of its health the heart disapears all together
+            */
             if (avacado1Health == 2)
             {
                 healthBG11.SetActive(true);
@@ -685,6 +702,9 @@ public class HealthUI : MonoBehaviour
         }
         else if (hasAvacado1 == true && hasAvacado2 == true && hasAvacado3 == false && hasAvacado4 == false && hasAvacado5 == false)
         {
+            /*after the outer conditional determines that the player has 2 avocado in their inventory, then checks how much health the avocado has and displays the correct amount of health
+            * after the avocado loses all of its health the heart disapears all together
+            */
             if (avacado2Health == 2)
             {
             healthBG12.SetActive(true);
@@ -707,6 +727,9 @@ public class HealthUI : MonoBehaviour
         }
         else if (hasAvacado1 == true && hasAvacado2 == true && hasAvacado3 == true && hasAvacado4 == false && hasAvacado5 == false)
         {
+            /*after the outer conditional determines that the player has 3 avocado in their inventory, then checks how much health the avocado has and displays the correct amount of health
+            * after the avocado loses all of its health the heart disapears all together
+            */
             if (avacado3Health == 2)
             {
                 healthBG13.SetActive(true);
@@ -729,6 +752,9 @@ public class HealthUI : MonoBehaviour
         }
         else if (hasAvacado1 == true && hasAvacado2 == true && hasAvacado3 == true && hasAvacado4 == true && hasAvacado5 == false)
         {
+            /*after the outer conditional determines that the player has 4 avocado in their inventory, then checks how much health the avocado has and displays the correct amount of health
+            * after the avocado loses all of its health the heart disapears all together
+            */
             if (avacado4Health == 2)
             {
                 healthBG14.SetActive(true);
@@ -751,6 +777,9 @@ public class HealthUI : MonoBehaviour
         }
         else if (hasAvacado1 == true && hasAvacado2 == true && hasAvacado3 == true && hasAvacado4 == true && hasAvacado5 == true)
         {
+            /*after the outer conditional determines that the player has 5 avocado in their inventory, then checks how much health the avocado has and displays the correct amount of health
+            * after the avocado loses all of its health the heart disapears all together
+            */
             if (avacado5Health == 2)
             {
                 healthBG15.SetActive(true);
