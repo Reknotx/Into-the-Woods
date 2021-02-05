@@ -9,27 +9,71 @@ public class WorldGenerator : MonoBehaviour
     public int WorldRows; // Just the number of rows the world's rooms will be arranged in.
     public int WorldColumns; // Same for columns.
     public int minimumJourney; // The minimum distance between the home and boss tiles.
-
+    private float WorldXScale; // Scale of grid on the X axis. Currently bugged, minimumJourney doesn't play well.
+    private float WorldZScale; // Scale of grid on the Z axis. Currently bugged, minimumJourney doesn't play well.
+    
     public GameObject[] HomeRoomList; // The spawn room prefab. I call it home, because that's where the heart is.
     public GameObject[] BossRoomList; // The boss room prefab.
     public GameObject[] FieldRoomList; // List of field room prefabs to be assigned in the inspector.
 
-    public List<GameObject> FieldRoomPicks = new List<GameObject>(); // The current list of picked field rooms for this world.
-    public GameObject[] FieldRoomFinal; // The final array of picked field rooms as an array.
+    private List<GameObject> FieldRoomPicks = new List<GameObject>(); // The current list of picked field rooms for this world.
+    private GameObject[] FieldRoomFinal; // The final array of picked field rooms as an array.
 
-    public List<Vector3> gridPositions = new List<Vector3>(); // A list of possible locations to place tiles.
+    private List<Vector3> gridPositions = new List<Vector3>(); // A list of possible locations to place tiles.
 
     // These two have their own thing because they get re-rolled until they're a valid distance (minimumJourney) from each other.
-    public Vector3 intendedStart = new Vector3(); // The location of the starting home spawn room.
-    public Vector3 intendedEnd = new Vector3(); // The location of the ending boss room. 
-    public int intendedStartIndex; // Index of the above start location.
-    public int intendedEndIndex; // Index of the above end location.
+    private Vector3 intendedStart = new Vector3(); // The location of the starting home spawn room.
+    private Vector3 intendedEnd = new Vector3(); // The location of the ending boss room. 
+    private int intendedStartIndex; // Index of the above start location.
+    private int intendedEndIndex; // Index of the above end location.
 
     // Start is called before the first frame update
     void Start()
     {
+        SafetyCheck();
+
         GenerateRoomList();
+
+
     }
+
+    #region Setup
+    /// Author: Paul Hernandez
+    /// Date: 2/5/2021
+    /// <summary>
+    /// Makes sure you're not using variables that will give errors or crashes. 
+    /// </summary>
+    void SafetyCheck()
+    {
+        if (WorldXScale == 0)
+        {
+            WorldXScale = 1;
+            Debug.Log("WorldXScale set to " + WorldXScale);
+        }
+        if (WorldZScale == 0)
+        {
+            WorldZScale = 1;
+            Debug.Log("WorldZScale set to " + WorldZScale);
+        }
+        if (WorldRows < 1)
+        {
+            WorldRows = 1;
+            Debug.Log("WorldRows set to " + WorldRows);
+        }
+        if (WorldColumns < 1)
+        {
+            WorldColumns = 1;
+            Debug.Log("WorldColumns set to " + WorldColumns);
+        }
+        if (minimumJourney > (WorldColumns + WorldRows - 2))
+        {
+            minimumJourney = 1;
+            Debug.Log("minimumJourney is too large! Set to " + minimumJourney);
+        }
+
+    }
+
+    #endregion
 
     #region MainWorldGeneration
     /// Author: Paul Hernandez
@@ -62,10 +106,10 @@ public class WorldGenerator : MonoBehaviour
         for (int x = 1; x < WorldColumns+1; x++)
         {
             // Within each column, loop through y axis (rows).
-            for (int y = 1; y < WorldRows+1; y++)
+            for (int z = 1; z < WorldRows+1; z++)
             {
                 // At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                gridPositions.Add(new Vector3(x, 0f, y));
+                gridPositions.Add(new Vector3(x * WorldXScale, 0f, z * WorldZScale));
             }
         }
 
@@ -78,8 +122,8 @@ public class WorldGenerator : MonoBehaviour
             SearchForValidSpace(HomeRoomList, "start");
             SearchForValidSpace(BossRoomList, "end");
 
-        } while ( ((Mathf.Abs(intendedStart.x - intendedEnd.x)) + (Mathf.Abs(intendedStart.y - intendedEnd.y)) ) < minimumJourney);
-        // While the absolute value of the sum of the two points' x's and y's is less than the minimum...
+        } while ( ((Mathf.Abs(intendedStart.x - intendedEnd.x)) + (Mathf.Abs(intendedStart.z - intendedEnd.z)) ) < minimumJourney);
+        // While the absolute value of the sum of the two points' x's and z's is less than the minimum...
         // In other words, keep rolling for different endpoints if they're too close together.
 
         // Instantiate them.
@@ -105,8 +149,7 @@ public class WorldGenerator : MonoBehaviour
     /// Instantiates room object from a prefab list to a random location.
     /// </summary>
     /// <param name="tileArray">What set of room prefabs to use.</param>
-    /// <param name="minimum"></param>
-    /// <param name="maximum"></param>
+    /// <param name="objectCount">How many rooms are we placing?</param>
     void LayoutAtRandom(GameObject[] tileArray, int objectCount)
     {
         //Instantiate objects until the limit objectCount is reached
@@ -119,7 +162,7 @@ public class WorldGenerator : MonoBehaviour
             // Choose a random tile from tileArray and assign it to tileChoice.
             // Pop off the one picked, so no duplicates.
             List<GameObject> asdf = tileArray.ToList();
-            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length -1)]; // I THINK -1 is correct here.
+            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length-1)]; // I THINK -1 is correct here.
             asdf.RemoveAt(System.Array.IndexOf(tileArray, tileChoice));
             tileArray = asdf.ToArray();
             // This is ugly, but I'm not sure how else to do this.
@@ -131,14 +174,16 @@ public class WorldGenerator : MonoBehaviour
     }
 
     //RandomPosition returns a random position from our list gridPositions.
+    /// Author: Paul Hernandez
+    /// Date: 2/4/2021
     /// <summary>
-    /// 
+    /// Returns a random position on the grid, and removes it from the list of available positions.
     /// </summary>
     /// <returns></returns>
     Vector3 RandomPosition()
     {
         // Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
-        int randomIndex = Random.Range(0, gridPositions.Count-1); // -1 otherwise we can get an out of range index.
+        int randomIndex = Random.Range(0, gridPositions.Count); // -1 otherwise we can get an out of range index.
 
         // Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
         Vector3 randomPosition = gridPositions[randomIndex];
@@ -152,18 +197,20 @@ public class WorldGenerator : MonoBehaviour
     #endregion
 
     #region StartEndPointsPlacement 
+    /// Author: Paul Hernandez
+    /// Date: 2/4/2021
     /// <summary>
-    /// 
+    /// Search for a single available position, and save it to either intendedStart or intendedEnd.
     /// </summary>
-    /// <param name="tileArray"></param>
-    /// <param name="type"></param>
+    /// <param name="tileArray">What array of room prefabs are we going to use?</param>
+    /// <param name="type">Are you searching for the "start" or "end" point?</param>
     void SearchForValidSpace(GameObject[] tileArray, string type)
     {
         // Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
         Vector3 randomPosition = RandomPositionSearch(type);
 
         // Choose a random tile from tileArray and assign it to tileChoice
-        GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length -1)]; // I THINK -1 is correct here.
+        GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length-1)]; // I THINK -1 is correct here.
 
         // 
         if (type == "start")
@@ -177,10 +224,12 @@ public class WorldGenerator : MonoBehaviour
 
     }
 
+    /// Author: Paul Hernandez
+    /// Date: 2/4/2021
     /// <summary>
-    /// 
+    /// Search for a random position, and save its index to either intendedStartIndex or intendedEndIndex.
     /// </summary>
-    /// <param name="type"></param>
+    /// <param name="type">Are you searching for the "start" or "end" point?</param>
     /// <returns></returns>
     Vector3 RandomPositionSearch(string type)
     {
@@ -204,15 +253,17 @@ public class WorldGenerator : MonoBehaviour
         return randomPosition;
     }
 
+    /// Author: Paul Hernandez
+    /// Date: 2/4/2021
     /// <summary>
-    /// 
+    /// Place a specific tile at a specific point.
     /// </summary>
-    /// <param name="tileArray"></param>
-    /// <param name="tileType"></param>
+    /// <param name="tileArray">What array of room prefabs are we going to use?</param>
+    /// <param name="tileType">Are you laying down the "start" or "end point?</param>
     void LayoutAtPoint(GameObject[] tileArray, Vector3 tileType)
     {
         //Choose a random tile from tileArray and assign it to tileChoice
-        GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length -1)]; // I THINK -1 is correct here.
+        GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length-1)]; // I THINK -1 is correct here.
 
         //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation.
         Instantiate(tileChoice, tileType, Quaternion.identity);

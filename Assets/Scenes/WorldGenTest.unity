@@ -231,7 +231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &654070810
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -389,13 +389,6 @@ MonoBehaviour:
   - {fileID: 7798987441547104586, guid: 802cb371ca332704c9e5004084ffcdf5, type: 3}
   - {fileID: 7798987441547104586, guid: 573c220c5b70d444798e6b3f1dac6edc, type: 3}
   - {fileID: 7798987441547104586, guid: 48af015317bb8f644ba87599cd388a03, type: 3}
-  FieldRoomPicks: []
-  FieldRoomFinal: []
-  gridPositions: []
-  intendedStart: {x: 0, y: 0, z: 0}
-  intendedEnd: {x: 0, y: 0, z: 0}
-  intendedStartIndex: 0
-  intendedEndIndex: 0
 --- !u!1 &1434345532
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1434345533
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -565,13 +558,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617347232}
-  m_LocalRotation: {x: 0.47138616, y: -0, z: -0, w: 0.881927}
-  m_LocalPosition: {x: 0, y: 10.58, z: -6.91}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 2.5, y: 5, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 56.249004, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1001 &5870411653381212610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -583,6 +576,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player Holder
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870411653395264545, guid: a5807b2589a93aa4abc11809fa660321,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5870411653395264551, guid: a5807b2589a93aa4abc11809fa660321,
         type: 3}
