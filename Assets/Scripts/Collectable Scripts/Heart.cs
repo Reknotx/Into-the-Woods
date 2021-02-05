@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PotionIngredientA : PotionIngredient
+public class Heart : Collectable
 {
     public override void DropLogic()
     {

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class TwoPseas : Collectable
 {
-    public override void Collect()
+    public override void DropLogic()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Interact()
     {
         throw new System.NotImplementedException();
     }

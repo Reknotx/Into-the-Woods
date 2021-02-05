@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// Author: Chase O'Connor
 /// Date: 2/2/2021
@@ -9,18 +10,84 @@ using UnityEngine;
 /// </summary>
 public class Player : Unit
 {
+    #region Fields
     /// <summary> The singleton instance of the player. </summary>
     public static Player Instance;
 
-    /// <summary>
-    /// A flag to tell the player that they are next to an interactable
-    /// item.
-    /// </summary>
+    /// <summary> This is temporary text, for Gif purposes. </summary>
+    public Text InteractText;
+
+    #region GameObject references
+    /// <summary> The list of spells the player can cast. </summary>
+    public List<GameObject> spells = new List<GameObject>();
+
+    /// <summary> The location that the spell is cast at. </summary>
+    public GameObject spellCastLoc;
+
+    public GameObject tempInventoryPanel;
+
+    #endregion
+    
+    /// <summary> The speed at which the spell is fired. </summary>
+    public float spellSpeed = 500;
+
+    private int _bonusHealth;
+    #endregion
+
+    #region Properties
+    ///<summary> The nearby interactable items. </summary>
+    /// <value> A list of interactable items in the player's vicinity. </value>
+    public List<GameObject> NearbyInteractables { get; set; } = new List<GameObject>();
+
+    /// <summary> The currently selected spell. </summary>
+    /// <value> The GameObject that will be spawned when the player attacks. </value>
+    public GameObject SelectedSpell { get; set; }
+
+    /// <summary> Indicates if the player is near an interactable. </summary>
+    /// <value> A flag to tell the player that they are next to an interactable item. </value>
     public bool NextToInteractable { get; set; } = false;
 
-    
-    /// <summary> The currently selected spell of the player. </summary>
-    [HideInInspector] public Spell SelectedSpell { get; set; }
+    /// <summary>The health of the player.</summary>
+    /// <value> The Health property gets/sets the value of the _health field in Unit,
+    /// and sends an update to the UI. </value>
+    public override int Health 
+    { 
+        get => base.Health;
+
+        set
+        {
+            if (value < base.Health)
+            {
+                ///Removing health
+                if (_bonusHealth > 0)
+                    BonusHealth--;
+                else
+                    base.Health = value;
+            }
+            else
+            {
+                ///Adding health
+                base.Health = value;
+                base.Health = Mathf.Clamp(base.Health, 0, 20);
+            }
+            
+            //if (healthText != null)
+            //{
+            //    healthText.text = "Health: " + base.Health;
+            //}
+        }
+    }
+
+    /// <summary> The bonus health of the player. </summary>
+    /// <value>The bonus health property gets/sets the _bonusHealth field of the 
+    /// player, and sends an update to the UI.</value>
+    public int BonusHealth
+    {
+        get => _bonusHealth;
+
+        set { _bonusHealth = value; }
+    }
+    #endregion
 
 
     protected override void Awake()
@@ -33,6 +100,10 @@ public class Player : Unit
         }
 
         Instance = this;
+
+        if (spells[0] != null) SelectedSpell = spells[0];
+
+        if (tempInventoryPanel != null) tempInventoryPanel.SetActive(false);
     }
 
     public void FixedUpdate()
@@ -45,6 +116,11 @@ public class Player : Unit
         {
             Move();
         }
+    }
+
+    private void Update()
+    {
+        Rotate();
 
         /// The player wants to cast a spell.
         if (Input.GetMouseButtonDown(0)) CastSpell();
@@ -63,11 +139,10 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.F) && NextToInteractable) InteractWithItem();
 
         /// The player wants to open their inventory.
-        if (Input.GetKeyDown(KeyCode.Tab)) OpenInventory();
-
-
+        if (Input.GetKeyDown(KeyCode.Tab) && tempInventoryPanel != null) OpenInventory();
     }
 
+    #region Movement
     /// Author: Chase O'Connor
     /// Date: 2/2/2021
     /// <summary>
@@ -83,15 +158,34 @@ public class Player : Unit
                               Input.GetAxis("Vertical"));
 
         base.Move();
-
     }
 
+    /// Author: Chase O'Connor
+    /// Date: 2/2/2021
+    /// <summary>
+    /// Rotates the player to face the cursor
+    /// </summary>
+    private void Rotate()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out RaycastHit hit, 1000f, 1 << 31);
+
+        if (hit.collider == null) return;
+
+        transform.LookAt(new Vector3(hit.point.x, 1f, hit.point.z));
+    }
+    #endregion
+
+    #region Player Command Functions
     /// Author: Chase O'Connor
     /// Date: 2/2/2021
     /// <summary> Casts's a spell when the player presses the left mouse button. </summary>
     private void CastSpell()
     {
         Debug.Log("Casting selected spell");
+        GameObject firedSpell = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity);
+
+        firedSpell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
     }
 
     /// Author: Chase O'Connor
@@ -132,6 +226,23 @@ public class Player : Unit
     private void InteractWithItem()
     {
         Debug.Log("Interacting with an item.");
+
+        ///Think about this one later, might be good idea. Remember how casting works.
+        //Physics.SphereCast(transform.parent.position, 2.5f, transform.forward, out RaycastHit hit, 1, 1 << 12);
+        //if (hit.collider != null) Debug.Log(hit.collider.name);
+
+        if (NearbyInteractables.Count != 0)
+        {
+            Interactable interactable = NearbyInteractables[0].GetComponent<Interactable>();
+            Debug.Log(interactable.name);
+
+            interactable.Interact();
+
+            NearbyInteractables.Remove(interactable.gameObject);
+            Destroy(interactable.gameObject);
+
+            if (NearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
+        }
     }
 
     /// Author: Chase O'Connor
@@ -139,8 +250,6 @@ public class Player : Unit
     /// <summary> 
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
-    private void OpenInventory()
-    {
-
-    }
+    private void OpenInventory() => tempInventoryPanel.SetActive(!tempInventoryPanel.activeSelf);
+    #endregion
 }

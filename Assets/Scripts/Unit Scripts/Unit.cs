@@ -9,15 +9,41 @@ using UnityEngine;
 /// </summary>
 public class Unit : MonoBehaviour
 {
+    #region Fields
+    /// <summary> The speed at which this unit moves. </summary>
+    [Tooltip("The speed at which this unit moves.")]
+    public float speed = 1f;
+
     /// <summary> The direction this unit will be moving in. </summary>
     protected Vector3 moveDir;
 
     /// <summary> The rigidbody component of this unit. </summary>
     private Rigidbody unitRB;
 
-    /// <summary> The speed at which this unit moves. </summary>
-    [Tooltip("The speed at which this unit moves.")]
-    public float speed = 1f;
+    /// <summary> The private variable of this unit's health. </summary>
+    private int _health;
+    #endregion
+
+    #region Properties
+    /// <summary> Unit health property. </summary>
+    /// <value> Sets/Gets the current health of this unit. 
+    /// If health reaches zero the unit is killed. </value>
+    public virtual int Health
+    {
+        get => _health;
+
+        set
+        {
+            _health = value;
+
+            if (_health <= 0)
+            {
+                /// Kill the unit.
+                /// Need more logic
+            }
+        }
+    }
+    #endregion
 
     protected virtual void Awake()
     {
@@ -27,7 +53,9 @@ public class Unit : MonoBehaviour
         }
     }
 
-
+    #region Movement
+    /// /// Author: Chase O'Connor
+    /// Date: 2/2/2021
     /// <summary>
     /// Moves this unit in the direction by moving the rigidbody.
     /// </summary>
@@ -41,4 +69,5 @@ public class Unit : MonoBehaviour
         unitRB.MovePosition(transform.position + (moveDir * speed * Time.deltaTime));
 
     }
+    #endregion
 }

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Totem : Collectable
 {
-    public override void Collect()
+    public override void DropLogic()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Interact()
     {
         throw new System.NotImplementedException();
     }

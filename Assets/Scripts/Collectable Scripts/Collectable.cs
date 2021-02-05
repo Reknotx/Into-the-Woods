@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Collectable : MonoBehaviour
+public abstract class Collectable : Interactable
 {
-    public abstract void Collect();
+    /// <summary>
+    /// The logic that may or may not need to be applied when
+    /// the player drops an item.
+    /// </summary>
+    public abstract void DropLogic();
+
 }
