@@ -11,6 +11,9 @@ public class WorldGenerator : MonoBehaviour
     public int minimumJourney; // The minimum distance between the home and boss tiles.
     private float WorldXScale; // Scale of grid on the X axis. Currently bugged, minimumJourney doesn't play well.
     private float WorldZScale; // Scale of grid on the Z axis. Currently bugged, minimumJourney doesn't play well.
+
+    public bool manualSeed; // Do you want to force a certain seed?
+    public int seed; // What exact randomization seed to use.
     
     public GameObject[] HomeRoomList; // The spawn room prefab. I call it home, because that's where the heart is.
     public GameObject[] BossRoomList; // The boss room prefab.
@@ -31,6 +34,9 @@ public class WorldGenerator : MonoBehaviour
     void Start()
     {
         SafetyCheck();
+
+        if (manualSeed)
+            Random.InitState(seed);
 
         GenerateRoomList();
 
@@ -128,7 +134,17 @@ public class WorldGenerator : MonoBehaviour
 
         // Instantiate them.
         gridPositions.RemoveAt(intendedStartIndex);
-        gridPositions.RemoveAt(intendedEndIndex);
+        if (intendedStartIndex < intendedEndIndex) 
+        {
+            // We need to specifically have this because depending on where the two indexes are in relation
+            // to each other in the list, intendedEndIndex could get shifted downward, so we need to
+            // compensate for that case when it happens.
+            gridPositions.RemoveAt(intendedEndIndex-1);
+        }
+        else
+        {
+            gridPositions.RemoveAt(intendedEndIndex);
+        }
         LayoutAtPoint(HomeRoomList, intendedStart);
         LayoutAtPoint(BossRoomList, intendedEnd);
         
@@ -155,6 +171,8 @@ public class WorldGenerator : MonoBehaviour
         //Instantiate objects until the limit objectCount is reached
         for (int i = 0; i < objectCount; i++)
         {
+
+
             //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
             Vector3 randomPosition = RandomPosition();
 
@@ -183,7 +201,7 @@ public class WorldGenerator : MonoBehaviour
     Vector3 RandomPosition()
     {
         // Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
-        int randomIndex = Random.Range(0, gridPositions.Count); // -1 otherwise we can get an out of range index.
+        int randomIndex = Random.Range(0, gridPositions.Count -1); // -1 otherwise we can get an out of range index.
 
         // Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
         Vector3 randomPosition = gridPositions[randomIndex];
@@ -217,7 +235,7 @@ public class WorldGenerator : MonoBehaviour
         {
             intendedStart = randomPosition;
         }
-        else
+        else if (type == "end")
         {
             intendedEnd = randomPosition;
         }
@@ -244,7 +262,7 @@ public class WorldGenerator : MonoBehaviour
         {
             intendedStartIndex = randomIndex;
         }
-        else
+        else if (type == "end")
         {
             intendedEndIndex = randomIndex;
         }
