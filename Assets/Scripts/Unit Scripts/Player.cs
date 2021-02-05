@@ -30,6 +30,8 @@ public class Player : Unit
     
     /// <summary> The speed at which the spell is fired. </summary>
     public float spellSpeed = 500;
+
+    private int _bonusHealth;
     #endregion
 
     #region Properties
@@ -54,14 +56,33 @@ public class Player : Unit
 
         set
         {
-            base.Health = value;
+            if (value < base.Health && _bonusHealth > 0)
+            {
+                BonusHealth--;
+            }
+            else
+            {
+                base.Health = value;
+            }
 
             //if (healthText != null)
             //{
             //    healthText.text = "Health: " + base.Health;
             //}
         }
+    }
 
+    /// <summary> The bonus health of the player. </summary>
+    /// <value>The bonus health property gets/sets the _bonusHealth field of the 
+    /// player, and sends an update to the UI.</value>
+    public int BonusHealth
+    {
+        get => _bonusHealth;
+
+        set
+        {
+            _bonusHealth = value;
+        }
     }
     #endregion
 

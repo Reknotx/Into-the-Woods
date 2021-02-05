@@ -9,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class AttackSpell : Spell
 {
+    public static int Damage = 5;
+
     public override void TriggerSpellEffect(GameObject other)
     {
         if (other.gameObject.layer != 10) return;
@@ -16,6 +18,6 @@ public class AttackSpell : Spell
         Debug.Log("Casting the Attack Spell");
         Destroy(other.gameObject);
         Destroy(gameObject);
+        Debug.Log("Damage = " + Damage);
     }
-
 }
