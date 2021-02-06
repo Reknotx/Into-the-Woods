@@ -180,7 +180,7 @@ public class WorldGenerator : MonoBehaviour
             // Choose a random tile from tileArray and assign it to tileChoice.
             // Pop off the one picked, so no duplicates.
             List<GameObject> asdf = tileArray.ToList();
-            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length-1)]; // I THINK -1 is correct here.
+            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
             asdf.RemoveAt(System.Array.IndexOf(tileArray, tileChoice));
             tileArray = asdf.ToArray();
             // This is ugly, but I'm not sure how else to do this.
@@ -228,7 +228,7 @@ public class WorldGenerator : MonoBehaviour
         Vector3 randomPosition = RandomPositionSearch(type);
 
         // Choose a random tile from tileArray and assign it to tileChoice
-        GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length-1)]; // I THINK -1 is correct here.
+        GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
 
         // 
         if (type == "start")
@@ -281,7 +281,12 @@ public class WorldGenerator : MonoBehaviour
     void LayoutAtPoint(GameObject[] tileArray, Vector3 tileType)
     {
         //Choose a random tile from tileArray and assign it to tileChoice
-        GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length-1)]; // I THINK -1 is correct here.
+
+        ///Paul subtracting by -1 here on the length is actually incorrect as the way
+        ///Random.Range() works if you hover over it is it gets a number between min and
+        ///max with max being exclusive meaning that if you have a range of 0 - 10 you 
+        ///will get a number back between 0 and 9 instead. 
+        GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
 
         //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation.
         Instantiate(tileChoice, tileType, Quaternion.identity);
