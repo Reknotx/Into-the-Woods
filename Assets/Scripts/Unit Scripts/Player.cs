@@ -182,10 +182,34 @@ public class Player : Unit
     /// <summary> Casts's a spell when the player presses the left mouse button. </summary>
     private void CastSpell()
     {
-        Debug.Log("Casting selected spell");
-        GameObject firedSpell = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity);
+        //Debug.Log("Casting selected spell");
 
-        firedSpell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
+        List<GameObject> firedSpells = new List<GameObject>();
+
+        if (PlayerInfo.DoubleShot)
+        {
+            Vector3 rightPos = new Vector3(spellCastLoc.transform.position.x + (spellCastLoc.transform.right.x * 0.5f),
+                                            spellCastLoc.transform.position.y,
+                                            spellCastLoc.transform.position.z + (spellCastLoc.transform.right.z * 0.5f));
+
+            Vector3 leftPos = new Vector3(spellCastLoc.transform.position.x - (spellCastLoc.transform.right.x * 0.5f),
+                                           spellCastLoc.transform.position.y,
+                                           spellCastLoc.transform.position.z - (spellCastLoc.transform.right.z * 0.5f));
+
+            firedSpells.Add(Instantiate(SelectedSpell, rightPos, Quaternion.identity));
+            firedSpells.Add(Instantiate(SelectedSpell, leftPos, Quaternion.identity));
+        }
+        else
+        {
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
+        }
+
+        foreach (GameObject spell in firedSpells)
+        {
+            //Debug.Log("Spell transform: " + spell.transform.position.ToString());
+            spell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
+            
+        }
     }
 
     /// Author: Chase O'Connor

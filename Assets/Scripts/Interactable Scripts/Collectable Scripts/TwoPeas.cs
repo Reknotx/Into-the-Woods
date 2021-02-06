@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TwoPseas : Collectable
+public class TwoPeas : Collectable
 {
     public override void DropLogic()
     {
@@ -11,6 +11,6 @@ public class TwoPseas : Collectable
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        PlayerInfo.DoubleShot = true;
     }
 }
