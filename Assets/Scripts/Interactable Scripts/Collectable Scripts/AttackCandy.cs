@@ -11,6 +11,7 @@ public class AttackCandy : Collectable
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        PlayerInfo.AttackDamage++;
+        Debug.Log("Player Attack now: " + PlayerInfo.AttackDamage);
     }
 }

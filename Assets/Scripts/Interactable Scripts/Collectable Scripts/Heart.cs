@@ -11,6 +11,7 @@ public class Heart : Collectable
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Healing the player");
+        Player.Instance.Health++;
     }
 }

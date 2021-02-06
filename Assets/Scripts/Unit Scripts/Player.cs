@@ -50,8 +50,8 @@ public class Player : Unit
     /// <summary>The health of the player.</summary>
     /// <value> The Health property gets/sets the value of the _health field in Unit,
     /// and sends an update to the UI. </value>
-    public override int Health 
-    { 
+    public override int Health
+    {
         get => base.Health;
 
         set
@@ -67,10 +67,11 @@ public class Player : Unit
             else
             {
                 ///Adding health
-                base.Health = value;
-                base.Health = Mathf.Clamp(base.Health, 0, 20);
+                base.Health = Mathf.Clamp(value, 0, 20);
             }
-            
+
+            Debug.Log("Player health = " + base.Health.ToString());
+
             //if (healthText != null)
             //{
             //    healthText.text = "Health: " + base.Health;
@@ -85,7 +86,13 @@ public class Player : Unit
     {
         get => _bonusHealth;
 
-        set { _bonusHealth = value; }
+        set 
+        { 
+            _bonusHealth = value;
+
+            Debug.Log("Player bonus health " + _bonusHealth.ToString());
+        
+        }
     }
     #endregion
 
@@ -104,6 +111,8 @@ public class Player : Unit
         if (spells[0] != null) SelectedSpell = spells[0];
 
         if (tempInventoryPanel != null) tempInventoryPanel.SetActive(false);
+
+        Health = 20;
     }
 
     public void FixedUpdate()
@@ -133,6 +142,7 @@ public class Player : Unit
             UsePotion();
         }
 
+        if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
         /// The player wants to interact with an item.
         /// See the note for this function down below.
         /// Need additional flags.
@@ -249,7 +259,7 @@ public class Player : Unit
     /// them.
     private void InteractWithItem()
     {
-        Debug.Log("Interacting with an item.");
+        //Debug.Log("Interacting with an item.");
 
         ///Think about this one later, might be good idea. Remember how casting works.
         //Physics.SphereCast(transform.parent.position, 2.5f, transform.forward, out RaycastHit hit, 1, 1 << 12);
@@ -258,11 +268,12 @@ public class Player : Unit
         if (NearbyInteractables.Count != 0)
         {
             Interactable interactable = NearbyInteractables[0].GetComponent<Interactable>();
-            Debug.Log(interactable.name);
 
             interactable.Interact();
 
             NearbyInteractables.Remove(interactable.gameObject);
+            
+            /// Remember to delete this later because of references.
             Destroy(interactable.gameObject);
 
             if (NearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
