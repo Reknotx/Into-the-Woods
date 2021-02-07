@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,10 +28,15 @@ public class Player : Unit
     public GameObject tempInventoryPanel;
 
     #endregion
-    
+
+    [SerializeField]
+    private int PlayerCurrentHealth;
+
+    [Tooltip("The speed at which spells are launched from the player.")]
     /// <summary> The speed at which the spell is fired. </summary>
     public float spellSpeed = 500;
 
+    /// <summary> The private field of the bonus health. </summary>
     private int _bonusHealth;
     #endregion
 
@@ -70,6 +76,7 @@ public class Player : Unit
                 base.Health = Mathf.Clamp(value, 0, 20);
             }
 
+            PlayerCurrentHealth = base.Health;
             Debug.Log("Player health = " + base.Health.ToString());
 
             //if (healthText != null)
@@ -198,16 +205,13 @@ public class Player : Unit
 
         if (PlayerInfo.DoubleShot)
         {
-            Vector3 rightPos = new Vector3(spellCastLoc.transform.position.x + (spellCastLoc.transform.right.x * 0.5f),
-                                            spellCastLoc.transform.position.y,
-                                            spellCastLoc.transform.position.z + (spellCastLoc.transform.right.z * 0.5f));
-
-            Vector3 leftPos = new Vector3(spellCastLoc.transform.position.x - (spellCastLoc.transform.right.x * 0.5f),
+            Vector3 frontPos = new Vector3(spellCastLoc.transform.position.x + (spellCastLoc.transform.forward.x * 0.5f),
                                            spellCastLoc.transform.position.y,
-                                           spellCastLoc.transform.position.z - (spellCastLoc.transform.right.z * 0.5f));
+                                           spellCastLoc.transform.position.z + (spellCastLoc.transform.forward.z * 0.5f));
 
-            firedSpells.Add(Instantiate(SelectedSpell, rightPos, Quaternion.identity));
-            firedSpells.Add(Instantiate(SelectedSpell, leftPos, Quaternion.identity));
+            firedSpells.Add(Instantiate(SelectedSpell, frontPos, Quaternion.identity));
+
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
         }
         else
         {

@@ -9,15 +9,13 @@ using UnityEngine;
 /// </summary>
 public class AttackSpell : Spell
 {
-    public static int Damage = 5;
-
     public override void TriggerSpellEffect(GameObject other)
     {
         if (other.gameObject.layer != 10) return;
 
-        Debug.Log("Casting the Attack Spell");
+        //Debug.Log("Casting the Attack Spell");
         Destroy(other.gameObject);
         Destroy(gameObject);
-        Debug.Log("Damage = " + Damage);
+        Debug.Log("Damage = " + PlayerInfo.AttackDamage.ToString());
     }
 }
