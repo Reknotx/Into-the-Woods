@@ -8,6 +8,7 @@ using UnityEngine.UI;
 /// <summary>
 /// The Class that handles the potion UI
 /// </summary>
+/// 
 public class PotionUI : MonoBehaviour
 {
     #region fields
@@ -80,6 +81,7 @@ public class PotionUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         ///all of these are temporary commands to test the UI
         if (Input.GetKeyDown("l"))
         {
@@ -159,6 +161,7 @@ public class PotionUI : MonoBehaviour
             nightWalkerPotion = false;
             frozenHeartPotion = false;
         }
+        */
     }
 
     #region Potion UI functions
@@ -167,14 +170,16 @@ public class PotionUI : MonoBehaviour
     /// Date:2/6/2021
     /// <summary>
     /// function that runs the potion slot UI elements
+    /// ** Call when the player picks up a potion**
     /// </summary>
     public void UpdatePotion()
     {
         ///checks if the player has a potion
-        ///**needs to be utilized when the player picks up a potion**
+        ///**hasPotion needs to be set to true when the player picks up a potion**
         if (hasPotion == true)
         {
             ///a series of conditionals that determine what potion slot to put the potion in
+            ///**potion1Full needs to be set to false when the player uses the key bind to drink a potion**
             if (potion1Full == false)
             {
                 /// a series of conditionals that deteremines which potion to display on the UI
@@ -236,6 +241,7 @@ public class PotionUI : MonoBehaviour
                 potion1Full = true;
 
             }
+            ///**potion2Full needs to be set to false when the player uses the key bind to drink a potion**
             else if (potion1Full == true && potion2Full == false)
             {
                 if (healthPotion == true)
@@ -295,6 +301,7 @@ public class PotionUI : MonoBehaviour
                 hasPotion = false;
                 potion2Full = true;
             }
+            ///**potion3Full needs to be set to false when the player uses the key bind to drink a potion**
             else if (potion1Full == true && potion2Full == true && potion3Full == false)
             {
 

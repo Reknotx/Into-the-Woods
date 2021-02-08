@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 ///  Author: JT Esmond
 ///  Date: 2/4/2021
 ///  <summary>
@@ -20,14 +21,12 @@ public class ClockUI : MonoBehaviour
 
     public void Awake()
     {
-
         if(Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
 
         Instance = this;
-
     }
 
     private void Start()

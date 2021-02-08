@@ -53,14 +53,12 @@ public class HealthUI : MonoBehaviour
 
     public void Awake()
     {
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
 
         Instance = this;
-
     }
 
     // Start is called before the first frame update
@@ -133,6 +131,7 @@ public class HealthUI : MonoBehaviour
     /// This uses a for loop to iterate over the health UI list
     /// to turn on and off hearts as needed. Incorporating JT's health
     /// UI set up as he has it in Unity.
+    /// **Call when the player Gains or loses health and doesn't have an avocado**
     public void UpdateHealth()
     {
         ///This is the player's actual health which is used to test against the temp
