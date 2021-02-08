@@ -83,6 +83,7 @@ public class PotionUI : MonoBehaviour
     {
         /*
         ///all of these are temporary commands to test the UI
+        /*
         if (Input.GetKeyDown("l"))
         {
             hasPotion = true;
