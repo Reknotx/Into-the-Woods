@@ -9,8 +9,9 @@ public class WorldGenerator : MonoBehaviour
     public int WorldRows; // Just the number of rows the world's rooms will be arranged in.
     public int WorldColumns; // Same for columns.
     public int minimumJourney; // The minimum distance between the home and boss tiles.
-    private float WorldXScale; // Scale of grid on the X axis. Currently bugged, minimumJourney doesn't play well.
-    private float WorldZScale; // Scale of grid on the Z axis. Currently bugged, minimumJourney doesn't play well.
+    public float WorldXScale; // Scale of grid on the X axis. Currently bugged, minimumJourney doesn't play well.
+    public float WorldZScale; // Scale of grid on the Z axis. Currently bugged, minimumJourney doesn't play well.
+    private Transform WorldRoomsParent; // Empty object that will be used for organization in the hierarchy. All rooms parented to this!
 
     public bool manualSeed; // Do you want to force a certain seed?
     public int seed; // What exact randomization seed to use.
@@ -51,6 +52,8 @@ public class WorldGenerator : MonoBehaviour
     /// </summary>
     void SafetyCheck()
     {
+        WorldRoomsParent = new GameObject("WorldRoomsParent").transform;
+
         if (WorldXScale == 0)
         {
             WorldXScale = 1;
@@ -86,7 +89,6 @@ public class WorldGenerator : MonoBehaviour
     /// Date: 2/4/2021
     /// <summary>
     /// This should generate a list of room prefabs to use, then place everything.
-    /// Currently has a bug with overlapping tiles with start/end points.
     /// This specific function might get rewritten to be cleaner.
     /// STILL NEEDS WALL/DOOR GENERATION.
     /// </summary>
@@ -111,11 +113,11 @@ public class WorldGenerator : MonoBehaviour
         // Loop through x axis (columns).
         for (int x = 1; x < WorldColumns+1; x++)
         {
-            // Within each column, loop through y axis (rows).
+            // Within each column, loop through z axis (rows).
             for (int z = 1; z < WorldRows+1; z++)
             {
                 // At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                gridPositions.Add(new Vector3(x * WorldXScale, 0f, z * WorldZScale));
+                gridPositions.Add(new Vector3(x, 0f, z));
             }
         }
 
@@ -187,7 +189,8 @@ public class WorldGenerator : MonoBehaviour
             // I just needed to make sure that the list of available rooms doesn't yield duplicates.
 
             //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation.
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
+            GameObject instance = Instantiate(tileChoice, new Vector3(randomPosition.x * WorldXScale - WorldXScale, 0f, randomPosition.z * WorldZScale - WorldZScale), Quaternion.identity);
+            instance.transform.SetParent(WorldRoomsParent);
         }
     }
 
@@ -289,7 +292,9 @@ public class WorldGenerator : MonoBehaviour
         GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
 
         //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation.
-        Instantiate(tileChoice, tileType, Quaternion.identity);
+        GameObject instance = Instantiate(tileChoice, new Vector3(tileType.x * WorldXScale - WorldXScale, 0f, tileType.z * WorldZScale - WorldZScale), Quaternion.identity);
+        instance.transform.SetParent(WorldRoomsParent);
+
     }
     #endregion
 
