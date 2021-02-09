@@ -55,6 +55,7 @@ public class SpellUI : MonoBehaviour
 
         Instance = this;
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +75,7 @@ public class SpellUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         //temporary keybinds to test the UI
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) //scoll forward
         {
@@ -114,6 +116,7 @@ public class SpellUI : MonoBehaviour
             UpdateSpellList();
             Debug.Log("has unlocking Spell");
         }
+        */
     }
 
     #region Functions
