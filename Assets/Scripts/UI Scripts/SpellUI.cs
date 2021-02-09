@@ -17,7 +17,8 @@ public class SpellUI : MonoBehaviour
 
     #region lists
     /// <summary> List that contains all of the spell UI images </summary>
-    private List<GameObject> _spellList = new List<GameObject>();
+    private List<GameObject> _backgroundSpellList = new List<GameObject>();
+    [HideInInspector] public List<GameObject> mainSpellList = new List<GameObject>();
     #endregion
 
     #region Booleans
@@ -27,16 +28,18 @@ public class SpellUI : MonoBehaviour
     [HideInInspector] public bool hasProtectionSpell;
     [HideInInspector] public bool hasUnlockingSpell;
 
-    /// ** Change booleans around to match which spell the player has selected
-    [HideInInspector] public bool attackSpellSelected;
-    [HideInInspector] public bool barrierBreakerSpellSelected;
-    [HideInInspector] public bool freezeSpellSelected;
-    [HideInInspector] public bool protectionSpellSelected;
-    [HideInInspector] public bool unlockingSpellSelected;
+    /// <summary> used in the updateSpellList function to stop the list from adding
+    /// every time you pick up a scroll </summary>
+    private bool attackSpellAdded;
+    private bool barrierBreakerSpellAdded;
+    private bool freezeSpellAdded;
+    private bool protectionSpellAdded;
+    private bool unlockingSpellAdded;
     #endregion
 
     #region Integers
     [HideInInspector] public int listLocation;
+    [HideInInspector] public int listSize;
     #endregion
 
     #region GameObjects
@@ -59,121 +62,148 @@ public class SpellUI : MonoBehaviour
         {
             if (spell.gameObject.CompareTag("Spell"))
             {
-                _spellList.Add(spell.gameObject);
+                _backgroundSpellList.Add(spell.gameObject);
             }
         }
 
         listLocation = 0;
-        UpdateSelectedSpell();
-
+        UpdateSpellList();
+        SpellOn();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
         //temporary keybinds to test the UI
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) //scoll forward
         {
-            if (listLocation < 4)
-            {
-                listLocation++;
-                UpdateSelectedSpell();
-            }
-            else
-            {
-                listLocation = 0;
-                UpdateSelectedSpell();
-            }
+            SpellOff();
+            listLocation++;
+            if (listLocation == listSize +1) listLocation = 0;
+            SpellOn();
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0f) //scroll backward
         {
-            if (listLocation > 0)
-            {
-                listLocation--;
-                UpdateSelectedSpell();
-            }
-            else
-            {
-                listLocation = 4;
-                UpdateSelectedSpell();
-            }
+            SpellOff();
+            listLocation--;
+            if (listLocation < 0) listLocation = listSize;
+            SpellOn();
         }
 
         if (Input.GetKeyDown("l"))
         {
             hasBarrierBreakerSpell = true;
+            UpdateSpellList();
             Debug.Log("has barrier breaker Spell");
         }
         if (Input.GetKeyDown("k"))
         {
             hasFreezeSpell = true;
+            UpdateSpellList();
             Debug.Log("has freeze Spell");
         }
         if (Input.GetKeyDown("j"))
         {
             hasProtectionSpell = true;
+            UpdateSpellList();
             Debug.Log("has protection Spell");
         }
         if (Input.GetKeyDown("h"))
         {
             hasUnlockingSpell = true;
+            UpdateSpellList();
             Debug.Log("has unlocking Spell");
         }
-        */
     }
 
     #region Functions
+
+    #region SpellOn
+    /// Author: JT Esmond
+    /// Date: 2/8/2021
     /// <summary>
-    /// Function that runs all of the Spell selection UI
-    /// **Call when the player changes Spells**
+    /// accesses the main spell list and sets the UI element to true located 
+    /// at the index point equal to the listLocation integer
     /// </summary>
-    public void UpdateSelectedSpell()
+    /// **Call when the player changes spell, but after the SpellOff()
+    /// and after the listLocation is incremented or decremented**
+    public void SpellOn()
     {
-        /// series of conditionals that check where in the spell list the player is at
-        /// also checks if they have that spell, if they do it displays selected spell
-        if (listLocation == 0)
+        mainSpellList[listLocation].SetActive(true);
+    }
+    #endregion
+
+    #region SpellOff
+    /// Author: JT Esmond
+    /// Date: 2/8/2021
+    /// <summary>
+    /// Accesses the main spell list and sets the UI element to false located
+    /// at the index point equal to the listLocation integer
+    /// </summary>
+    /// **Call 1st when the player changes spells
+    public void SpellOff()
+    {
+        mainSpellList[listLocation].SetActive(false);
+    }
+    #endregion
+
+    #region UpdateSpellList
+    /// Author: JT Esmond
+    /// Date: 2/8/2021
+    /// <summary>
+    /// This function has a series of conditionals that check if the player has
+    /// access to a spell, and hasn't added that spell to the main spell list
+    /// it then adds them to the main spell list from the background spell list 
+    /// that contains all of the UI gameObjects
+    /// </summary>
+    /// **call when the player learns a new spell**
+    public void UpdateSpellList()
+    {
+
+        ///adds the basic attack spell to from the background spell list to the main spell list
+        if (attackSpellAdded == false)
         {
-            _spellList[0].SetActive(true);
-            for (int i = 1; i <= 4; i++)
-            {
-                _spellList[i].SetActive(false);
-            }
+            mainSpellList.Add(_backgroundSpellList[0].gameObject);
+            attackSpellAdded = true;
         }
-        else if (listLocation == 1 && hasBarrierBreakerSpell == true)
+
+        ///if the player has the barrier breaker spell, adds the spell to the main spell list
+        ///from the background spell list that holds all of the UI elements
+        if (hasBarrierBreakerSpell == true && barrierBreakerSpellAdded == false)
         {
-            _spellList[0].SetActive(false);
-            _spellList[1].SetActive(true);
-            for (int i = 2; i <= 4; i++)
-            {
-                _spellList[i].SetActive(false);
-            }
+            listSize++;
+            mainSpellList.Add(_backgroundSpellList[1].gameObject);
+            barrierBreakerSpellAdded = true;
         }
-        else if (listLocation == 2 && hasFreezeSpell == true)
+
+        ///if the player has the freeze spell, adds the spell to the main spell list
+        ///from the background spell list that holds all of the UI elements
+        if (hasFreezeSpell == true && freezeSpellAdded == false)
         {
-            _spellList[0].SetActive(false);
-            _spellList[1].SetActive(false);
-            _spellList[2].SetActive(true);
-            _spellList[3].SetActive(false);
-            _spellList[4].SetActive(false);
+            listSize++;
+            mainSpellList.Add(_backgroundSpellList[2].gameObject);
+            freezeSpellAdded = true;
         }
-        else if (listLocation == 3 && hasProtectionSpell == true)
+
+        ///if the player has the protection spell, adds the spell to the main spell list
+        ///from the background spell list that holds all of the UI elements
+        if (hasProtectionSpell == true && protectionSpellAdded == false)
         {
-            for (int i = 0; i <= 2; i++)
-            {
-                _spellList[i].SetActive(false);
-            }
-            _spellList[3].SetActive(true);
-            _spellList[4].SetActive(false);
+            listSize++;
+            mainSpellList.Add(_backgroundSpellList[3].gameObject);
+            protectionSpellAdded = true;
         }
-        else if(listLocation == 4 && hasUnlockingSpell == true)
+
+        ///if the player has the unlocking spell, adds the spell to the main spell list
+        ///from the background spell list that holds all of the UI elements
+        if (hasUnlockingSpell == true && unlockingSpellAdded == false)
         {
-            for (int i = 0; i <= 3; i++)
-            {
-                _spellList[i].SetActive(false);
-            }
-            _spellList[4].SetActive(true);
+            listSize++;
+            mainSpellList.Add(_backgroundSpellList[4].gameObject);
+            unlockingSpellAdded = true;
         }
     }
+    #endregion
+
     #endregion
 }

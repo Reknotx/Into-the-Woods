@@ -176,7 +176,8 @@ public class PotionUI : MonoBehaviour
     public void UpdatePotion()
     {
         ///checks if the player has a potion
-        ///**hasPotion needs to be set to true when the player picks up a potion**
+        ///**hasPotion needs to be set to true when the player picks up a potion,
+        ///along with the boolean for the type of potion**
         if (hasPotion == true)
         {
             ///a series of conditionals that determine what potion slot to put the potion in
