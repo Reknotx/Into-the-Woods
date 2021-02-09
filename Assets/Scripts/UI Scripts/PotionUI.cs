@@ -83,42 +83,47 @@ public class PotionUI : MonoBehaviour
     {
         /*
         ///all of these are temporary commands to test the UI
-        /*
         if (Input.GetKeyDown("l"))
         {
             hasPotion = true;
             frozenHeartPotion = true;
             UpdatePotion();
+            frozenHeartPotion = false;
         }
         if (Input.GetKeyDown("k"))
         {
             hasPotion = true;
             nightWalkerPotion = true;
             UpdatePotion();
+            nightWalkerPotion = false;
         }
         if (Input.GetKeyDown("j"))
         {
             hasPotion = true;
             doubleDamagePotion = true;
             UpdatePotion();
+            doubleDamagePotion = false;
         }
         if (Input.GetKeyDown("h"))
         {
             hasPotion = true;
             invisibilityPotion = true;
             UpdatePotion();
+            invisibilityPotion = false;
         }
         if (Input.GetKeyDown("g"))
         {
             hasPotion = true;
             superHealthPotion = true;
             UpdatePotion();
+            superHealthPotion = false;
         }
         if (Input.GetKeyDown("f"))
         {
             hasPotion = true;
             healthPotion = true;
             UpdatePotion();
+            healthPotion = false;
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
