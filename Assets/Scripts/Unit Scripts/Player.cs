@@ -140,6 +140,24 @@ public class Player : Unit
 
         /// The player wants to cast a spell.
         if (Input.GetMouseButtonDown(0)) CastSpell();
+        else if (Input.mouseScrollDelta.y > 0)
+        {
+            ///Move to next spell, spell 2 to spell 3
+            Debug.Log("Moving to next spell.");
+            //spells[spellIndex].SetActive(false);
+            //spellIndex++;
+            //if (spellIndex == spells.Count) spellIndex = 0;
+            //spells[spellIndex].SetActive(true);
+        }
+        else if (Input.mouseScrollDelta.y < 0)
+        {
+            ///Move to previous spell, spell 3 to spell 2
+            Debug.Log("Moving to previous spell.");
+            //spells[spellIndex].SetActive(false);
+            //spellIndex--;
+            //if (spellIndex < 0) spellIndex = spells.Count - 1;
+            //spells[spellIndex].SetActive(true);
+        }
 
         /// The player wants to use a potion.
         if (Input.GetKeyDown(KeyCode.Alpha1)
