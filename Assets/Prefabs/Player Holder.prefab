@@ -279,13 +279,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  _health: 0
   InteractText: {fileID: 0}
   spells:
   - {fileID: 2219843468942242322, guid: 3e925f4092620b54498cb374298f359a, type: 3}
-  nearbyInteractables: []
   spellCastLoc: {fileID: 370495011}
   tempInventoryPanel: {fileID: 0}
-  spellSpeed: 500
+  PlayerCurrentHealth: 0
+  spellSpeed: 1000
 --- !u!1 &5870411653395264545
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,5 +334,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0

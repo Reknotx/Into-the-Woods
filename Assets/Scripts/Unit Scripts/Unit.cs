@@ -21,7 +21,8 @@ public class Unit : MonoBehaviour
     private Rigidbody unitRB;
 
     /// <summary> The private variable of this unit's health. </summary>
-    private int _health;
+    
+    [SerializeField] protected int _health;
     #endregion
 
     #region Properties
