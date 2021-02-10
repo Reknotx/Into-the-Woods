@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,10 +28,15 @@ public class Player : Unit
     public GameObject tempInventoryPanel;
 
     #endregion
-    
+
+    [SerializeField]
+    private int PlayerCurrentHealth;
+
+    [Tooltip("The speed at which spells are launched from the player.")]
     /// <summary> The speed at which the spell is fired. </summary>
     public float spellSpeed = 500;
 
+    /// <summary> The private field of the bonus health. </summary>
     private int _bonusHealth;
     #endregion
 
@@ -50,8 +56,8 @@ public class Player : Unit
     /// <summary>The health of the player.</summary>
     /// <value> The Health property gets/sets the value of the _health field in Unit,
     /// and sends an update to the UI. </value>
-    public override int Health 
-    { 
+    public override int Health
+    {
         get => base.Health;
 
         set
@@ -67,10 +73,12 @@ public class Player : Unit
             else
             {
                 ///Adding health
-                base.Health = value;
-                base.Health = Mathf.Clamp(base.Health, 0, 20);
+                base.Health = Mathf.Clamp(value, 0, 20);
             }
-            
+
+            PlayerCurrentHealth = base.Health;
+            Debug.Log("Player health = " + base.Health.ToString());
+
             //if (healthText != null)
             //{
             //    healthText.text = "Health: " + base.Health;
@@ -85,7 +93,13 @@ public class Player : Unit
     {
         get => _bonusHealth;
 
-        set { _bonusHealth = value; }
+        set 
+        { 
+            _bonusHealth = value;
+
+            Debug.Log("Player bonus health " + _bonusHealth.ToString());
+        
+        }
     }
     #endregion
 
@@ -104,6 +118,8 @@ public class Player : Unit
         if (spells[0] != null) SelectedSpell = spells[0];
 
         if (tempInventoryPanel != null) tempInventoryPanel.SetActive(false);
+
+        Health = 20;
     }
 
     public void FixedUpdate()
@@ -124,6 +140,24 @@ public class Player : Unit
 
         /// The player wants to cast a spell.
         if (Input.GetMouseButtonDown(0)) CastSpell();
+        else if (Input.mouseScrollDelta.y > 0)
+        {
+            ///Move to next spell, spell 2 to spell 3
+            Debug.Log("Moving to next spell.");
+            //spells[spellIndex].SetActive(false);
+            //spellIndex++;
+            //if (spellIndex == spells.Count) spellIndex = 0;
+            //spells[spellIndex].SetActive(true);
+        }
+        else if (Input.mouseScrollDelta.y < 0)
+        {
+            ///Move to previous spell, spell 3 to spell 2
+            Debug.Log("Moving to previous spell.");
+            //spells[spellIndex].SetActive(false);
+            //spellIndex--;
+            //if (spellIndex < 0) spellIndex = spells.Count - 1;
+            //spells[spellIndex].SetActive(true);
+        }
 
         /// The player wants to use a potion.
         if (Input.GetKeyDown(KeyCode.Alpha1)
@@ -133,6 +167,7 @@ public class Player : Unit
             UsePotion();
         }
 
+        if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
         /// The player wants to interact with an item.
         /// See the note for this function down below.
         /// Need additional flags.
@@ -182,10 +217,31 @@ public class Player : Unit
     /// <summary> Casts's a spell when the player presses the left mouse button. </summary>
     private void CastSpell()
     {
-        Debug.Log("Casting selected spell");
-        GameObject firedSpell = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity);
+        //Debug.Log("Casting selected spell");
 
-        firedSpell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
+        List<GameObject> firedSpells = new List<GameObject>();
+
+        if (PlayerInfo.DoubleShot)
+        {
+            Vector3 frontPos = new Vector3(spellCastLoc.transform.position.x + (spellCastLoc.transform.forward.x * 0.5f),
+                                           spellCastLoc.transform.position.y,
+                                           spellCastLoc.transform.position.z + (spellCastLoc.transform.forward.z * 0.5f));
+
+            firedSpells.Add(Instantiate(SelectedSpell, frontPos, Quaternion.identity));
+
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
+        }
+        else
+        {
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
+        }
+
+        foreach (GameObject spell in firedSpells)
+        {
+            //Debug.Log("Spell transform: " + spell.transform.position.ToString());
+            spell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
+            
+        }
     }
 
     /// Author: Chase O'Connor
@@ -225,7 +281,7 @@ public class Player : Unit
     /// them.
     private void InteractWithItem()
     {
-        Debug.Log("Interacting with an item.");
+        //Debug.Log("Interacting with an item.");
 
         ///Think about this one later, might be good idea. Remember how casting works.
         //Physics.SphereCast(transform.parent.position, 2.5f, transform.forward, out RaycastHit hit, 1, 1 << 12);
@@ -234,11 +290,12 @@ public class Player : Unit
         if (NearbyInteractables.Count != 0)
         {
             Interactable interactable = NearbyInteractables[0].GetComponent<Interactable>();
-            Debug.Log(interactable.name);
 
             interactable.Interact();
 
             NearbyInteractables.Remove(interactable.gameObject);
+            
+            /// Remember to delete this later because of references.
             Destroy(interactable.gameObject);
 
             if (NearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
