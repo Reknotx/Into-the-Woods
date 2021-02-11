@@ -41,6 +41,12 @@ public class PotionUI : MonoBehaviour
     [HideInInspector] public bool frozenHeartPotion;
     #endregion
 
+    #region  integers
+    private int list1Location;
+    private int list2Location;
+    private int list3Location;
+    #endregion
+
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -183,193 +189,141 @@ public class PotionUI : MonoBehaviour
         ///checks if the player has a potion
         ///**hasPotion needs to be set to true when the player picks up a potion,
         ///along with the boolean for the type of potion**
-        if (hasPotion == true)
+        if (!hasPotion)
         {
-            ///a series of conditionals that determine what potion slot to put the potion in
-            ///**potion1Full needs to be set to false when the player uses the key bind to drink a potion**
-            if (potion1Full == false)
-            {
-                /// a series of conditionals that deteremines which potion to display on the UI
-                if (healthPotion == true)
-                {
-                    _potionListSlot1[0].gameObject.SetActive(true);
-                    for (int i = 1; i <= 5; i++)
-                    {
-                        _potionListSlot1[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (superHealthPotion == true)
-                {
-                    _potionListSlot1[0].gameObject.SetActive(false);
-                    _potionListSlot1[1].gameObject.SetActive(true);
-                    for (int i = 2; i <= 5; i++)
-                    {
-                        _potionListSlot1[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (invisibilityPotion == true)
-                {
-                    _potionListSlot1[0].gameObject.SetActive(false);
-                    _potionListSlot1[1].gameObject.SetActive(false);
-                    _potionListSlot1[2].gameObject.SetActive(true);
-                    for (int i = 3; i <= 5; i++)
-                    {
-                        _potionListSlot1[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (doubleDamagePotion == true)
-                {
-                    for (int i = 0; i <= 2; i++)
-                    {
-                        _potionListSlot1[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot1[3].gameObject.SetActive(true);
-                    _potionListSlot1[4].gameObject.SetActive(false);
-                    _potionListSlot1[5].gameObject.SetActive(false);
-                }
-                else if (nightWalkerPotion == true)
-                {
-                    for (int i = 0; i <= 3; i++)
-                    {
-                        _potionListSlot1[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot1[4].gameObject.SetActive(true);
-                    _potionListSlot1[5].gameObject.SetActive(false);
-                }
-                else if (frozenHeartPotion == true)
-                {
-                    for (int i = 0; i <= 4; i++)
-                    {
-                        _potionListSlot1[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot1[5].gameObject.SetActive(true);
-                }
-                hasPotion = false;
-                potion1Full = true;
-
-            }
-            ///**potion2Full needs to be set to false when the player uses the key bind to drink a potion**
-            else if (potion1Full == true && potion2Full == false)
-            {
-                if (healthPotion == true)
-                {
-                    _potionListSlot2[0].gameObject.SetActive(true);
-                    for (int i = 1; i <= 5; i++)
-                    {
-                        _potionListSlot2[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (superHealthPotion == true)
-                {
-                    _potionListSlot2[0].gameObject.SetActive(false);
-                    _potionListSlot2[1].gameObject.SetActive(true);
-                    for (int i = 2; i <= 5; i++)
-                    {
-                        _potionListSlot2[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (invisibilityPotion == true)
-                {
-                    _potionListSlot2[0].gameObject.SetActive(false);
-                    _potionListSlot2[1].gameObject.SetActive(false);
-                    _potionListSlot2[2].gameObject.SetActive(true);
-                    for (int i = 3; i <= 5; i++)
-                    {
-                        _potionListSlot2[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (doubleDamagePotion == true)
-                {
-                    for (int i = 0; i <= 2; i++)
-                    {
-                        _potionListSlot2[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot2[3].gameObject.SetActive(true);
-                    _potionListSlot2[4].gameObject.SetActive(false);
-                    _potionListSlot2[5].gameObject.SetActive(false);
-                }
-                else if (nightWalkerPotion == true)
-                {
-                    for (int i = 0; i <= 3; i++)
-                    {
-                        _potionListSlot2[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot2[4].gameObject.SetActive(true);
-                    _potionListSlot2[5].gameObject.SetActive(false);
-                }
-                else if (frozenHeartPotion == true)
-                {
-                    for (int i = 0; i <= 4; i++)
-                    {
-                        _potionListSlot2[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot2[5].gameObject.SetActive(true);
-                }
-                hasPotion = false;
-                potion2Full = true;
-            }
-            ///**potion3Full needs to be set to false when the player uses the key bind to drink a potion**
-            else if (potion1Full == true && potion2Full == true && potion3Full == false)
-            {
-
-                if (healthPotion == true)
-                {
-                    _potionListSlot3[0].gameObject.SetActive(true);
-                    for (int i = 1; i <= 5; i++)
-                    {
-                        _potionListSlot3[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (superHealthPotion == true)
-                {
-                    _potionListSlot3[0].gameObject.SetActive(false);
-                    _potionListSlot3[1].gameObject.SetActive(true);
-                    for (int i = 2; i <= 5; i++)
-                    {
-                        _potionListSlot3[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (invisibilityPotion == true)
-                {
-                    _potionListSlot3[0].gameObject.SetActive(false);
-                    _potionListSlot3[1].gameObject.SetActive(false);
-                    _potionListSlot3[2].gameObject.SetActive(true);
-                    for (int i = 3; i <= 5; i++)
-                    {
-                        _potionListSlot3[i].gameObject.SetActive(false);
-                    }
-                }
-                else if (doubleDamagePotion == true)
-                {
-                    for (int i = 0; i <= 2; i++)
-                    {
-                        _potionListSlot3[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot3[3].gameObject.SetActive(true);
-                    _potionListSlot3[4].gameObject.SetActive(false);
-                    _potionListSlot3[5].gameObject.SetActive(false);
-                }
-                else if (nightWalkerPotion == true)
-                {
-                    for (int i = 0; i <= 3; i++)
-                    {
-                        _potionListSlot3[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot3[4].gameObject.SetActive(true);
-                    _potionListSlot3[5].gameObject.SetActive(false);
-                }
-                else if (frozenHeartPotion == true)
-                {
-                    for (int i = 0; i <= 4; i++)
-                    {
-                        _potionListSlot3[i].gameObject.SetActive(false);
-                    }
-                    _potionListSlot3[5].gameObject.SetActive(true);
-                }
-                hasPotion = false;
-                potion3Full = true;
-            }
+            return;
         }
+        ///a series of conditionals that determine what potion slot to put the potion in
+        ///**potion1Full needs to be set to false when the player uses the key bind to drink a potion**
+        if (!potion1Full)
+        {
+            /// a series of conditionals that deteremines which potion to display on the UI
+            if (healthPotion)
+            {
+                _potionListSlot1[list1Location].gameObject.SetActive(false);
+                list1Location = 0;
+                _potionListSlot1[list1Location].gameObject.SetActive(true);
+            }
+            else if (superHealthPotion)
+            {
+                _potionListSlot1[list1Location].gameObject.SetActive(false);
+                list1Location = 1;
+                _potionListSlot1[list1Location].gameObject.SetActive(true);
+            }
+            else if (invisibilityPotion)
+            {
+                _potionListSlot1[list1Location].gameObject.SetActive(false);
+                list1Location = 2;
+                _potionListSlot1[list1Location].gameObject.SetActive(true);
+            }
+            else if (doubleDamagePotion)
+            {
+                _potionListSlot1[list1Location].gameObject.SetActive(false);
+                list1Location = 3;
+                _potionListSlot1[list1Location].gameObject.SetActive(true);
+            }
+            else if (nightWalkerPotion)
+            {
+                _potionListSlot1[list1Location].gameObject.SetActive(false);
+                list1Location = 4;
+                _potionListSlot1[list1Location].gameObject.SetActive(true);
+            }
+            else if (frozenHeartPotion)
+            {
+                _potionListSlot1[list1Location].gameObject.SetActive(false);
+                list1Location = 5;
+                _potionListSlot1[list1Location].gameObject.SetActive(true);
+            }
+            hasPotion = false;
+            potion1Full = true;
+
+        }
+        ///**potion2Full needs to be set to false when the player uses the key bind to drink a potion**
+        else if (potion1Full && !potion2Full)
+        {
+            if (healthPotion)
+            {
+                _potionListSlot2[list2Location].gameObject.SetActive(false);
+                list2Location = 0;
+                _potionListSlot2[list2Location].gameObject.SetActive(true);
+            }
+            else if (superHealthPotion)
+            {
+                _potionListSlot2[list2Location].gameObject.SetActive(false);
+                list2Location = 1;
+                _potionListSlot2[list2Location].gameObject.SetActive(true);
+            }
+            else if (invisibilityPotion)
+            {
+                _potionListSlot2[list2Location].gameObject.SetActive(false);
+                list2Location = 2;
+                _potionListSlot2[list2Location].gameObject.SetActive(true);
+            }
+            else if (doubleDamagePotion)
+            {
+                _potionListSlot2[list2Location].gameObject.SetActive(false);
+                list2Location = 3;
+                _potionListSlot2[list2Location].gameObject.SetActive(true);
+            }
+            else if (nightWalkerPotion)
+            {
+                _potionListSlot2[list2Location].gameObject.SetActive(false);
+                list2Location = 4;
+                _potionListSlot2[list2Location].gameObject.SetActive(true);
+            }
+            else if (frozenHeartPotion)
+            {
+                _potionListSlot2[list2Location].gameObject.SetActive(false);
+                list2Location = 5;
+                _potionListSlot2[list2Location].gameObject.SetActive(true);
+            }
+            hasPotion = false;
+            potion2Full = true;
+        }
+        ///**potion3Full needs to be set to false when the player uses the key bind to drink a potion**
+        else if (potion1Full && potion2Full && !potion3Full)
+        {
+
+            if (healthPotion)
+            {
+                _potionListSlot3[list3Location].gameObject.SetActive(false);
+                list3Location = 0;
+                _potionListSlot3[list3Location].gameObject.SetActive(true);
+            }
+            else if (superHealthPotion)
+            {
+                _potionListSlot3[list3Location].gameObject.SetActive(false);
+                list3Location = 1;
+                _potionListSlot3[list3Location].gameObject.SetActive(true);
+            }
+            else if (invisibilityPotion)
+            {
+                _potionListSlot3[list3Location].gameObject.SetActive(false);
+                list3Location = 2;
+                _potionListSlot3[list3Location].gameObject.SetActive(true);
+            }
+            else if (doubleDamagePotion)
+            {
+                _potionListSlot3[list3Location].gameObject.SetActive(false);
+                list3Location = 3;
+                _potionListSlot3[list3Location].gameObject.SetActive(true);
+            }
+            else if (nightWalkerPotion)
+            {
+                _potionListSlot3[list3Location].gameObject.SetActive(false);
+                list3Location = 4;
+                _potionListSlot3[list3Location].gameObject.SetActive(true);
+            }
+            else if (frozenHeartPotion)
+            {
+                _potionListSlot3[list3Location].gameObject.SetActive(false);
+                list3Location = 5;
+                _potionListSlot3[list3Location].gameObject.SetActive(true);
+            }
+            hasPotion = false;
+            potion3Full = true;
+        }
+        
     }
 
     #endregion
