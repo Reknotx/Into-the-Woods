@@ -1009,7 +1009,7 @@ public class InventoryUI : MonoBehaviour
         else if (AIn5)
         {
             slot5Text.gameObject.SetActive(true);
-            ingredientAAmount++
+            ingredientAAmount++;
             slot5Text.text = ("" + ingredientAAmount);
         }
         hasItem = false;
