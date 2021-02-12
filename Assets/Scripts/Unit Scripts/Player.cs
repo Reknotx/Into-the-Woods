@@ -239,7 +239,8 @@ public class Player : Unit
         foreach (GameObject spell in firedSpells)
         {
             //Debug.Log("Spell transform: " + spell.transform.position.ToString());
-            spell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
+            spell.transform.forward = transform.forward;
+            //spell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
             
         }
     }
