@@ -38,6 +38,9 @@ public class Player : Unit
 
     /// <summary> The private field of the bonus health. </summary>
     private int _bonusHealth;
+
+    /// <summary> The index referencing the currently selected spell. </summary>
+    private int _spellIndex = 0;
     #endregion
 
     #region Properties
@@ -144,19 +147,29 @@ public class Player : Unit
         {
             ///Move to next spell, spell 2 to spell 3
             Debug.Log("Moving to next spell.");
-            //spells[spellIndex].SetActive(false);
-            //spellIndex++;
-            //if (spellIndex == spells.Count) spellIndex = 0;
-            //spells[spellIndex].SetActive(true);
+            
+            //spells[_spellIndex].SetActive(false);
+            
+            _spellIndex++;
+            if (_spellIndex == spells.Count) _spellIndex = 0;
+
+            //spells[_spellIndex].SetActive(true);
+
+            SelectedSpell = spells[_spellIndex];
         }
         else if (Input.mouseScrollDelta.y < 0)
         {
             ///Move to previous spell, spell 3 to spell 2
             Debug.Log("Moving to previous spell.");
-            //spells[spellIndex].SetActive(false);
-            //spellIndex--;
-            //if (spellIndex < 0) spellIndex = spells.Count - 1;
-            //spells[spellIndex].SetActive(true);
+            
+            //spells[_spellIndex].SetActive(false);
+            
+            _spellIndex--;
+            if (_spellIndex < 0) _spellIndex = spells.Count - 1;
+            
+            //spells[_spellIndex].SetActive(true);
+            
+            SelectedSpell = spells[_spellIndex];
         }
 
         /// The player wants to use a potion.
@@ -217,7 +230,7 @@ public class Player : Unit
     /// <summary> Casts's a spell when the player presses the left mouse button. </summary>
     private void CastSpell()
     {
-        //Debug.Log("Casting selected spell");
+        Debug.Log("Casting: " + SelectedSpell.name);
 
         List<GameObject> firedSpells = new List<GameObject>();
 
