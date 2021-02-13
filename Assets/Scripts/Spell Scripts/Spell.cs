@@ -37,7 +37,7 @@ public abstract class Spell : MonoBehaviour
 
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         Move();
     }
@@ -65,10 +65,18 @@ public abstract class Spell : MonoBehaviour
 
     }
 
-    public void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if ((1 << other.gameObject.layer) != layerToHit.value) return;
+        if ((1 << collision.gameObject.layer) != layerToHit.value) return;
 
-        TriggerSpellEffect(other.gameObject);
+        TriggerSpellEffect(collision.gameObject);
     }
+
+    //public void OnTriggerEnter(Collider other)
+    //{
+        
+    //    if ((1 << other.gameObject.layer) != layerToHit.value) return;
+
+    //    TriggerSpellEffect(other.gameObject);
+    //}
 }
