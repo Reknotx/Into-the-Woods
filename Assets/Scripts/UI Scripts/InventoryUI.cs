@@ -308,25 +308,26 @@ public class InventoryUI : MonoBehaviour
     /// if it isn't, it runs the specific function for that slot\
     /// this function needs to be called on item pick up
     /// </summary>
+    /// Edit: Chase O'Connor - Removed unnecessary booleans.                                                                                             
     public void InventoryUpdate()
     {
         if (!slot1Full)
         {
             Slot1();
         }
-        else if (slot1Full && !slot2Full)
+        else if (!slot2Full)
         {
             Slot2();
         }
-        else if (slot1Full && slot2Full && !slot3Full)
+        else if (!slot3Full)
         {
             Slot3();
         }
-        else if (slot1Full && slot2Full && slot3Full && !slot4Full)
+        else if (!slot4Full)
         {
             Slot4();
         }
-        else if (slot1Full && slot2Full && slot3Full && slot4Full && !slot5Full)
+        else if (!slot5Full)
         {
             Slot5();
         }

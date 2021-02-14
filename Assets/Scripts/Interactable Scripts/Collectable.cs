@@ -10,4 +10,9 @@ public abstract class Collectable : Interactable
     /// </summary>
     public abstract void DropLogic();
 
+    public override void Interact()
+    {
+        ///Add to inventory
+    }
+
 }

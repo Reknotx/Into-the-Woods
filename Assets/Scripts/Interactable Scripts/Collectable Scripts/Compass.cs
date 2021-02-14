@@ -12,5 +12,6 @@ public class Compass : Collectable
     public override void Interact()
     {
         PlayerInfo.SpellTracking = true;
+        base.Interact();
     }
 }
