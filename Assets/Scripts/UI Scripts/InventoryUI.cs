@@ -204,98 +204,98 @@ public class InventoryUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        /*
-        //temporary keybindings to test UI
-        if(Input.GetKeyDown("t"))
-        {
-            hasItem = true;
-            hasIngredientA = true;
-            ingredientAAmount++;
-            InventoryUpdate();
-            IngredientAUpdate();
-        }
-        if(Input.GetKeyDown("y"))
-        {
-            hasItem = true;
-            hasIngredientB = true;
-            ingredientBAmount++;
-            InventoryUpdate();
-            IngredientBUpdate();
-        }
-        if(Input.GetKeyDown("u"))
-        {
-            hasItem = true;
-            hasIngredientC = true;
-            ingredientCAmount++;
-            InventoryUpdate();
-            IngredientCUpdate();
-        }
-        if(Input.GetKeyDown("i"))
-        {
-            hasItem = true;
-            hasIngredientD = true;
-            ingredientDAmount++;
-            InventoryUpdate();
-            IngredientDUpdate();
-        }
-        if(Input.GetKeyDown("o"))
-        {
-            hasItem = true;
-            hasTotem = true;
-            InventoryUpdate();
-        }
-        if (Input.GetKeyDown("p"))
-        {
-            hasItem = true;
-            hasLuckyPenny = true;
-            InventoryUpdate();
-        }
-        if (Input.GetKeyDown("g"))
-        {
-            hasItem = true;
-            hasAttackCandy = true;
-            InventoryUpdate();
-        }
-        if (Input.GetKeyDown("h"))
-        {
-            hasItem = true;
-            hasBalloonBouquet = true;
-            InventoryUpdate();
-        }
-        if (Input.GetKeyDown("j"))
-        {
-            hasItem = true;
-            hasHeart = true;
-            InventoryUpdate();
-        }
-        if (Input.GetKeyDown("k"))
-        {
-            hasItem = true;
-            hasNightOwlToken = true;
-            InventoryUpdate();
-        }
-        if (Input.GetKeyDown("l"))
-        {
-            hasItem = true;
-            hasPeasInPod = true;
-            InventoryUpdate();
-        }
-        if (Input.GetKeyDown("b"))
-        {
-            hasItem = true;
-            hasCompass = true;
-            InventoryUpdate();
-        }
-        if (Input.GetKeyDown("n"))
-        {
-            hasItem = true;
-            hasAvocado = true;
-            InventoryUpdate();
-        }
-        */
-    }
+    //void Update()
+    //{
+
+    //    //temporary keybindings to test UI
+    //    if (Input.GetKeyDown("t"))
+    //    {
+    //        hasItem = true;
+    //        hasIngredientA = true;
+    //        ingredientAAmount++;
+    //        InventoryUpdate();
+    //        IngredientAUpdate();
+    //    }
+    //    if (Input.GetKeyDown("y"))
+    //    {
+    //        hasItem = true;
+    //        hasIngredientB = true;
+    //        ingredientBAmount++;
+    //        InventoryUpdate();
+    //        IngredientBUpdate();
+    //    }
+    //    if (Input.GetKeyDown("u"))
+    //    {
+    //        hasItem = true;
+    //        hasIngredientC = true;
+    //        ingredientCAmount++;
+    //        InventoryUpdate();
+    //        IngredientCUpdate();
+    //    }
+    //    if (Input.GetKeyDown("i"))
+    //    {
+    //        hasItem = true;
+    //        hasIngredientD = true;
+    //        ingredientDAmount++;
+    //        InventoryUpdate();
+    //        IngredientDUpdate();
+    //    }
+    //    if (Input.GetKeyDown("o"))
+    //    {
+    //        hasItem = true;
+    //        hasTotem = true;
+    //        InventoryUpdate();
+    //    }
+    //    if (Input.GetKeyDown("p"))
+    //    {
+    //        hasItem = true;
+    //        hasLuckyPenny = true;
+    //        InventoryUpdate();
+    //    }
+    //    if (Input.GetKeyDown("g"))
+    //    {
+    //        hasItem = true;
+    //        hasAttackCandy = true;
+    //        InventoryUpdate();
+    //    }
+    //    if (Input.GetKeyDown("h"))
+    //    {
+    //        hasItem = true;
+    //        hasBalloonBouquet = true;
+    //        InventoryUpdate();
+    //    }
+    //    if (Input.GetKeyDown("j"))
+    //    {
+    //        hasItem = true;
+    //        hasHeart = true;
+    //        InventoryUpdate();
+    //    }
+    //    if (Input.GetKeyDown("k"))
+    //    {
+    //        hasItem = true;
+    //        hasNightOwlToken = true;
+    //        InventoryUpdate();
+    //    }
+    //    if (Input.GetKeyDown("l"))
+    //    {
+    //        hasItem = true;
+    //        hasPeasInPod = true;
+    //        InventoryUpdate();
+    //    }
+    //    if (Input.GetKeyDown("b"))
+    //    {
+    //        hasItem = true;
+    //        hasCompass = true;
+    //        InventoryUpdate();
+    //    }
+    //    if (Input.GetKeyDown("n"))
+    //    {
+    //        hasItem = true;
+    //        hasAvocado = true;
+    //        InventoryUpdate();
+    //    }
+
+    //}
 
     #region Functions
 
