@@ -66,6 +66,7 @@ public class InventoryUI : MonoBehaviour
     [HideInInspector] public bool hasPeasInPod;
     [HideInInspector] public bool hasCompass;
     [HideInInspector] public bool hasAvocado;
+
     #endregion
 
     #region slot full booleans

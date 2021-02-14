@@ -63,9 +63,9 @@ public class AttackSpell : Spell
         float angle = Mathf.Acos(dot / (sF.magnitude * eD.magnitude));
 
         // Output the angle to the console
-        Debug.Log("Angle: " + angle * Mathf.Rad2Deg);
+        //Debug.Log("Angle: " + angle * Mathf.Rad2Deg);
         // Output Unitys angle
-        Debug.Log("Unity Angle: " + Vector3.Angle(sF, eD));
+        //Debug.Log("Unity Angle: " + Vector3.Angle(sF, eD));
 
         // Draw a ray showing the Spell's forward facing vector
         Debug.DrawRay(this.transform.position, sF * 10.0f, Color.green, 2.0f);
@@ -101,8 +101,8 @@ public class AttackSpell : Spell
         float unityDistance = Vector3.Distance(sP, eP);
 
         // Print out the two results to the console
-        Debug.Log("Distance: " + distance);
-        Debug.Log("Unity Distance: " + unityDistance);
+        //Debug.Log("Distance: " + distance);
+        //Debug.Log("Unity Distance: " + unityDistance);
 
         // Return the calculated distance
         return distance;
