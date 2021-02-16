@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
-    #region fields
+    #region Singleton
     /// <summary> Singleton instance of Health UI</summary>
     public static HealthUI Instance;
     #endregion

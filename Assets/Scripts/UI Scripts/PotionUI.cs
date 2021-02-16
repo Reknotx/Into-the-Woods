@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// 
 public class PotionUI : MonoBehaviour
 {
-    #region fields
+    #region Singleton
     public static PotionUI Instance;
     #endregion
 

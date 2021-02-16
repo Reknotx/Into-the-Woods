@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class SpellUI : MonoBehaviour
 {
-    #region Fields
+    #region Singleton
     public static SpellUI Instance;
     #endregion
 
