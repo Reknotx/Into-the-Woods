@@ -56,6 +56,8 @@ public class Player : Unit
     /// <value> A flag to tell the player that they are next to an interactable item. </value>
     public bool NextToInteractable { get; set; } = false;
 
+    public bool IsProtected { get; set; } = false;
+
     /// <summary>The health of the player.</summary>
     /// <value> The Health property gets/sets the value of the _health field in Unit,
     /// and sends an update to the UI. </value>
@@ -329,4 +331,24 @@ public class Player : Unit
     /// </summary>
     private void OpenInventory() => tempInventoryPanel.SetActive(!tempInventoryPanel.activeSelf);
     #endregion
+
+
+    public void TakeDamage(int dmgAmount)
+    {
+        if (IsProtected) return;
+
+        Health -= dmgAmount;
+    }
+
+    public IEnumerator ProtectionBubble(float protectionDur)
+    {
+        Debug.Log("Protection started");
+        IsProtected = true;
+
+        yield return new WaitForSeconds(protectionDur);
+
+        Debug.Log("Protection ended");
+        IsProtected = false;
+    }
+
 }
