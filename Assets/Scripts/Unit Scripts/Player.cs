@@ -129,7 +129,10 @@ public class Player : Unit
         if (spells[0] != null) SelectedSpell = spells[0];
 
         if (tempInventoryPanel != null) tempInventoryPanel.SetActive(false);
+    }
 
+    public void Start()
+    {
         Health = 20;
     }
 
