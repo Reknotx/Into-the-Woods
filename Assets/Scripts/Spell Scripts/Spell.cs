@@ -19,6 +19,10 @@ public abstract class Spell : MonoBehaviour
     [Tooltip("The maximum distance this spell can travel.")]
     public float speed = 10f;
 
+    /// <summary> The cooldown of this spell. </summary>
+    [Tooltip("The cooldown of this spell.")]
+    public float coolDown = 5f;
+
     /// <summary> The distance that the spell has traveled since spawning. </summary>
     protected float distTraveled = 0f;
 
@@ -70,13 +74,7 @@ public abstract class Spell : MonoBehaviour
         if ((1 << collision.gameObject.layer) != layerToHit.value) return;
 
         TriggerSpellEffect(collision.gameObject);
+
+        Destroy(gameObject);
     }
-
-    //public void OnTriggerEnter(Collider other)
-    //{
-        
-    //    if ((1 << other.gameObject.layer) != layerToHit.value) return;
-
-    //    TriggerSpellEffect(other.gameObject);
-    //}
 }

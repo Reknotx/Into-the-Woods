@@ -47,7 +47,9 @@ public class Unit : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if (transform.parent != null && transform.parent.GetComponent<Rigidbody>() != null)
+        if (transform.parent != null
+            && transform.parent.CompareTag("Obj Container")
+            && transform.parent.GetComponent<Rigidbody>() != null)
         {
             unitRB = transform.parent.GetComponent<Rigidbody>();
         }

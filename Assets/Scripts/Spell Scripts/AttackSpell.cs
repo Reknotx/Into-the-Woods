@@ -43,7 +43,9 @@ public class AttackSpell : Spell
     {
         //Debug.Log("Casting the Attack Spell");
         Destroy(other.gameObject);
-        Destroy(gameObject);
+
+        //other.GetComponent<Enemy>().Health -= PlayerInfo.AttackDamage;
+
         //Debug.Log("Damage = " + PlayerInfo.AttackDamage.ToString());
     }
     /// BREAK IN THE CODE

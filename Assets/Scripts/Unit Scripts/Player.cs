@@ -65,13 +65,23 @@ public class Player : Unit
 
         set
         {
+            ///If test is needed to ensure that bonus health
+            ///gets removed when taking damage if we have any 
+            ///bonus hearts at this point. But still allows us
+            ///to gain normal health back when picking up the
+            ///heart item
             if (value < base.Health)
             {
                 ///Removing health
                 if (_bonusHealth > 0)
+                {
                     BonusHealth--;
+                    return;
+                }
                 else
+                {
                     base.Health = value;
+                }
             }
             else
             {
@@ -79,13 +89,9 @@ public class Player : Unit
                 base.Health = Mathf.Clamp(value, 0, 20);
             }
 
+            HealthUI.Instance.UpdateHealth();
             PlayerCurrentHealth = base.Health;
-            Debug.Log("Player health = " + base.Health.ToString());
 
-            //if (healthText != null)
-            //{
-            //    healthText.text = "Health: " + base.Health;
-            //}
         }
     }
 
@@ -100,8 +106,8 @@ public class Player : Unit
         { 
             _bonusHealth = value;
 
-            Debug.Log("Player bonus health " + _bonusHealth.ToString());
-        
+            HealthUI.Instance.UpdateBonusHealth();
+            //Debug.Log("Player bonus health " + _bonusHealth.ToString());
         }
     }
     #endregion
