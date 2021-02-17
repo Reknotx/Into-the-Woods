@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreezeSpell : Spell
+public class FreezeSpell : TrackingSpell
 {
 
     /// <summary> The time that an enemy hit by the spell will be frozen for. </summary>

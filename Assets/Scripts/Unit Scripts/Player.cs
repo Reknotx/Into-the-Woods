@@ -44,6 +44,9 @@ public class Player : Unit
 
     /// <summary> The index referencing the currently selected spell. </summary>
     private int _spellIndex = 0;
+
+    [HideInInspector] public SpellCDTicker spellTicker = new SpellCDTicker();
+
     #endregion
 
     #region Properties
@@ -155,6 +158,8 @@ public class Player : Unit
     {
         Rotate();
 
+        spellTicker.Tick(Time.deltaTime);
+
         /// The player wants to cast a spell.
         if (Input.GetMouseButtonDown(0)) CastSpell();
         else if (Input.mouseScrollDelta.y > 0)
@@ -202,6 +207,7 @@ public class Player : Unit
 
         /// The player wants to open their inventory.
         if (Input.GetKeyDown(KeyCode.Tab) && tempInventoryPanel != null) OpenInventory();
+
     }
 
     #region Movement
@@ -244,6 +250,13 @@ public class Player : Unit
     /// <summary> Casts's a spell when the player presses the left mouse button. </summary>
     private void CastSpell()
     {
+        if (spellTicker.SpellOnCD(SelectedSpell.GetComponent<Spell>()))
+        {
+            //Debug.Log("Spell on cooldown");
+            return;
+        }
+
+
         Debug.Log("Casting: " + SelectedSpell.name);
 
         List<GameObject> firedSpells = new List<GameObject>();
@@ -254,13 +267,16 @@ public class Player : Unit
                                            spellCastLoc.transform.position.y,
                                            spellCastLoc.transform.position.z + (spellCastLoc.transform.forward.z * 0.5f));
 
-            firedSpells.Add(Instantiate(SelectedSpell, frontPos, Quaternion.identity));
+            firedSpells.Add(Instantiate(SelectedSpell, frontPos, Quaternion.identity) as GameObject);
 
-            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity) as GameObject);
         }
         else
         {
-            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
+            GameObject temp = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity) as GameObject;
+
+            //firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity) as GameObject);
+            firedSpells.Add(temp);
         }
 
         foreach (GameObject spell in firedSpells)
@@ -268,8 +284,10 @@ public class Player : Unit
             //Debug.Log("Spell transform: " + spell.transform.position.ToString());
             spell.transform.forward = transform.forward;
             //spell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
-            
         }
+
+        spellTicker.AddToList(firedSpells[0].GetComponent<Spell>());
+
     }
 
     /// Author: Chase O'Connor

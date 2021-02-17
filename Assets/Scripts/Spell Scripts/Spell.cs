@@ -23,11 +23,15 @@ public abstract class Spell : MonoBehaviour
     [Tooltip("The cooldown of this spell.")]
     public float coolDown = 5f;
 
+    /// <summary> The cooldown left on this spell. </summary>
+    [HideInInspector] public float remainingCooldown = 5f;
+
     /// <summary> The distance that the spell has traveled since spawning. </summary>
     protected float distTraveled = 0f;
 
     /// <summary> The location that the spell was spawned at. </summary>
     protected Vector3 spawnLoc;
+
     /// <summary> The enemy we want to track to.</summary>
     public GameObject trackedEnemy;
 
@@ -40,7 +44,9 @@ public abstract class Spell : MonoBehaviour
     protected virtual void Start()
     {
         spawnLoc = transform.position;
-
+        remainingCooldown = coolDown;
+        Debug.Log("Remaining cooldown = " + remainingCooldown);
+        //Player.Instance.spellTicker.AddToList(this);
     }
 
     public virtual void FixedUpdate()
@@ -80,6 +86,7 @@ public abstract class Spell : MonoBehaviour
         Destroy(gameObject);
     }
 
+    #region Spell Tracking
     ///<summary>Calculate the vector to the enemy </summary> 
     protected void CalculateAngle()
     {
@@ -92,11 +99,6 @@ public abstract class Spell : MonoBehaviour
         // Calculate the dot product
         float dot = sF.x * eD.x + sF.z * eD.z;
         float angle = Mathf.Acos(dot / (sF.magnitude * eD.magnitude));
-
-        // Output the angle to the console
-        //Debug.Log("Angle: " + angle * Mathf.Rad2Deg);
-        // Output Unitys angle
-        //Debug.Log("Unity Angle: " + Vector3.Angle(sF, eD));
 
         // Draw a ray showing the Spell's forward facing vector
         Debug.DrawRay(this.transform.position, sF * 10.0f, Color.green, 2.0f);
@@ -131,10 +133,6 @@ public abstract class Spell : MonoBehaviour
         // Calculate the distance using Unitys vector distance function
         float unityDistance = Vector3.Distance(sP, eP);
 
-        // Print out the two results to the console
-        //Debug.Log("Distance: " + distance);
-        //Debug.Log("Unity Distance: " + unityDistance);
-
         // Return the calculated distance
         return distance;
     }
@@ -152,5 +150,5 @@ public abstract class Spell : MonoBehaviour
         return crossProd;
     }
 
-
+    #endregion
 }
