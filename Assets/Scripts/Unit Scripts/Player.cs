@@ -139,7 +139,7 @@ public class Player : Unit
 
     public void Start()
     {
-        Health = 20;
+        Health = _health;
     }
 
     public void FixedUpdate()
@@ -267,16 +267,16 @@ public class Player : Unit
                                            spellCastLoc.transform.position.y,
                                            spellCastLoc.transform.position.z + (spellCastLoc.transform.forward.z * 0.5f));
 
-            firedSpells.Add(Instantiate(SelectedSpell, frontPos, Quaternion.identity) as GameObject);
+            firedSpells.Add(Instantiate(SelectedSpell, frontPos, Quaternion.identity));
 
-            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity) as GameObject);
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
         }
         else
         {
-            GameObject temp = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity) as GameObject;
+            //GameObject temp = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity);
 
-            //firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity) as GameObject);
-            firedSpells.Add(temp);
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
+            //firedSpells.Add(temp);
         }
 
         foreach (GameObject spell in firedSpells)
@@ -357,7 +357,7 @@ public class Player : Unit
     #endregion
 
 
-    public void TakeDamage(int dmgAmount)
+    public override void TakeDamage(int dmgAmount)
     {
         if (IsProtected) return;
 
@@ -378,5 +378,4 @@ public class Player : Unit
 
         if (protectionBubble != null) protectionBubble.SetActive(false);
     }
-
 }

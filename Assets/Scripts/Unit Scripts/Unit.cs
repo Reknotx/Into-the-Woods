@@ -38,8 +38,7 @@ public class Unit : MonoBehaviour
 
             if (_health <= 0)
             {
-                /// Kill the unit.
-                /// Need more logic
+                Destroy(gameObject);
             }
         }
     }
@@ -58,6 +57,12 @@ public class Unit : MonoBehaviour
             unitRB = GetComponent<Rigidbody>();
         }
     }
+
+    public virtual void TakeDamage(int dmgAmount)
+    {
+        Health -= dmgAmount;
+    }
+
 
     #region Movement
     /// /// Author: Chase O'Connor
