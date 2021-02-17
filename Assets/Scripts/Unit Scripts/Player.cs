@@ -27,6 +27,9 @@ public class Player : Unit
 
     public GameObject tempInventoryPanel;
 
+    /// <summary> The protection bubble around the player when they are protected. </summary>
+    public GameObject protectionBubble;
+
     #endregion
 
     [SerializeField]
@@ -348,10 +351,14 @@ public class Player : Unit
         Debug.Log("Protection started");
         IsProtected = true;
 
+        if (protectionBubble != null) protectionBubble.SetActive(true);
+
         yield return new WaitForSeconds(protectionDur);
 
         Debug.Log("Protection ended");
         IsProtected = false;
+
+        if (protectionBubble != null) protectionBubble.SetActive(false);
     }
 
 }
