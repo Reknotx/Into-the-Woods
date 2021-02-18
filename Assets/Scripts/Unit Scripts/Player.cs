@@ -28,10 +28,16 @@ public class Player : Unit
     /// <summary> The location that the spell is cast at. </summary>
     public GameObject spellCastLoc;
 
-    public GameObject tempInventoryPanel;
+    public GameObject tempInvenPanel;
 
     /// <summary> The protection bubble around the player when they are protected. </summary>
     public GameObject protectionBubble;
+
+    /// <summary>
+    /// The game object that has all of the items in the player inventory as
+    /// child game objects.
+    /// </summary>
+    public GameObject PlayerInvenItems;
 
     #endregion
 
@@ -139,7 +145,7 @@ public class Player : Unit
 
         if (spells[0] != null) SelectedSpell = spells[0];
 
-        if (tempInventoryPanel != null) tempInventoryPanel.SetActive(false);
+        if (tempInvenPanel != null) tempInvenPanel.SetActive(false);
     }
 
     public void Start()
@@ -216,7 +222,7 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.F) && NextToInteractable) InteractWithItem();
 
         /// The player wants to open their inventory.
-        if (Input.GetKeyDown(KeyCode.Tab) && tempInventoryPanel != null) OpenInventory();
+        if (Input.GetKeyDown(KeyCode.Tab) && tempInvenPanel != null) OpenInventory();
 
     }
     #endregion
@@ -351,9 +357,6 @@ public class Player : Unit
             interactable.Interact();
 
             NearbyInteractables.Remove(interactable.gameObject);
-            
-            /// Remember to delete this later because of references.
-            Destroy(interactable.gameObject);
 
             if (NearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
         }
@@ -364,7 +367,7 @@ public class Player : Unit
     /// <summary> 
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
-    private void OpenInventory() => tempInventoryPanel.SetActive(!tempInventoryPanel.activeSelf);
+    private void OpenInventory() => tempInvenPanel.SetActive(!tempInvenPanel.activeSelf);
     #endregion
 
 

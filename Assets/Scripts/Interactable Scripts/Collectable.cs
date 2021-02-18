@@ -22,5 +22,4 @@ public abstract class Collectable : Interactable
         ///Add to inventory
         Player.Instance.PInven.AddItem(this);
     }
-
 }

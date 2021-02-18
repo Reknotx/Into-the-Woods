@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 /// Author: JT Esmond
 /// Date: 2/16/2021
@@ -59,6 +59,7 @@ public class Inventory
                 {
                     ingredient.amountInInv++;
                     ingredientInInven = true;
+                    break;
                 }
             }
 
@@ -66,6 +67,8 @@ public class Inventory
             if (!ingredientInInven)
             {
                 itemList.Add(item);
+                item.GetComponent<PotionIngredient>().amountInInv = 1;
+                TurnOffItem(item);
             }
         }
         //if the item isn't stackable it just adds it to the inventory itemList as normal
@@ -73,7 +76,9 @@ public class Inventory
         {
             ///Collectable is just a standard item.
             itemList.Add(item);
+            TurnOffItem(item);
         }
+
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
         return true;
     }
@@ -129,10 +134,27 @@ public class Inventory
     /// <returns>True if we have the item, false otherwise.</returns>
     public bool HasItem(Collectable item)
     {
+        if (itemList.Count == 0) return false;
+
         foreach (Collectable invenItem in itemList)
         {
             if (invenItem.GetType() == item.GetType()) return true;
         }
         return false;
+    }
+
+    /// Author: Chase O'Connor
+    /// Date: 2/18/2021
+    /// <summary>
+    /// Turns off the item in the world and changes it's parent to 
+    /// the storage game object for the player so they have the
+    /// references.
+    /// </summary>
+    /// <param name="item">The item that was successfully added to the inventory.</param>
+    private void TurnOffItem(Collectable item)
+    {
+        item.gameObject.transform.parent = Player.Instance.PlayerInvenItems.transform;
+        item.gameObject.transform.localPosition = Vector3.zero;
+        item.gameObject.SetActive(false);
     }
 }
