@@ -12,9 +12,13 @@ public class Enemy : Unit
     public float awarenessRange; // How far I can sense the player.
 
     // Navigation
+    //public bool chasePlayer; // If the enemy is currently chasing the player.
     private Vector3 myHome; // Wherever I'm placed in the editor will be my "home".
     public NavMeshAgent agent; // My navmesh agent component.
     //public float deAggroTimer; // If the player leaves my range for this time, I'll start going back home.
+
+    // Stats
+    public int currentHP;
 
         /// <summary>
         /// This needs to be cleaned up and some functionality put into enemy variants.
@@ -22,24 +26,34 @@ public class Enemy : Unit
         /// </summary>
     void Start()
     {
+        
+    }
+
+
+
+    void InitAI()
+    {
         // Look for player, with a safety check.
         if (Player.Instance != null)
         {
-            // PlayerObject = GameObject.FindGameObjectWithTag("Player");
             PlayerObject = Player.Instance.transform.parent.gameObject;
-
-            InvokeRepeating("MoveToPlayer", 0f, playerTrackRate);
-            //MoveToPlayer();
         }
         else
+        {
             Debug.Log("No player object found!");
+        }
 
-        myHome = transform.position;
+        myHome = transform.position; // If I get a "return home" command, I'll go back to where I was placed.
     }
 
-    /// <summary>
-    /// This needs to be moved to enemy variants?
+    /// <summary
+    /// Behavior to use when enemy should non-stop chase player and try to make contact.
     /// </summary>
+    void ChasePlayer()
+    {
+        InvokeRepeating("MoveToPlayer", 0f, playerTrackRate);
+    }
+
     void MoveToPlayer()
     {
         distanceFromPlayer = Vector3.Distance(transform.position, PlayerObject.transform.position);
@@ -51,8 +65,8 @@ public class Enemy : Unit
 
     void ReturnHome()
     {
-
+        CancelInvoke();
+        agent.SetDestination(myHome);
     }
-
 
 }

@@ -27,7 +27,6 @@ public class Unit : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Moves this unit in the direction by moving the rigidbody.
     /// </summary>
