@@ -15,6 +15,9 @@ public class Player : Unit
     /// <summary> The singleton instance of the player. </summary>
     public static Player Instance;
 
+    /// <summary> The player inventory. </summary>
+    public Inventory PInven;
+
     /// <summary> This is temporary text, for Gif purposes. </summary>
     public Text InteractText;
 
@@ -132,6 +135,8 @@ public class Player : Unit
 
         Instance = this;
 
+        PInven = new Inventory();
+
         if (spells[0] != null) SelectedSpell = spells[0];
 
         if (tempInventoryPanel != null) tempInventoryPanel.SetActive(false);
@@ -140,8 +145,11 @@ public class Player : Unit
     public void Start()
     {
         Health = _health;
+
+        UI_Inventory.Instance.SetInventory(PInven);
     }
 
+    #region Updates
     public void FixedUpdate()
     {
         ///The player wants to move.
@@ -199,7 +207,9 @@ public class Player : Unit
             UsePotion();
         }
 
+        ///TODO - Delete later when Paul works on Enemy AI
         if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
+        
         /// The player wants to interact with an item.
         /// See the note for this function down below.
         /// Need additional flags.
@@ -209,6 +219,7 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.Tab) && tempInventoryPanel != null) OpenInventory();
 
     }
+    #endregion
 
     #region Movement
     /// Author: Chase O'Connor

@@ -6,11 +6,15 @@ public class TwoPeas : Collectable
 {
     public override void DropLogic()
     {
-        throw new System.NotImplementedException();
+        base.DropLogic();
+
+        if (Player.Instance.PInven.HasItem(this) == false)
+            PlayerInfo.DoubleShot = false;
     }
 
     public override void Interact()
     {
-        PlayerInfo.DoubleShot = true;
+        if (Player.Instance.PInven.AddItem(this)) 
+            PlayerInfo.DoubleShot = true;
     }
 }
