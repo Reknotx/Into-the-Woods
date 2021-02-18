@@ -150,7 +150,7 @@ public class Player : Unit
 
     public void Start()
     {
-        Health = _health;
+        Health = health;
 
         UI_Inventory.Instance.SetInventory(PInven);
     }
@@ -374,7 +374,6 @@ public class Player : Unit
     public override void TakeDamage(int dmgAmount)
     {
         if (IsProtected) return;
-
         Health -= dmgAmount;
     }
 

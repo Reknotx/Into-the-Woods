@@ -79,13 +79,11 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
             //increases the amount for the stackable items and displays the proper number in the UI
             if (item is PotionIngredient ingredient && ingredient.amountInInv > 1)
             {
-                //itemSlots[i].transform.GetComponentInChildren()
-                
-                textAmount.text = (ingredient.amountInInv.ToString());
+                itemSlots[i].transform.GetChild(0).GetComponent<Text>().text = ingredient.amountInInv.ToString();
             }
             else
             {
-                textAmount.text = ("");
+                itemSlots[i].transform.GetChild(0).GetComponent<Text>().text = "";
             }
         }
     }

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class TempEnemy : Enemy
 {
-
-
-
     protected override void Awake()
     {
         base.Awake();
