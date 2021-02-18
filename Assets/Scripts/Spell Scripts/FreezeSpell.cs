@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FreezeSpell : Spell
 {
-    public override void TriggerSpellEffect()
+    public override void TriggerSpellEffect(GameObject other)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Casting the Freeze Spell");
     }
+
 }
