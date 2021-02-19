@@ -68,7 +68,6 @@ public class Inventory
             {
                 itemList.Add(item);
                 item.GetComponent<PotionIngredient>().amountInInv = 1;
-                TurnOffItem(item);
             }
         }
         //if the item isn't stackable it just adds it to the inventory itemList as normal
@@ -76,9 +75,9 @@ public class Inventory
         {
             ///Collectable is just a standard item.
             itemList.Add(item);
-            TurnOffItem(item);
         }
 
+        TurnOffItem(item);
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
         return true;
     }
@@ -127,6 +126,79 @@ public class Inventory
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    ///Author: Chase O'Connor
+    ///Date: 2/18/2021
+    /// <summary>
+    /// Add a potion to our inventory.
+    /// </summary>
+    /// <param name="potion"></param>
+    /// <returns></returns>
+    public bool AddPotion(Potion potion)
+    {
+        if (potions.Length == 3) return false;
+
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+        return true;
+    }
+
+    /// Author: Chase O'Connor
+    /// Date: 2/18/2021
+    /// <summary>
+    /// Removes an ingredient item from the inventory.
+    /// </summary>
+    /// <param name="requirement">The ingredient we want to remove.</param>
+    public void RemoveIngredient(Requirement requirement)
+    {
+        List<PotionIngredient> removeList = new List<PotionIngredient>();
+
+
+        foreach (Collectable item in itemList)
+        {
+            if (item is PotionIngredient ingredient)
+            {
+                switch (requirement)
+                {
+                    case Requirement.IngredientA:
+                        if (ingredient is PotionIngredientA)
+                            ingredient.amountInInv--;
+                        break;
+
+                    case Requirement.IngredientB:
+                        if (ingredient is PotionIngredientB)
+                            ingredient.amountInInv--;
+                        break;
+
+                    case Requirement.IngredientC:
+                        if (ingredient is PotionIngredientC)
+                            ingredient.amountInInv--;
+                        break;
+
+                    case Requirement.IngredientD:
+                        if (ingredient is PotionIngredientD)
+                            ingredient.amountInInv--;
+                        break;
+                }
+
+                if (ingredient.amountInInv == 0)
+                {
+                    removeList.Add(ingredient);
+                }
+            }
+        }
+
+        if (removeList.Count != 0)
+        {
+            foreach (PotionIngredient item in removeList)
+            {
+                itemList.Remove(item);
+            }
+        }
+
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// Author: Chase O'Connor
+    /// Date: 2/17/2021
     /// <summary>
     /// Loops through the list searching for the specific item.
     /// </summary>
@@ -141,6 +213,48 @@ public class Inventory
             if (invenItem.GetType() == item.GetType()) return true;
         }
         return false;
+    }
+
+    /// Author: Chase O'Connor
+    /// Date: 2/18/2021
+    /// <summary>
+    /// Searches our inventory for the potion ingredient we want and gives the amount we have.
+    /// </summary>
+    /// <param name="resource">The ingredient requirement we need.</param>
+    /// <returns>The amount of the resource in our inventory at this time.</returns>
+    public int IngredientCount(Requirement resource)
+    {
+        if (itemList.Count == 0) return 0;
+
+        foreach (Collectable item in itemList)
+        {
+            if (item is PotionIngredient ingredient)
+            {
+                switch (resource)
+                {
+                    case Requirement.IngredientA:
+                        if (ingredient is PotionIngredientA)
+                            return ingredient.amountInInv;
+                        break;
+
+                    case Requirement.IngredientB:
+                        if (ingredient is PotionIngredientB)
+                            return ingredient.amountInInv;
+                        break;
+
+                    case Requirement.IngredientC:
+                        if (ingredient is PotionIngredientC)
+                            return ingredient.amountInInv;
+                        break;
+
+                    case Requirement.IngredientD:
+                        if (ingredient is PotionIngredientD)
+                            return ingredient.amountInInv;
+                        break;
+                }
+            }
+        }
+        return 0;
     }
 
     /// Author: Chase O'Connor

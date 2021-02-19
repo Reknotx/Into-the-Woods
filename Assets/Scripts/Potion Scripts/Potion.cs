@@ -5,7 +5,7 @@ using UnityEngine;
 /// Author: Chase O'Connor
 /// Date: 2/2/2021
 /// <summary> Base potion class for all potions. </summary>
-public abstract class Potion : MonoBehaviour
+public abstract class Potion
 {
     
     /// Author: Chase O'Connor
