@@ -6,6 +6,6 @@ public class InvisibilityPotion : Potion
 {
     public override void UsePotion()
     {
-        throw new System.NotImplementedException();
+        Player.Instance.StartCoroutine(Player.Instance.Invisibility(10f));
     }
 }

@@ -24,5 +24,16 @@ public static class PlayerInfo
     /// <value>Value is true if the player has the lucky penny item.</value>
     public static bool DoubleHarvest { get; set; } = false;
 
+    /// <summary> Indicates if the player is currently protected by a spell. </summary>
+    /// <value>A value of true indicates that the player is protected and can't take damage.</value>
+    public static bool IsProtected { get; set; } = false;
 
+    /// <summary> Indicates if the player is currently invisible. </summary>
+    /// <value>A value of true means the player is invisible and shouldn't be chased
+    /// by enemies.</value>
+    public static bool IsInvisible { get; set; } = false;
+
+    /// <summary> Indicates if the player is currently immune to spell freezing. </summary>
+    /// <value>A value of true means the player can't have their spell casting frozen by enemies.</value>
+    public static bool SpellFreezeImmune { get; set; } = false;
 }

@@ -71,7 +71,7 @@ public class Player : Unit
     /// <value> A flag to tell the player that they are next to an interactable item. </value>
     public bool NextToInteractable { get; set; } = false;
 
-    public bool IsProtected { get; set; } = false;
+
 
     /// <summary>The health of the player.</summary>
     /// <value> The Health property gets/sets the value of the _health field in Unit,
@@ -388,22 +388,76 @@ public class Player : Unit
 
     public override void TakeDamage(int dmgAmount)
     {
-        if (IsProtected) return;
+        if (PlayerInfo.IsProtected) return;
         Health -= dmgAmount;
     }
 
+    #region Special Effects. Put in special class later!!!
+    /// Author: Chase O'Connor
+    /// Date: 2/15/2021
+    /// <summary>
+    /// Gives the player a protection bubble for a duration.
+    /// </summary>
+    /// <param name="protectionDur">The length of the protection spell.</param>
     public IEnumerator ProtectionBubble(float protectionDur)
     {
         Debug.Log("Protection started");
-        IsProtected = true;
+        PlayerInfo.IsProtected = true;
 
         if (protectionBubble != null) protectionBubble.SetActive(true);
 
         yield return new WaitForSeconds(protectionDur);
 
         Debug.Log("Protection ended");
-        IsProtected = false;
+        PlayerInfo.IsProtected = false;
 
         if (protectionBubble != null) protectionBubble.SetActive(false);
     }
+
+    /// <summary>
+    /// Makes the player "invisible" for an amount of time.
+    /// </summary>
+    /// <param name="duration">How long the invisibility lasts for.</param>
+    public IEnumerator Invisibility(float duration)
+    {
+        Color color = GetComponent<MeshRenderer>().material.color;
+        color.a = 0.5f;
+
+        GetComponent<MeshRenderer>().material.color = color;
+
+        yield return new WaitForSeconds(duration);
+
+        color.a = 1f;
+        GetComponent<MeshRenderer>().material.color = color;
+
+    }
+
+    /// Author: Chase O'Connor
+    /// Date: 2/19/2021
+    /// <summary>
+    /// Gives the player double damage.
+    /// </summary>
+    /// <param name="duration">The length of the double damage effect.</param>
+    public IEnumerator DoubleDamage(float duration)
+    {
+        PlayerInfo.AttackDamage += 5;
+        Debug.Log("Player damage is now " + PlayerInfo.AttackDamage);
+
+        yield return new WaitForSeconds(duration);
+
+        PlayerInfo.AttackDamage -= 5;
+        Debug.Log("Player damage is now " + PlayerInfo.AttackDamage);
+    }
+
+
+    public IEnumerator FrozenHeart(float duration)
+    {
+        PlayerInfo.SpellFreezeImmune = true;
+
+        yield return new WaitForSeconds(duration);
+
+        PlayerInfo.SpellFreezeImmune = false;
+    }
+    #endregion
+
 }

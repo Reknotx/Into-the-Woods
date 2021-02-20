@@ -6,6 +6,6 @@ public class DoubleDamagePotion : Potion
 {
     public override void UsePotion()
     {
-        throw new System.NotImplementedException();
+        Player.Instance.StartCoroutine(Player.Instance.DoubleDamage(10f));
     }
 }
