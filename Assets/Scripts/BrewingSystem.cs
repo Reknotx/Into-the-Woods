@@ -8,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// 
 /// </summary>
-public class BrewingSystem : MonoBehaviour
+public class BrewingSystem : SingletonPattern<BrewingSystem>
 {
     public List<PotionRecipe> recipes;
 
@@ -17,6 +17,13 @@ public class BrewingSystem : MonoBehaviour
 
     /// <summary> The list of all brewing options in the brewing system. </summary>
     private List<GameObject> brewingOptions = new List<GameObject>();
+
+    private int _brewingIndex = 0;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     private void Start()
     {
@@ -62,6 +69,31 @@ public class BrewingSystem : MonoBehaviour
             brewingOptions.Add(tempOption.gameObject);
         }
 
-        brewingOptions[0].SetActive(true);
+        brewingOptions[_brewingIndex].SetActive(true);
+
+        gameObject.SetActive(false);
     }
+
+    /// <summary>
+    /// Moves to the next brew option iwth the right button.
+    /// </summary>
+    public void NextOption()
+    {
+        brewingOptions[_brewingIndex].SetActive(false);
+        _brewingIndex++;
+        if (_brewingIndex >= brewingOptions.Count) _brewingIndex = 0;
+        brewingOptions[_brewingIndex].SetActive(true);
+    }
+
+    /// <summary>
+    /// Moves to the previous brew option with the left arrow.
+    /// </summary>
+    public void LastOption()
+    {
+        brewingOptions[_brewingIndex].SetActive(false);
+        _brewingIndex--;
+        if (_brewingIndex < 0) _brewingIndex = brewingOptions.Count - 1;
+        brewingOptions[_brewingIndex].SetActive(true);
+    }
+
 }

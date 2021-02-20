@@ -315,21 +315,36 @@ public class Player : Unit
     /// </summary>
     private void UsePotion()
     {
+        Potion tempPotion = null;
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ///Use potion 1
+            if (PInven.Potions[0] == null) return;
             Debug.Log("Using potion 1.");
+            tempPotion = PInven.Potions[0];
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ///Use potion 2
+            if (PInven.Potions[1] == null) return;
             Debug.Log("Using potion 2.");
+
+            tempPotion = PInven.Potions[1];            
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             ///Use potion 3
+            if (PInven.Potions[2] == null) return;
             Debug.Log("Using potion 3.");
+
+            tempPotion = PInven.Potions[2];
         }
+
+        if (tempPotion != null) tempPotion.UsePotion();
+
+        PInven.RemovePotion(tempPotion);
+
     }
 
     /// Author: Chase O'Connor

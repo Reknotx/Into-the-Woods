@@ -6,6 +6,6 @@ public class HealthPotion : Potion
 {
     public override void UsePotion()
     {
-        throw new System.NotImplementedException();
+        Player.Instance.Health += 10;
     }
 }

@@ -15,5 +15,7 @@ public abstract class Potion
     /// functionality.
     /// </summary>
     public abstract void UsePotion();
-    
+
+    public Sprite potionSprite;
+
 }

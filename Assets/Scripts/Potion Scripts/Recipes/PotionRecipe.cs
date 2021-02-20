@@ -41,6 +41,8 @@ public class PotionRecipe : ScriptableObject
 
     public bool CanCraft(Inventory PInven)
     {
+        if (PInven.PotionCount() == 3) return false;
+
         foreach (RecipeItem recipeItem in Requirements)
         {
             if (PInven.IngredientCount(recipeItem.requirement) < recipeItem.Amount)
@@ -63,11 +65,26 @@ public class PotionRecipe : ScriptableObject
                 }
             }
 
-            PInven.AddPotion(MakePotion());
+            Potion potion = MakePotion();
+            potion.potionSprite = potionSprite;
+
+            if (PInven.AddPotion(potion))
+            {
+                Debug.Log("Potion added");
+            }
+            else
+            {
+                Debug.Log(potion.ToString() + " not added.");
+            }
         }
     }
 
-
+    /// Author: Chase O'Connor
+    /// Date: 2/18/2021
+    /// <summary>
+    /// Gets the name of the potion we want to craft.
+    /// </summary>
+    /// <returns>A string containing the name of the potion.</returns>
     public string GetName()
     {
         string name = "";
@@ -101,6 +118,17 @@ public class PotionRecipe : ScriptableObject
         return name;
     }
 
+
+    /// Author: Chase O'Connor
+    /// Date: 2/18/2021
+    /// <summary>
+    /// Gets the initial of the ingredient requirement.
+    /// </summary>
+    /// <param name="potion">The potion ingredient requirement.</param>
+    /// <returns>A character with the initial of the potion ingredient.</returns>
+    /// Note: This will probably need to be changed to return a string instead
+    /// if Olivia wants to change the name of the ingredients so that they aren't
+    /// just A, B, C, and D
     public char GetIngredientInit(Requirement potion)
     {
         switch (potion)

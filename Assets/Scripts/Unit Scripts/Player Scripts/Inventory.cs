@@ -21,6 +21,9 @@ public class Inventory
     /// <summary> The reference to the collectable items in our inventory. </summary>
     public List<Collectable> ItemList => itemList;
 
+    /// <summary> The array of our potions </summary>
+    public Potion[] Potions => potions;
+
     //holds the actual inventory
     public Inventory()
     {
@@ -43,8 +46,6 @@ public class Inventory
     /// system that was made following the tutorial.
     public bool AddItem(Collectable item)
     {
-        if (itemList.Count == 5) return false;
-
         ///checks if the item is a potion ingredient
         if (item is PotionIngredient)
         {
@@ -74,6 +75,8 @@ public class Inventory
         else
         {
             ///Collectable is just a standard item.
+            if (itemList.Count == 5) return false;
+            
             itemList.Add(item);
         }
 
@@ -131,14 +134,51 @@ public class Inventory
     /// <summary>
     /// Add a potion to our inventory.
     /// </summary>
-    /// <param name="potion"></param>
+    /// <param name="potion">The potion to add to our inventory</param>
     /// <returns></returns>
     public bool AddPotion(Potion potion)
     {
-        if (potions.Length == 3) return false;
+        if (potion == null)
+        {
+            Debug.Log("Potion null");
+            return false;
+        }
+
+        for (int i = 0; i < potions.Length; i++)
+        {
+            if (potions[i] == null)
+            {
+                potions[i] = potion;
+                OnItemListChanged?.Invoke(this, EventArgs.Empty);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void RemovePotion(Potion potion)
+    {
+        for (int i = 0; i < potions.Length; i++)
+        {
+            if (potions[i] == potion)
+            {
+                potions[i] = null;
+                break;
+            }
+        }
+
+        for (int i = 0; i < potions.Length - 1; i++)
+        {
+            if (potions[i] == null)
+            {
+                Potion temp = potions[i + 1];
+                potions[i] = temp;
+                potions[i + 1] = null;
+            }
+        }
 
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
-        return true;
     }
 
     /// Author: Chase O'Connor
@@ -270,5 +310,23 @@ public class Inventory
         item.gameObject.transform.parent = Player.Instance.PlayerInvenItems.transform;
         item.gameObject.transform.localPosition = Vector3.zero;
         item.gameObject.SetActive(false);
+    }
+
+
+    /// <summary>
+    /// Counts the number of potions in our inventory.
+    /// </summary>
+    /// <returns>The number of potions we have in our inventory.</returns>
+    public int PotionCount()
+    {
+        int count = 0;
+        for (int i = 0; i < potions.Length; i++)
+        {
+            if (potions[i] == null) continue;
+
+            count++;
+        }
+
+        return count;
     }
 }

@@ -17,6 +17,8 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
 
     public List<Image> itemSlots = new List<Image>();
 
+    public List<Image> potionSlots = new List<Image>();
+
     protected override void Awake()
     {
         base.Awake();
@@ -53,14 +55,27 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         //    Destroy(child.gameObject);
         //}
 
+        int index = 0;
+        foreach (Image image in itemSlots)
+        {
+            image.sprite = null;
+            itemSlots[index].transform.GetChild(0).GetComponent<Text>().text = "";
+            index++;
+        }
+
+        foreach (Image potionImage in potionSlots)
+        {
+            potionImage.sprite = null;
+        }
+
+
         //int x = 0;
 
         //creates new inventory UI elements for the different items in the item list
         for (int i = 0; i < inventory.ItemList.Count; i++)
         {
             Collectable item = inventory.ItemList[i];
-            //limits the size of the inventory to 5
-
+            
             itemSlots[i].sprite = item.UISprite;
 
             #region Old UI system
@@ -85,6 +100,13 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
             {
                 itemSlots[i].transform.GetChild(0).GetComponent<Text>().text = "";
             }
+        }
+
+
+        for (int i = 0; i < inventory.Potions.Length; i++)
+        {
+            if (inventory.Potions[i] == null) continue;
+            potionSlots[i].sprite = inventory.Potions[i].potionSprite;
         }
     }
 
