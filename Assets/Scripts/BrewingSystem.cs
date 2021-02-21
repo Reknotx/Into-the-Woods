@@ -27,51 +27,61 @@ public class BrewingSystem : SingletonPattern<BrewingSystem>
 
     private void Start()
     {
-        BrewingOption tempOption;
-
         foreach (PotionRecipe recipe in recipes)
         {
-            tempOption = Instantiate(brewingOptionPrefab, transform.GetChild(0)).GetComponent<BrewingOption>();
-            tempOption.recipe = recipe;
-            tempOption.potionName.text = recipe.GetName().ToString();
-            tempOption.description.text = recipe.description.ToString();
-
-            string reqText;
-            
-            if (recipe.Requirements.Count == 1)
-            {
-                reqText = "Requires " + recipe.Requirements[0].Amount + " ingredient " + recipe.GetIngredientInit(recipe.Requirements[0].requirement);
-            }
-            else
-            {
-                reqText = "Requires ingredients ";
-                
-                for (int i = 0; i < recipe.Requirements.Count; i++)
-                {
-                    RecipeItem requirement = recipe.Requirements[i];
-
-                    reqText += recipe.GetIngredientInit(requirement.requirement);
-
-                    if (i < recipe.Requirements.Count - 1)
-                    {
-                        reqText += " & ";
-                    }
-
-                }
-            }
-
-            tempOption.requirements.text = reqText;
-            tempOption.potionImage.sprite = recipe.potionSprite;
-
-            tempOption.brewButton.onClick.AddListener(() => recipe.Craft(Player.Instance.PInven));
-
-            tempOption.gameObject.SetActive(false);
-            brewingOptions.Add(tempOption.gameObject);
+            AddRecipe(recipe);
         }
 
         brewingOptions[_brewingIndex].SetActive(true);
 
         gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Adds a new recipe to the brewing system that we can craft.
+    /// </summary>
+    /// <param name="recipe">The recipe that has been unlocked.</param>
+    public void AddRecipe(PotionRecipe recipe)
+    {
+        BrewingOption tempOption;
+
+        tempOption = Instantiate(brewingOptionPrefab,
+                                    transform.GetChild(0)).GetComponent<BrewingOption>();
+            
+        tempOption.recipe = recipe;
+        tempOption.potionName.text = recipe.GetName().ToString();
+        tempOption.description.text = recipe.description.ToString();
+
+        string reqText;
+
+        if (recipe.Requirements.Count == 1)
+        {
+            reqText = "Requires " + recipe.Requirements[0].Amount + " ingredient " + recipe.GetIngredientInit(recipe.Requirements[0].requirement);
+        }
+        else
+        {
+            reqText = "Requires ingredients ";
+
+            for (int i = 0; i < recipe.Requirements.Count; i++)
+            {
+                RecipeItem requirement = recipe.Requirements[i];
+
+                reqText += recipe.GetIngredientInit(requirement.requirement);
+
+                if (i < recipe.Requirements.Count - 1)
+                {
+                    reqText += " & ";
+                }
+            }
+        }
+
+        tempOption.requirements.text = reqText;
+        tempOption.potionImage.sprite = recipe.potionSprite;
+
+        tempOption.brewButton.onClick.AddListener(() => recipe.Craft(Player.Instance.PInven));
+
+        tempOption.gameObject.SetActive(false);
+        brewingOptions.Add(tempOption.gameObject);
     }
 
     /// <summary>

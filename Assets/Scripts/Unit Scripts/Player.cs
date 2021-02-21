@@ -274,7 +274,7 @@ public class Player : Unit
         }
 
 
-        Debug.Log("Casting: " + SelectedSpell.name);
+        //Debug.Log("Casting: " + SelectedSpell.name);
 
         List<GameObject> firedSpells = new List<GameObject>();
 
@@ -321,14 +321,14 @@ public class Player : Unit
         {
             ///Use potion 1
             if (PInven.Potions[0] == null) return;
-            Debug.Log("Using potion 1.");
+            //Debug.Log("Using potion 1.");
             tempPotion = PInven.Potions[0];
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ///Use potion 2
             if (PInven.Potions[1] == null) return;
-            Debug.Log("Using potion 2.");
+            //Debug.Log("Using potion 2.");
 
             tempPotion = PInven.Potions[1];            
         }
@@ -336,7 +336,7 @@ public class Player : Unit
         {
             ///Use potion 3
             if (PInven.Potions[2] == null) return;
-            Debug.Log("Using potion 3.");
+            //Debug.Log("Using potion 3.");
 
             tempPotion = PInven.Potions[2];
         }
@@ -401,14 +401,14 @@ public class Player : Unit
     /// <param name="protectionDur">The length of the protection spell.</param>
     public IEnumerator ProtectionBubble(float protectionDur)
     {
-        Debug.Log("Protection started");
+        //Debug.Log("Protection started");
         PlayerInfo.IsProtected = true;
 
         if (protectionBubble != null) protectionBubble.SetActive(true);
 
         yield return new WaitForSeconds(protectionDur);
 
-        Debug.Log("Protection ended");
+        //Debug.Log("Protection ended");
         PlayerInfo.IsProtected = false;
 
         if (protectionBubble != null) protectionBubble.SetActive(false);
@@ -453,6 +453,7 @@ public class Player : Unit
     public IEnumerator FrozenHeart(float duration)
     {
         PlayerInfo.SpellFreezeImmune = true;
+        Debug.Log("Player immune to spell freezing for " + duration + " seconds");
 
         yield return new WaitForSeconds(duration);
 

@@ -45,7 +45,7 @@ public abstract class Spell : MonoBehaviour
     {
         spawnLoc = transform.position;
         remainingCooldown = coolDown;
-        Debug.Log("Remaining cooldown = " + remainingCooldown);
+        //Debug.Log("Remaining cooldown = " + remainingCooldown);
         //Player.Instance.spellTicker.AddToList(this);
     }
 

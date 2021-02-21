@@ -6,6 +6,5 @@ public class NightWalkerPotion : Potion
 {
     public override void UsePotion()
     {
-        throw new System.NotImplementedException();
     }
 }
