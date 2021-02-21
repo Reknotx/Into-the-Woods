@@ -17,7 +17,10 @@ public class EnemyAProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.layer == 8) // If "Player" layer.
+        {
+            SpellEffectOnPlayer();
+        }
     }
 
     /// <summary>
@@ -35,6 +38,7 @@ public class EnemyAProjectile : MonoBehaviour
         {
             case EnemyVariant.A:
                 ///Deal damage
+                Player.TakeDamage(1);
                 break;
             
             case EnemyVariant.B:
@@ -49,6 +53,7 @@ public class EnemyAProjectile : MonoBehaviour
                 break;
         }
 
+        Destroy(this.gameObject);
     }
 
 }
