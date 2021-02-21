@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// I'll try to utilize this but I don't exactly know how it works. - Paul.
 public class EnemyAProjectile : MonoBehaviour
 {
     public enum EnemyVariant
