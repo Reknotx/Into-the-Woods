@@ -9,13 +9,74 @@ using UnityEngine;
 /// </summary>
 public abstract class Spell : MonoBehaviour
 {
+    public LayerMask layerToHit;
+
+    /// <summary> The maximum distance this spell can travel. </summary>
+    [Tooltip("The maximum distance this spell can travel.")]
+    public float maxTravelDist = 10f;
+
+    /// <summary> The speed that this spell moves at. </summary>
+    [Tooltip("The maximum distance this spell can travel.")]
+    public float speed = 10f;
+
+    /// <summary> The distance that the spell has traveled since spawning. </summary>
+    protected float distTraveled = 0f;
+
+    /// <summary> The location that the spell was spawned at. </summary>
+    protected Vector3 spawnLoc;
+
     /// Author: Chase O'Connor
     /// Date: 2/2/2021
     /// <summary> The abstract function that all spells have to write their own functionality. </summary>
     public abstract void TriggerSpellEffect(GameObject other);
 
-    public void OnTriggerEnter(Collider other)
+
+    protected virtual void Start()
     {
-        TriggerSpellEffect(other.gameObject);
+        spawnLoc = transform.position;
+
     }
+
+    public virtual void FixedUpdate()
+    {
+        Move();
+    }
+
+    protected virtual void Update()
+    {
+        if (distTraveled >= maxTravelDist)
+        {
+            //Debug.Log(Vector3.Distance(transform.position, spawnLoc));
+            Destroy(gameObject);
+        }
+    }
+
+    private void Move()
+    {
+        Vector3 currPos = transform.position;
+
+        Vector3 newPos = transform.position + (transform.forward * speed * Time.deltaTime);
+
+        float posDelta = Vector3.Distance(currPos, newPos);
+
+        GetComponent<Rigidbody>().MovePosition(newPos);
+
+        distTraveled += posDelta;
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if ((1 << collision.gameObject.layer) != layerToHit.value) return;
+
+        TriggerSpellEffect(collision.gameObject);
+    }
+
+    //public void OnTriggerEnter(Collider other)
+    //{
+        
+    //    if ((1 << other.gameObject.layer) != layerToHit.value) return;
+
+    //    TriggerSpellEffect(other.gameObject);
+    //}
 }
