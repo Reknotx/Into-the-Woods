@@ -7,6 +7,7 @@ public class BarrierBreakerSpell : Spell
     public override void TriggerSpellEffect(GameObject other)
     {
         Debug.Log("Casting the Barrier Breaker Spell");
+        Destroy(other);
     }
 
 }

@@ -9,17 +9,12 @@ public class Avocado : Collectable
     /// being destroyed. </value>
     public int Uses { get; set; } = 2;
 
-    public override void DropLogic()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void Interact()
     {
         ///On pick up is added to inventory.
         ///And gives the player an additional heart
 
-        Player.Instance.BonusHealth += Uses;
-
+        if (Player.Instance.PInven.AddItem(this)) 
+            Player.Instance.BonusHealth += Uses;
     }
 }

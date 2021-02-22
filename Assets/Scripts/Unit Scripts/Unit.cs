@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
     protected Vector3 moveDir;
 
     /// <summary> The private variable of this unit's health. </summary>
-    [SerializeField] protected int _health;
+    [SerializeField] protected int health;
 
     /// <summary> The rigidbody component of this unit. </summary>
     private Rigidbody unitRB;
@@ -30,16 +30,15 @@ public class Unit : MonoBehaviour
     /// If health reaches zero the unit is killed. </value>
     public virtual int Health
     {
-        get => _health;
+        get => health;
 
         set
         {
-            _health = value;
+            health = value;
 
-            if (_health <= 0)
+            if (health <= 0)
             {
-                /// Kill the unit.
-                /// Need more logic
+                Destroy(gameObject);
             }
         }
     }
@@ -47,7 +46,9 @@ public class Unit : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if (transform.parent != null && transform.parent.GetComponent<Rigidbody>() != null)
+        if (transform.parent != null
+            && transform.parent.CompareTag("Obj Container")
+            && transform.parent.GetComponent<Rigidbody>() != null)
         {
             unitRB = transform.parent.GetComponent<Rigidbody>();
         }
@@ -56,6 +57,12 @@ public class Unit : MonoBehaviour
             unitRB = GetComponent<Rigidbody>();
         }
     }
+
+    public virtual void TakeDamage(int dmgAmount)
+    {
+        Health -= dmgAmount;
+    }
+
 
     #region Movement
     /// /// Author: Chase O'Connor

@@ -6,12 +6,16 @@ public class AttackCandy : Collectable
 {
     public override void DropLogic()
     {
-        throw new System.NotImplementedException();
+        base.DropLogic();
+        PlayerInfo.AttackDamage--;
     }
 
     public override void Interact()
     {
-        PlayerInfo.AttackDamage++;
-        Debug.Log("Player Attack now: " + PlayerInfo.AttackDamage);
+        if (Player.Instance.PInven.AddItem(this))
+        {
+            PlayerInfo.AttackDamage++;
+            Debug.Log("Player Attack now: " + PlayerInfo.AttackDamage);
+        }
     }
 }

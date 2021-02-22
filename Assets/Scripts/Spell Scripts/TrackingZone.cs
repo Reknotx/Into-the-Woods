@@ -8,7 +8,7 @@ public class TrackingZone : MonoBehaviour
     {
         if (other.gameObject.layer == 10)
         {
-            GetComponentInParent<AttackSpell>().trackedEnemy = other.gameObject;
+            GetComponentInParent<TrackingSpell>().trackedEnemy = other.gameObject;
         }
     }
 }

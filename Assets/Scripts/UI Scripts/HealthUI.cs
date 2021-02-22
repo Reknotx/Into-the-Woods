@@ -9,13 +9,8 @@ using UnityEngine.UI;
 ///  HealthUI class that holds all data and functions for health UI
 ///  </summary>
 
-public class HealthUI : MonoBehaviour
+public class HealthUI : SingletonPattern<HealthUI>
 {
-    #region Singleton
-    /// <summary> Singleton instance of Health UI</summary>
-    public static HealthUI Instance;
-    #endregion
-
     #region GameObjects
     /// <summary> The gameobject parent of all the normal hearts. </summary>
     public GameObject healthUIObj;
@@ -51,14 +46,10 @@ public class HealthUI : MonoBehaviour
     }
     #endregion
 
-    public void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        Instance = this;
+        ///Uses the singleton pattern class now instead
+        base.Awake();
     }
 
     // Start is called before the first frame update
@@ -88,38 +79,6 @@ public class HealthUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        //temporary code to test that the UI works
-        if (Input.GetKeyDown("a"))
-        {
-            if (BonusHealth <= 0)
-            {
-                PlayerHealth--;
-                UpdateHealth();
-            }
-            else if (BonusHealth > 0)
-            {
-                BonusHealth--;
-                UpdateBonusHealth();
-            }
-        }
-
-        //temporary code to add health and test the UI
-        if (Input.GetKeyDown("d"))
-        {
-            PlayerHealth++;
-            UpdateHealth();
-        }
-
-        //temporary code to add avocados and test the UI
-        if (Input.GetKeyDown("f"))
-        {
-            BonusHealth += 2;
-            bonusHealthUIObj.SetActive(true);
-            UpdateBonusHealth();
-        }
-        */
-
     }
 
     #region Health UI Functions
@@ -136,10 +95,9 @@ public class HealthUI : MonoBehaviour
     {
         ///This is the player's actual health which is used to test against the temp
         ///to see what hearts need to be turned on or off.
-        //int health = Player.Instance.Health;
-        int health = PlayerHealth;
+        int health = Player.Instance.Health;
 
-        Debug.Log("Player health = " + health.ToString());
+        //Debug.Log("Player health = " + health.ToString());
 
         if (health == 20)
         {
@@ -152,14 +110,12 @@ public class HealthUI : MonoBehaviour
             return;
         }
 
-        ///This starts checking a value of 20 to see what the player's
-        ///health matches up to.
-        int tempHealth = 20;
-
         ///the int i starts at the end of the list and goes through it backwards
         for (int i = heartList.Count - 1; i >= 0; i--)
         {
-            tempHealth = (i * 2) + 2;
+            ///This starts checking a value of 20 to see what the player's
+            ///health matches up to.
+            int tempHealth = (i * 2) + 2;
 
             //Debug.Log("Temp health = " + tempHealth.ToString());
 
@@ -210,10 +166,10 @@ public class HealthUI : MonoBehaviour
     /// </summary>
     public void UpdateBonusHealth()
     {
-        //int bonusHealth = Player.Instance.BonusHealth;
-        int bonusHealth = BonusHealth;
-        Debug.Log("Bonus health = " + bonusHealth.ToString());
-        int tempBonusHealth = 10;
+        int bonusHealth = Player.Instance.BonusHealth;
+        //int bonusHealth = BonusHealth;
+        //Debug.Log("Bonus health = " + bonusHealth.ToString());
+        
         if (BonusHealth == 10)
         {
             foreach (GameObject bonusHeart in bonusHeartList)
@@ -222,10 +178,13 @@ public class HealthUI : MonoBehaviour
                 bonusHeart.transform.GetChild(1).gameObject.SetActive(false);
                 bonusHeart.transform.GetChild(2).gameObject.SetActive(true);
             }
+
+            return; /// Added to leave the script early
         }
+
         for (int i = bonusHeartList.Count - 1; i >= 0; i--)
         {
-            tempBonusHealth = (i * 2) + 2;
+            int tempBonusHealth = (i * 2) + 2;
 
             GameObject bonusHeartObj = bonusHeartList[i];
 
@@ -243,7 +202,7 @@ public class HealthUI : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Happening");
+                    //Debug.Log("Happening");
                     bonusFullHeart.SetActive(false);
                     bonusHalfHeart.SetActive(false);
                     bonusBGHeart.SetActive(false);
