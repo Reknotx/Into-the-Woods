@@ -6,12 +6,14 @@ public class Compass : Collectable
 {
     public override void DropLogic()
     {
-        throw new System.NotImplementedException();
+        base.DropLogic();
+
+        if (Player.Instance.PInven.HasItem(this) == false)
+            PlayerInfo.SpellTracking = false;
     }
 
     public override void Interact()
     {
-        PlayerInfo.SpellTracking = true;
-        base.Interact();
+        if (Player.Instance.PInven.AddItem(this)) PlayerInfo.SpellTracking = true;
     }
 }

@@ -8,11 +8,18 @@ public abstract class Collectable : Interactable
     /// The logic that may or may not need to be applied when
     /// the player drops an item.
     /// </summary>
-    public abstract void DropLogic();
+    /// 
+
+    public Sprite UISprite;
+
+    public virtual void DropLogic()
+    {
+        Player.Instance.PInven.RemoveItem(this);
+    }
 
     public override void Interact()
     {
         ///Add to inventory
+        Player.Instance.PInven.AddItem(this);
     }
-
 }

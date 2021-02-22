@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class ProtectionSpell : Spell
 {
+    public float protectionDur = 10f;
+
     public override void TriggerSpellEffect(GameObject other)
     {
-        throw new System.NotImplementedException();
+        Player.Instance.StartCoroutine(Player.Instance.ProtectionBubble(protectionDur));
+
+        Destroy(gameObject);
+    }
+
+    protected override void Start()
+    {
+        TriggerSpellEffect(null);
     }
 }

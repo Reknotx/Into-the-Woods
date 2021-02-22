@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerToHit:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   maxTravelDist: 10
   speed: 10
+  coolDown: 1
+  remainingCooldown: 5
+  trackedEnemy: {fileID: 0}
 --- !u!1001 &9098168691157386787
 PrefabInstance:
   m_ObjectHideFlags: 0

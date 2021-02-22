@@ -53,16 +53,16 @@ public class InventoryUI : MonoBehaviour
         //ItemWorld.SpawnItemWorld(new Vector3(0, -20), new Item { itemType = Item.ItemType.ingredientA, amount = 1 });
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
-        if (itemWorld != null)
-        {
-            //touching item
-            inventory.AddItem(itemWorld.GetItem());
-            itemWorld.DestroySelf();
-        }
-    }
+    //private void OnTriggerEnter(Collider collider)
+    //{
+    //    ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
+    //    if (itemWorld != null)
+    //    {
+    //        //touching item
+    //        inventory.AddItem(itemWorld.GetItem());
+    //        itemWorld.DestroySelf();
+    //    }
+    //}
 
     /*
 private List<GameObject> _itemPrefabList = new List<GameObject>();
