@@ -7,10 +7,15 @@ using UnityEngine;
 /// <summary>
 /// The basic attack spell the player can cast.
 /// </summary>
-public class AttackSpell : Spell
+public class AttackSpell : TrackingSpell
 {
-    public override void TriggerSpellEffect()
+    public override void TriggerSpellEffect(GameObject other)
     {
-        Debug.Log("Casting the Attack Spell");
+        //Debug.Log("Casting the Attack Spell");
+        Destroy(other.gameObject);
+
+        //other.GetComponent<Enemy>().Health -= PlayerInfo.AttackDamage;
+
+        //Debug.Log("Damage = " + PlayerInfo.AttackDamage.ToString());
     }
 }

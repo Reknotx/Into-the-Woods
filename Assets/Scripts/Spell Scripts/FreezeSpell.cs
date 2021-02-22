@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreezeSpell : Spell
+public class FreezeSpell : TrackingSpell
 {
-    public override void TriggerSpellEffect()
+
+    /// <summary> The time that an enemy hit by the spell will be frozen for. </summary>
+    public float freezeDuration = 5f;
+
+    public override void TriggerSpellEffect(GameObject other)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Casting the Freeze Spell");
+        Enemy enemy = other.GetComponent<Enemy>();
+        enemy.StartCoroutine(enemy.Freeze(freezeDuration));
     }
+
 }

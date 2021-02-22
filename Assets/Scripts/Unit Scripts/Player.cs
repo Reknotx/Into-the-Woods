@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// Author: Chase O'Connor
 /// Date: 2/2/2021
@@ -9,18 +11,123 @@ using UnityEngine;
 /// </summary>
 public class Player : Unit
 {
+    #region Fields
     /// <summary> The singleton instance of the player. </summary>
     public static Player Instance;
 
+    /// <summary> The player inventory. </summary>
+    public Inventory PInven;
+
+    /// <summary> This is temporary text, for Gif purposes. </summary>
+    public Text InteractText;
+
+    #region GameObject references
+    /// <summary> The list of spells the player can cast. </summary>
+    public List<GameObject> spells = new List<GameObject>();
+
+    /// <summary> The location that the spell is cast at. </summary>
+    public GameObject spellCastLoc;
+
+    public GameObject tempInvenPanel;
+
+    /// <summary> The protection bubble around the player when they are protected. </summary>
+    public GameObject protectionBubble;
+
     /// <summary>
-    /// A flag to tell the player that they are next to an interactable
-    /// item.
+    /// The game object that has all of the items in the player inventory as
+    /// child game objects.
     /// </summary>
+    public GameObject PlayerInvenItems;
+
+    #endregion
+
+    [SerializeField]
+    private int PlayerCurrentHealth;
+
+    [Tooltip("The speed at which spells are launched from the player.")]
+    /// <summary> The speed at which the spell is fired. </summary>
+    public float spellSpeed = 500;
+
+    /// <summary> The private field of the bonus health. </summary>
+    private int _bonusHealth;
+
+    /// <summary> The index referencing the currently selected spell. </summary>
+    private int _spellIndex = 0;
+
+    [HideInInspector] public SpellCDTicker spellTicker = new SpellCDTicker();
+
+    #endregion
+
+    #region Properties
+    ///<summary> The nearby interactable items. </summary>
+    /// <value> A list of interactable items in the player's vicinity. </value>
+    public List<GameObject> NearbyInteractables { get; set; } = new List<GameObject>();
+
+    /// <summary> The currently selected spell. </summary>
+    /// <value> The GameObject that will be spawned when the player attacks. </value>
+    public GameObject SelectedSpell { get; set; }
+
+    /// <summary> Indicates if the player is near an interactable. </summary>
+    /// <value> A flag to tell the player that they are next to an interactable item. </value>
     public bool NextToInteractable { get; set; } = false;
 
-    
-    /// <summary> The currently selected spell of the player. </summary>
-    [HideInInspector] public Spell SelectedSpell { get; set; }
+
+
+    /// <summary>The health of the player.</summary>
+    /// <value> The Health property gets/sets the value of the _health field in Unit,
+    /// and sends an update to the UI. </value>
+    public override int Health
+    {
+        get => base.Health;
+
+        set
+        {
+            ///If test is needed to ensure that bonus health
+            ///gets removed when taking damage if we have any 
+            ///bonus hearts at this point. But still allows us
+            ///to gain normal health back when picking up the
+            ///heart item
+            if (value < base.Health)
+            {
+                ///Removing health
+                if (_bonusHealth > 0)
+                {
+                    BonusHealth--;
+                    return;
+                }
+                else
+                {
+                    base.Health = value;
+                }
+            }
+            else
+            {
+                ///Adding health
+                base.Health = Mathf.Clamp(value, 0, 20);
+            }
+
+            HealthUI.Instance.UpdateHealth();
+            PlayerCurrentHealth = base.Health;
+
+        }
+    }
+
+    /// <summary> The bonus health of the player. </summary>
+    /// <value>The bonus health property gets/sets the _bonusHealth field of the 
+    /// player, and sends an update to the UI.</value>
+    public int BonusHealth
+    {
+        get => _bonusHealth;
+
+        set 
+        { 
+            _bonusHealth = value;
+
+            HealthUI.Instance.UpdateBonusHealth();
+            //Debug.Log("Player bonus health " + _bonusHealth.ToString());
+        }
+    }
+    #endregion
 
 
     protected override void Awake()
@@ -33,8 +140,22 @@ public class Player : Unit
         }
 
         Instance = this;
+
+        PInven = new Inventory();
+
+        if (spells[0] != null) SelectedSpell = spells[0];
+
+        if (tempInvenPanel != null) tempInvenPanel.SetActive(false);
     }
 
+    public void Start()
+    {
+        Health = health;
+
+        UI_Inventory.Instance.SetInventory(PInven);
+    }
+
+    #region Updates
     public void FixedUpdate()
     {
         ///The player wants to move.
@@ -45,9 +166,44 @@ public class Player : Unit
         {
             Move();
         }
+    }
+
+    private void Update()
+    {
+        Rotate();
+
+        spellTicker.Tick(Time.deltaTime);
 
         /// The player wants to cast a spell.
         if (Input.GetMouseButtonDown(0)) CastSpell();
+        else if (Input.mouseScrollDelta.y > 0)
+        {
+            ///Move to next spell, spell 2 to spell 3
+            Debug.Log("Moving to next spell.");
+            
+            //spells[_spellIndex].SetActive(false);
+            
+            _spellIndex++;
+            if (_spellIndex == spells.Count) _spellIndex = 0;
+
+            //spells[_spellIndex].SetActive(true);
+
+            SelectedSpell = spells[_spellIndex];
+        }
+        else if (Input.mouseScrollDelta.y < 0)
+        {
+            ///Move to previous spell, spell 3 to spell 2
+            Debug.Log("Moving to previous spell.");
+            
+            //spells[_spellIndex].SetActive(false);
+            
+            _spellIndex--;
+            if (_spellIndex < 0) _spellIndex = spells.Count - 1;
+            
+            //spells[_spellIndex].SetActive(true);
+            
+            SelectedSpell = spells[_spellIndex];
+        }
 
         /// The player wants to use a potion.
         if (Input.GetKeyDown(KeyCode.Alpha1)
@@ -57,17 +213,21 @@ public class Player : Unit
             UsePotion();
         }
 
+        ///TODO - Delete later when Paul works on Enemy AI
+        if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
+        
         /// The player wants to interact with an item.
         /// See the note for this function down below.
         /// Need additional flags.
         if (Input.GetKeyDown(KeyCode.F) && NextToInteractable) InteractWithItem();
 
         /// The player wants to open their inventory.
-        if (Input.GetKeyDown(KeyCode.Tab)) OpenInventory();
-
+        if (Input.GetKeyDown(KeyCode.Tab) && tempInvenPanel != null) OpenInventory();
 
     }
+    #endregion
 
+    #region Movement
     /// Author: Chase O'Connor
     /// Date: 2/2/2021
     /// <summary>
@@ -83,15 +243,68 @@ public class Player : Unit
                               Input.GetAxis("Vertical"));
 
         base.Move();
-
     }
 
+    /// Author: Chase O'Connor
+    /// Date: 2/2/2021
+    /// <summary>
+    /// Rotates the player to face the cursor
+    /// </summary>
+    private void Rotate()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out RaycastHit hit, 1000f, 1 << 31);
+
+        if (hit.collider == null) return;
+
+        transform.LookAt(new Vector3(hit.point.x, 1f, hit.point.z));
+    }
+    #endregion
+
+    #region Player Command Functions
     /// Author: Chase O'Connor
     /// Date: 2/2/2021
     /// <summary> Casts's a spell when the player presses the left mouse button. </summary>
     private void CastSpell()
     {
-        Debug.Log("Casting selected spell");
+        if (spellTicker.SpellOnCD(SelectedSpell.GetComponent<Spell>()))
+        {
+            //Debug.Log("Spell on cooldown");
+            return;
+        }
+
+
+        //Debug.Log("Casting: " + SelectedSpell.name);
+
+        List<GameObject> firedSpells = new List<GameObject>();
+
+        if (PlayerInfo.DoubleShot)
+        {
+            Vector3 frontPos = new Vector3(spellCastLoc.transform.position.x + (spellCastLoc.transform.forward.x * 0.5f),
+                                           spellCastLoc.transform.position.y,
+                                           spellCastLoc.transform.position.z + (spellCastLoc.transform.forward.z * 0.5f));
+
+            firedSpells.Add(Instantiate(SelectedSpell, frontPos, Quaternion.identity));
+
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
+        }
+        else
+        {
+            //GameObject temp = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity);
+
+            firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
+            //firedSpells.Add(temp);
+        }
+
+        foreach (GameObject spell in firedSpells)
+        {
+            //Debug.Log("Spell transform: " + spell.transform.position.ToString());
+            spell.transform.forward = transform.forward;
+            //spell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
+        }
+
+        spellTicker.AddToList(firedSpells[0].GetComponent<Spell>());
+
     }
 
     /// Author: Chase O'Connor
@@ -102,21 +315,36 @@ public class Player : Unit
     /// </summary>
     private void UsePotion()
     {
+        Potion tempPotion = null;
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ///Use potion 1
-            Debug.Log("Using potion 1.");
+            if (PInven.Potions[0] == null) return;
+            //Debug.Log("Using potion 1.");
+            tempPotion = PInven.Potions[0];
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ///Use potion 2
-            Debug.Log("Using potion 2.");
+            if (PInven.Potions[1] == null) return;
+            //Debug.Log("Using potion 2.");
+
+            tempPotion = PInven.Potions[1];            
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             ///Use potion 3
-            Debug.Log("Using potion 3.");
+            if (PInven.Potions[2] == null) return;
+            //Debug.Log("Using potion 3.");
+
+            tempPotion = PInven.Potions[2];
         }
+
+        if (tempPotion != null) tempPotion.UsePotion();
+
+        PInven.RemovePotion(tempPotion);
+
     }
 
     /// Author: Chase O'Connor
@@ -131,7 +359,22 @@ public class Player : Unit
     /// them.
     private void InteractWithItem()
     {
-        Debug.Log("Interacting with an item.");
+        //Debug.Log("Interacting with an item.");
+
+        ///Think about this one later, might be good idea. Remember how casting works.
+        //Physics.SphereCast(transform.parent.position, 2.5f, transform.forward, out RaycastHit hit, 1, 1 << 12);
+        //if (hit.collider != null) Debug.Log(hit.collider.name);
+
+        if (NearbyInteractables.Count != 0)
+        {
+            Interactable interactable = NearbyInteractables[0].GetComponent<Interactable>();
+
+            interactable.Interact();
+
+            NearbyInteractables.Remove(interactable.gameObject);
+
+            if (NearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
+        }
     }
 
     /// Author: Chase O'Connor
@@ -139,8 +382,83 @@ public class Player : Unit
     /// <summary> 
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
-    private void OpenInventory()
+    private void OpenInventory() => tempInvenPanel.SetActive(!tempInvenPanel.activeSelf);
+    #endregion
+
+
+    public override void TakeDamage(int dmgAmount)
     {
+        if (PlayerInfo.IsProtected) return;
+        Health -= dmgAmount;
+    }
+
+    #region Special Effects. Put in special class later!!!
+    /// Author: Chase O'Connor
+    /// Date: 2/15/2021
+    /// <summary>
+    /// Gives the player a protection bubble for a duration.
+    /// </summary>
+    /// <param name="protectionDur">The length of the protection spell.</param>
+    public IEnumerator ProtectionBubble(float protectionDur)
+    {
+        //Debug.Log("Protection started");
+        PlayerInfo.IsProtected = true;
+
+        if (protectionBubble != null) protectionBubble.SetActive(true);
+
+        yield return new WaitForSeconds(protectionDur);
+
+        //Debug.Log("Protection ended");
+        PlayerInfo.IsProtected = false;
+
+        if (protectionBubble != null) protectionBubble.SetActive(false);
+    }
+
+    /// <summary>
+    /// Makes the player "invisible" for an amount of time.
+    /// </summary>
+    /// <param name="duration">How long the invisibility lasts for.</param>
+    public IEnumerator Invisibility(float duration)
+    {
+        Color color = GetComponent<MeshRenderer>().material.color;
+        color.a = 0.5f;
+
+        GetComponent<MeshRenderer>().material.color = color;
+
+        yield return new WaitForSeconds(duration);
+
+        color.a = 1f;
+        GetComponent<MeshRenderer>().material.color = color;
 
     }
+
+    /// Author: Chase O'Connor
+    /// Date: 2/19/2021
+    /// <summary>
+    /// Gives the player double damage.
+    /// </summary>
+    /// <param name="duration">The length of the double damage effect.</param>
+    public IEnumerator DoubleDamage(float duration)
+    {
+        PlayerInfo.AttackDamage += 5;
+        Debug.Log("Player damage is now " + PlayerInfo.AttackDamage);
+
+        yield return new WaitForSeconds(duration);
+
+        PlayerInfo.AttackDamage -= 5;
+        Debug.Log("Player damage is now " + PlayerInfo.AttackDamage);
+    }
+
+
+    public IEnumerator FrozenHeart(float duration)
+    {
+        PlayerInfo.SpellFreezeImmune = true;
+        Debug.Log("Player immune to spell freezing for " + duration + " seconds");
+
+        yield return new WaitForSeconds(duration);
+
+        PlayerInfo.SpellFreezeImmune = false;
+    }
+    #endregion
+
 }
