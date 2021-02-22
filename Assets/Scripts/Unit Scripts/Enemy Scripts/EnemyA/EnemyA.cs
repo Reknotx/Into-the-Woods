@@ -53,26 +53,33 @@ public class EnemyA : Enemy
     /// </summary>
     protected void AimAtPlayer()
     {
-        if (!onCooldown && (distanceFromPlayer < awarenessRange))
+        if (!onCooldown)
         {
-            // Rotate the aimer towards the player.
-            aimerObj.transform.LookAt(PlayerObject.transform);
+            distanceFromPlayer = Vector3.Distance(transform.position, PlayerObject.transform.position);
 
-            // Check if line of sight is valid.
+            if (distanceFromPlayer < awarenessRange)
+            {
+                // Rotate the aimer towards the player.
+                aimerObj.transform.LookAt(PlayerObject.transform);
 
-            // If I can see them, fire.
+                // Check if line of sight is valid.
 
-            // Spawn a bullet.
-            GameObject bulletInstance = Instantiate(bullet, aimerObj.gameObject.transform.position, aimerObj.transform.rotation);
-            // Rotate the bullet.
-            bulletInstance.GetComponent<Transform>().rotation = aimerObj.transform.rotation;
-            // Push the bullet forward.
-            bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * (bulletForce), ForceMode.Impulse);
+                // If I can see them, fire.
 
-            StartCoroutine(fireCooldown(1));
+                // Spawn a bullet.
+                GameObject bulletInstance = Instantiate(bullet, aimerObj.gameObject.transform.position, aimerObj.transform.rotation);
+                // Rotate the bullet.
+                bulletInstance.GetComponent<Transform>().rotation = aimerObj.transform.rotation;
+                // Push the bullet forward.
+                bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * (bulletForce), ForceMode.Impulse);
+
+                StartCoroutine(fireCooldown(1));
 
 
+            }
         }
+
+        
 
     }
 

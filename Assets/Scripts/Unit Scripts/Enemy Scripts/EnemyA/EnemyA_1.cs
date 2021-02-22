@@ -16,7 +16,7 @@ public class EnemyA_1 : EnemyA
         base.Start();
 
         // Custom stats
-        _health = 15;
+        Health = 15;
         // Might need to replace this with Unit function when it's done.
 
     }

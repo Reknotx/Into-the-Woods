@@ -38,7 +38,7 @@ public class EnemyAProjectile : MonoBehaviour
         {
             case EnemyVariant.A:
                 ///Deal damage
-                Player.TakeDamage(1);
+                Player.Instance.TakeDamage(1);
                 break;
             
             case EnemyVariant.B:
