@@ -6,6 +6,8 @@ using UnityEngine;
 // I'll try to utilize this but I don't exactly know how it works. - Paul.
 public class EnemyAProjectile : MonoBehaviour
 {
+    public float selfDestructTime = 5f;
+
     public enum EnemyVariant
     {
         A,
@@ -21,6 +23,11 @@ public class EnemyAProjectile : MonoBehaviour
         {
             SpellEffectOnPlayer();
         }
+    }
+
+    private void Start()
+    {
+        Destroy(this.gameObject, selfDestructTime);
     }
 
     /// <summary>
