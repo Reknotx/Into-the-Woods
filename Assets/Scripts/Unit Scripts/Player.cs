@@ -175,7 +175,7 @@ public class Player : Unit
         spellTicker.Tick(Time.deltaTime);
 
         /// The player wants to cast a spell.
-        if (Input.GetMouseButtonDown(0)) CastSpell();
+        if (Input.GetMouseButtonDown(0) && !BrewingSystem.Instance.gameObject.activeSelf) CastSpell();
         else if (Input.mouseScrollDelta.y > 0)
         {
             ///Move to next spell, spell 2 to spell 3
