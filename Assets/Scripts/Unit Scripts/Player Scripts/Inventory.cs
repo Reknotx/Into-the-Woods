@@ -65,10 +65,14 @@ public class Inventory
             }
 
             // if the item isn't in the inventory it adds it to the inventory itemList
-            if (!ingredientInInven)
+            if (!ingredientInInven && itemList.Count != 5)
             {
                 itemList.Add(item);
                 item.GetComponent<PotionIngredient>().amountInInv = 1;
+            }
+            else
+            {
+                return false;
             }
         }
         //if the item isn't stackable it just adds it to the inventory itemList as normal
