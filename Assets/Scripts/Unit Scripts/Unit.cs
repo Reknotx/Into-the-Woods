@@ -38,8 +38,17 @@ public class Unit : MonoBehaviour
 
             if (health <= 0)
             {
+                if (this is Player)
+                {
+                    Camera.main.transform.parent = null;
+                    WinLoseUI.Instance.YouLose();
+                }
+                else if (this is BossA)
+                {
+                    WinLoseUI.Instance.YouWin();
+                }
+
                 Destroy(gameObject);
-                ///Perform death logic HERE
             }
         }
     }

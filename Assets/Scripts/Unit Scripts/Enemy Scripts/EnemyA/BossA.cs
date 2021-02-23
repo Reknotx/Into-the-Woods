@@ -11,6 +11,7 @@ using UnityEngine;
 
 public class BossA : EnemyA
 {
+
     protected override void Start()
     {
         base.Start();
