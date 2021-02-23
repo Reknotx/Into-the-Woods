@@ -6,8 +6,6 @@ public class Compass : Collectable
 {
     public override void DropLogic()
     {
-        base.DropLogic();
-
         if (Player.Instance.PInven.HasItem(this) == false)
             PlayerInfo.SpellTracking = false;
     }

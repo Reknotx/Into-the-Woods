@@ -12,10 +12,7 @@ public abstract class Collectable : Interactable
 
     public Sprite UISprite;
 
-    public virtual void DropLogic()
-    {
-        Player.Instance.PInven.RemoveItem(this);
-    }
+    public abstract void DropLogic();
 
     public override void Interact()
     {

@@ -38,6 +38,16 @@ public class Unit : MonoBehaviour
 
             if (health <= 0)
             {
+                if (this is Player)
+                {
+                    Camera.main.transform.parent = null;
+                    WinLoseUI.Instance.YouLose();
+                }
+                else if (this is BossA)
+                {
+                    WinLoseUI.Instance.YouWin();
+                }
+
                 Destroy(gameObject);
             }
         }
@@ -58,6 +68,10 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dmgAmount"></param>
     public virtual void TakeDamage(int dmgAmount)
     {
         Health -= dmgAmount;

@@ -6,7 +6,6 @@ public class AttackCandy : Collectable
 {
     public override void DropLogic()
     {
-        base.DropLogic();
         PlayerInfo.AttackDamage--;
     }
 
