@@ -12,9 +12,9 @@ public class AttackSpell : TrackingSpell
     public override void TriggerSpellEffect(GameObject other)
     {
         //Debug.Log("Casting the Attack Spell");
-        Destroy(other.gameObject);
+        //Destroy(other.gameObject);
 
-        //other.GetComponent<Enemy>().Health -= PlayerInfo.AttackDamage;
+        other.GetComponent<Enemy>().Health -= PlayerInfo.AttackDamage;
 
         //Debug.Log("Damage = " + PlayerInfo.AttackDamage.ToString());
     }

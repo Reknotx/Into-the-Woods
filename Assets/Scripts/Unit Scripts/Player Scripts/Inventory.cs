@@ -148,8 +148,8 @@ public class Inventory
 
             item.transform.position = dropPos;
             item.gameObject.SetActive(true);
-            item.DropLogic();
             itemList.Remove(item);
+            item.DropLogic();
 
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);

@@ -120,6 +120,8 @@ public class Player : Unit
         { 
             _bonusHealth = value;
 
+
+
             HealthUI.Instance.UpdateBonusHealth();
         }
     }

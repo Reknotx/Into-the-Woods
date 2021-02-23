@@ -138,8 +138,14 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
 
     public void DropItem()
     {
-        if (focus == -1 || inventory.ItemList[focus] == null) return;
+        Debug.Log("Inventory count = " + inventory.ItemList.Count);
 
-        inventory.RemoveItem(inventory.ItemList[focus]);
+        Debug.Log("Focus = " + focus);
+
+        if (focus == -1) return;
+
+        if (inventory.ItemList.Count < focus) return;
+
+        inventory.RemoveItem(inventory.ItemList[focus - 1]);
     }
 }
