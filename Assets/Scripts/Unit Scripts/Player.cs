@@ -12,6 +12,7 @@ using UnityEngine.UI;
 public class Player : Unit
 {
     #region Fields
+    #region Public
     /// <summary> The singleton instance of the player. </summary>
     public static Player Instance;
 
@@ -21,14 +22,11 @@ public class Player : Unit
     /// <summary> This is temporary text, for Gif purposes. </summary>
     public Text InteractText;
 
-    #region GameObject references
     /// <summary> The list of spells the player can cast. </summary>
     public List<GameObject> spells = new List<GameObject>();
 
     /// <summary> The location that the spell is cast at. </summary>
     public GameObject spellCastLoc;
-
-    public GameObject tempInvenPanel;
 
     /// <summary> The protection bubble around the player when they are protected. </summary>
     public GameObject protectionBubble;
@@ -39,23 +37,24 @@ public class Player : Unit
     /// </summary>
     public GameObject PlayerInvenItems;
 
-    #endregion
-
-    [SerializeField]
-    private int PlayerCurrentHealth;
-
     [Tooltip("The speed at which spells are launched from the player.")]
     /// <summary> The speed at which the spell is fired. </summary>
     public float spellSpeed = 500;
+
+    /// <summary> The cooldown tracker for the player spells. </summary>
+    [HideInInspector] public SpellCDTicker spellTicker = new SpellCDTicker();
+    #endregion
+
+    #region Private
+    [SerializeField]
+    private int PlayerCurrentHealth;
 
     /// <summary> The private field of the bonus health. </summary>
     private int _bonusHealth;
 
     /// <summary> The index referencing the currently selected spell. </summary>
     private int _spellIndex = 0;
-
-    [HideInInspector] public SpellCDTicker spellTicker = new SpellCDTicker();
-
+    #endregion
     #endregion
 
     #region Properties
@@ -70,8 +69,6 @@ public class Player : Unit
     /// <summary> Indicates if the player is near an interactable. </summary>
     /// <value> A flag to tell the player that they are next to an interactable item. </value>
     public bool NextToInteractable { get; set; } = false;
-
-
 
     /// <summary>The health of the player.</summary>
     /// <value> The Health property gets/sets the value of the _health field in Unit,
@@ -123,12 +120,12 @@ public class Player : Unit
         { 
             _bonusHealth = value;
 
+
+
             HealthUI.Instance.UpdateBonusHealth();
-            //Debug.Log("Player bonus health " + _bonusHealth.ToString());
         }
     }
     #endregion
-
 
     protected override void Awake()
     {
@@ -144,13 +141,12 @@ public class Player : Unit
         PInven = new Inventory();
 
         if (spells[0] != null) SelectedSpell = spells[0];
-
-        if (tempInvenPanel != null) tempInvenPanel.SetActive(false);
     }
 
     public void Start()
     {
         Health = health;
+        BonusHealth = 0;
 
         UI_Inventory.Instance.SetInventory(PInven);
     }
@@ -179,28 +175,20 @@ public class Player : Unit
         else if (Input.mouseScrollDelta.y > 0)
         {
             ///Move to next spell, spell 2 to spell 3
-            Debug.Log("Moving to next spell.");
-            
-            //spells[_spellIndex].SetActive(false);
-            
+            //Debug.Log("Moving to next spell.");
+                        
             _spellIndex++;
             if (_spellIndex == spells.Count) _spellIndex = 0;
-
-            //spells[_spellIndex].SetActive(true);
 
             SelectedSpell = spells[_spellIndex];
         }
         else if (Input.mouseScrollDelta.y < 0)
         {
             ///Move to previous spell, spell 3 to spell 2
-            Debug.Log("Moving to previous spell.");
-            
-            //spells[_spellIndex].SetActive(false);
-            
+            //Debug.Log("Moving to previous spell.");
+                        
             _spellIndex--;
             if (_spellIndex < 0) _spellIndex = spells.Count - 1;
-            
-            //spells[_spellIndex].SetActive(true);
             
             SelectedSpell = spells[_spellIndex];
         }
@@ -213,6 +201,13 @@ public class Player : Unit
             UsePotion();
         }
 
+        if (Input.GetKeyDown(KeyCode.R) && UI_Inventory.Instance.gameObject.activeSelf)
+        {
+            ///Drop item.
+
+            UI_Inventory.Instance.DropItem();
+        }
+
         ///TODO - Delete later when Paul works on Enemy AI
         if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
         
@@ -222,7 +217,7 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.F) && NextToInteractable) InteractWithItem();
 
         /// The player wants to open their inventory.
-        if (Input.GetKeyDown(KeyCode.Tab) && tempInvenPanel != null) OpenInventory();
+        if (Input.GetKeyDown(KeyCode.Tab) && UI_Inventory.Instance != null) OpenInventory();
 
     }
     #endregion
@@ -237,7 +232,6 @@ public class Player : Unit
     /// </summary>
     protected override void Move()
     {
-
         moveDir = new Vector3(Input.GetAxis("Horizontal"),
                               0f,
                               Input.GetAxis("Vertical"));
@@ -267,14 +261,7 @@ public class Player : Unit
     /// <summary> Casts's a spell when the player presses the left mouse button. </summary>
     private void CastSpell()
     {
-        if (spellTicker.SpellOnCD(SelectedSpell.GetComponent<Spell>()))
-        {
-            //Debug.Log("Spell on cooldown");
-            return;
-        }
-
-
-        //Debug.Log("Casting: " + SelectedSpell.name);
+        if (spellTicker.SpellOnCD(SelectedSpell.GetComponent<Spell>())) return;
 
         List<GameObject> firedSpells = new List<GameObject>();
 
@@ -290,21 +277,15 @@ public class Player : Unit
         }
         else
         {
-            //GameObject temp = Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity);
-
             firedSpells.Add(Instantiate(SelectedSpell, spellCastLoc.transform.position, Quaternion.identity));
-            //firedSpells.Add(temp);
         }
 
         foreach (GameObject spell in firedSpells)
         {
-            //Debug.Log("Spell transform: " + spell.transform.position.ToString());
             spell.transform.forward = transform.forward;
-            //spell.GetComponent<Rigidbody>().AddForce(transform.forward * spellSpeed);
         }
 
         spellTicker.AddToList(firedSpells[0].GetComponent<Spell>());
-
     }
 
     /// Author: Chase O'Connor
@@ -321,14 +302,13 @@ public class Player : Unit
         {
             ///Use potion 1
             if (PInven.Potions[0] == null) return;
-            //Debug.Log("Using potion 1.");
+            
             tempPotion = PInven.Potions[0];
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ///Use potion 2
             if (PInven.Potions[1] == null) return;
-            //Debug.Log("Using potion 2.");
 
             tempPotion = PInven.Potions[1];            
         }
@@ -336,7 +316,6 @@ public class Player : Unit
         {
             ///Use potion 3
             if (PInven.Potions[2] == null) return;
-            //Debug.Log("Using potion 3.");
 
             tempPotion = PInven.Potions[2];
         }
@@ -344,7 +323,6 @@ public class Player : Unit
         if (tempPotion != null) tempPotion.UsePotion();
 
         PInven.RemovePotion(tempPotion);
-
     }
 
     /// Author: Chase O'Connor
@@ -359,12 +337,6 @@ public class Player : Unit
     /// them.
     private void InteractWithItem()
     {
-        //Debug.Log("Interacting with an item.");
-
-        ///Think about this one later, might be good idea. Remember how casting works.
-        //Physics.SphereCast(transform.parent.position, 2.5f, transform.forward, out RaycastHit hit, 1, 1 << 12);
-        //if (hit.collider != null) Debug.Log(hit.collider.name);
-
         if (NearbyInteractables.Count != 0)
         {
             Interactable interactable = NearbyInteractables[0].GetComponent<Interactable>();
@@ -382,9 +354,8 @@ public class Player : Unit
     /// <summary> 
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
-    private void OpenInventory() => tempInvenPanel.SetActive(!tempInvenPanel.activeSelf);
+    private void OpenInventory() => UI_Inventory.Instance.InventoryDisplay();
     #endregion
-
 
     public override void TakeDamage(int dmgAmount)
     {
@@ -401,14 +372,12 @@ public class Player : Unit
     /// <param name="protectionDur">The length of the protection spell.</param>
     public IEnumerator ProtectionBubble(float protectionDur)
     {
-        //Debug.Log("Protection started");
         PlayerInfo.IsProtected = true;
 
         if (protectionBubble != null) protectionBubble.SetActive(true);
 
         yield return new WaitForSeconds(protectionDur);
 
-        //Debug.Log("Protection ended");
         PlayerInfo.IsProtected = false;
 
         if (protectionBubble != null) protectionBubble.SetActive(false);
@@ -449,7 +418,10 @@ public class Player : Unit
         Debug.Log("Player damage is now " + PlayerInfo.AttackDamage);
     }
 
-
+    /// <summary>
+    /// Grants the player immunity to having their spell casting frozen.
+    /// </summary>
+    /// <param name="duration">The duration of the effect.</param>
     public IEnumerator FrozenHeart(float duration)
     {
         PlayerInfo.SpellFreezeImmune = true;
@@ -460,5 +432,4 @@ public class Player : Unit
         PlayerInfo.SpellFreezeImmune = false;
     }
     #endregion
-
 }
