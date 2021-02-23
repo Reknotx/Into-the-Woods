@@ -14,7 +14,7 @@ public abstract class Collectable : Interactable
 
     public virtual void DropLogic()
     {
-        Player.Instance.PInven.RemoveItem(this);
+        //Player.Instance.PInven.RemoveItem(this);
     }
 
     public override void Interact()

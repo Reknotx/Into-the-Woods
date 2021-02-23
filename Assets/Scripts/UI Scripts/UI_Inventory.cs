@@ -10,18 +10,25 @@ using UnityEngine.UI;
 /// </summary>
 public class UI_Inventory : SingletonPattern<UI_Inventory>
 {
+    /// <summary> The reference to the player inventory. </summary>
     private Inventory inventory;
-    public Transform itemSlotContainer;
-    public Transform itemSlotTemplate;
-    public Text textAmount;
 
+    /// <summary> The list of the item sprites that are displayed. </summary>
     public List<Image> itemSlots = new List<Image>();
 
+    /// <summary> The list of the potion sprites that are displayed. </summary>
     public List<Image> potionSlots = new List<Image>();
+
+    /// <summary> The parent game object of the inventory slots. </summary>
+    private GameObject inventoryContainer;
 
     protected override void Awake()
     {
         base.Awake();
+
+        inventoryContainer = transform.GetChild(0).gameObject;
+
+        inventoryContainer.SetActive(false);
     }
 
     // SetInventory function that 
@@ -30,6 +37,8 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         this.inventory = inventory;
 
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
+
+        //itemSlots[0].gameObject.GetComponent<Button>().OnPointerEnter   
     }
 
     //event function that calls RefreshInventoryItems function
@@ -68,7 +77,6 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
             potionImage.sprite = null;
         }
 
-
         //int x = 0;
 
         //creates new inventory UI elements for the different items in the item list
@@ -96,7 +104,6 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
             if (item is PotionIngredient ingredient && ingredient.amountInInv > 1)
             {
                 itemSlots[i].transform.GetChild(0).GetComponent<Text>().text = ingredient.amountInInv.ToString();
-                Debug.Log(ingredient.amountInInv.ToString());
             }
             else
             {
@@ -112,4 +119,27 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         }
     }
 
+    /// <summary>
+    /// Turns the inventory item slots on or of depending on their state.
+    /// </summary>
+    public void InventoryDisplay() => inventoryContainer.SetActive(!inventoryContainer.activeSelf);
+
+
+    /// <summary> The integer that shows the focus of dropping an item from inventory. </summary>
+    private int focus = -1;
+
+    public void AssignFocus(int focus)
+    {
+        //Debug.Log("Focus assigned");
+
+        this.focus = focus;
+    }
+
+
+    public void DropItem()
+    {
+        if (focus == -1 || inventory.ItemList[focus] == null) return;
+
+        inventory.RemoveItem(inventory.ItemList[focus]);
+    }
 }

@@ -27,34 +27,11 @@ public class HealthUI : SingletonPattern<HealthUI>
     private List<GameObject> bonusHeartList = new List<GameObject>();
     #endregion
 
-    #region integers
-    private int _playerHealth = 20;
-    private int _bonusHealth = 0;
-
-    private int PlayerHealth
-    {
-        get => _playerHealth;
-
-        set { _playerHealth = Mathf.Clamp(value, 0, 20); }
-    }
-
-    private int BonusHealth
-    {
-        get => _bonusHealth;
-
-        set { _bonusHealth = Mathf.Clamp(value, 0, 10); }
-    }
-    #endregion
-
     protected override void Awake()
     {
         ///Uses the singleton pattern class now instead
         base.Awake();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         ///Edit: Chase O'Connor
         /// Gets a reference to all of the hearts that are a child of the UI
         /// to avoid having to manually set it in the inspector
@@ -73,6 +50,12 @@ public class HealthUI : SingletonPattern<HealthUI>
                 bonusHeartList.Add(bonusHeart.gameObject);
             }
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
 
     }
 
@@ -167,10 +150,9 @@ public class HealthUI : SingletonPattern<HealthUI>
     public void UpdateBonusHealth()
     {
         int bonusHealth = Player.Instance.BonusHealth;
-        //int bonusHealth = BonusHealth;
         //Debug.Log("Bonus health = " + bonusHealth.ToString());
         
-        if (BonusHealth == 10)
+        if (bonusHealth == 10)
         {
             foreach (GameObject bonusHeart in bonusHeartList)
             {

@@ -8,5 +8,6 @@ public class Heart : Collectable
     {
         Debug.Log("Healing the player");
         Player.Instance.Health++;
+        Destroy(gameObject);
     }
 }
