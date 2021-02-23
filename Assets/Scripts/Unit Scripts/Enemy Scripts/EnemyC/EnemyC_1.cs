@@ -18,7 +18,10 @@ public class EnemyC_1 : EnemyC
         base.Start();
 
         // Custom stats
-        Health = 15;
+        if (Health == 0)
+        {
+            Health = 15;
+        }
         // Might need to replace this with Unit function when it's done.
 
     }
