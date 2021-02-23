@@ -1,26 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+/// Author: Paul Hernandez
+/// Date: 2/18/2021
+/// <summary>
+/// Base of all enemy units.
+/// </summary>
 public class Enemy : Unit
 {
+    // Player tracking
+    [SerializeField] protected GameObject PlayerObject; // The player object.
+    protected float playerTrackRate = 0.2f; // How often I'll update the player position.
+    protected float distanceFromPlayer; // The distance between me and the player.
+    [SerializeField] protected float awarenessRange; // How far I can sense the player.
+
+    // Navigation
+    //public bool chasePlayer; // If the enemy is currently chasing the player.
+    protected Vector3 myHome; // Wherever I'm placed in the editor will be my "home".
+    protected NavMeshAgent agent; // My navmesh agent component.
+                                  //public float deAggroTimer; // If the player leaves my range for this time, I'll start going back home.
+
     /// <summary> If the enemy is frozen they can't move. </summary>
     public bool IsFrozen { get; set; }
 
-<<<<<<< Updated upstream
-=======
     // Stats
     // HP is currently handled by Unit.cs
-
-    public override int Health
-    {
-        get => base.Health;
-        set
-        {
-            base.Health = value;
-            Debug.Log("Called enemy health property");
-        }
-    }
 
     /// Author: Paul Hernandez
     /// Date: 2/20/2021
@@ -106,7 +112,6 @@ public class Enemy : Unit
 
 
 
->>>>>>> Stashed changes
 
     /// <summary>
     /// Freezes the enemy in place for the specified amount of time.
@@ -120,5 +125,4 @@ public class Enemy : Unit
 
         IsFrozen = false;
     }
-
 }
