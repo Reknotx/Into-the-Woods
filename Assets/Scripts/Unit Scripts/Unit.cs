@@ -39,6 +39,7 @@ public class Unit : MonoBehaviour
             if (health <= 0)
             {
                 Destroy(gameObject);
+                ///Perform death logic HERE
             }
         }
     }
