@@ -21,7 +21,7 @@ public class InteractCollision : MonoBehaviour
             Player.Instance.NearbyInteractables.Add(other.gameObject);
 
         Player.Instance.NextToInteractable = true;
-        Player.Instance.InteractText.gameObject.SetActive(true);
+        other.transform.GetChild(0).gameObject.SetActive(true);
     }
 
 
@@ -35,7 +35,7 @@ public class InteractCollision : MonoBehaviour
         if (Player.Instance.NearbyInteractables.Count == 0)
         {
             Player.Instance.NextToInteractable = false;
-            Player.Instance.InteractText.gameObject.SetActive(false);
         }
+        other.transform.GetChild(0).gameObject.SetActive(false);
     }
 }

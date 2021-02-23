@@ -19,9 +19,6 @@ public class Player : Unit
     /// <summary> The player inventory. </summary>
     public Inventory PInven;
 
-    /// <summary> This is temporary text, for Gif purposes. </summary>
-    public Text InteractText;
-
     /// <summary> The list of spells the player can cast. </summary>
     public List<GameObject> spells = new List<GameObject>();
 
@@ -344,8 +341,6 @@ public class Player : Unit
             interactable.Interact();
 
             NearbyInteractables.Remove(interactable.gameObject);
-
-            if (NearbyInteractables.Count == 0) InteractText.gameObject.SetActive(false);
         }
     }
 
