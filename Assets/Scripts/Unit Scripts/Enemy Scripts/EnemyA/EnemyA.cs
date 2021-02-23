@@ -19,9 +19,9 @@ public class EnemyA : Enemy
     // Shooting AI
     [SerializeField] protected float bulletForce; // How fast to shoot bullet.
     protected float shotAnticipation; // How long do I have to see the target before firing?
-    protected float shotCooldown; // How long to wait before firing again.
+    [SerializeField] protected float shotCooldown; // How long to wait before firing again.
     protected bool onCooldown; // Am I on cooldown?
-    protected float shotVelocity; // How fast does the bullet fire?
+    // protected float shotVelocity; // How fast does the bullet fire?
 
 
 
@@ -73,7 +73,7 @@ public class EnemyA : Enemy
                 // Push the bullet forward.
                 bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * (bulletForce), ForceMode.Impulse);
 
-                StartCoroutine(fireCooldown(1));
+                StartCoroutine(fireCooldown(shotCooldown));
 
 
             }
