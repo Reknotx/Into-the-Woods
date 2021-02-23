@@ -20,4 +20,12 @@ public abstract class PotionIngredient : Collectable
         }
 
     }
+
+    /// <summary>
+    /// If reached here it means another instance of the potion ingredient needs to be spawned.
+    /// </summary>
+    public override void DropLogic()
+    {
+        Instantiate(this.gameObject, Player.Instance.transform.position + Vector3.right, Quaternion.identity).SetActive(true);
+    }
 }

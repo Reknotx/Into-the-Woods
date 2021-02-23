@@ -65,10 +65,16 @@ public class Inventory
             }
 
             // if the item isn't in the inventory it adds it to the inventory itemList
-            if (!ingredientInInven)
+            if (!ingredientInInven && itemList.Count <= 4)
             {
                 itemList.Add(item);
                 item.GetComponent<PotionIngredient>().amountInInv = 1;
+            }
+            else
+            {
+                ///The ingredient amount was incremented and we want to update the UI now.
+                OnItemListChanged?.Invoke(this, EventArgs.Empty);
+                return false;
             }
         }
         //if the item isn't stackable it just adds it to the inventory itemList as normal
@@ -99,6 +105,8 @@ public class Inventory
     /// of items from our inventory is handled as the system from the tutorial is 
     /// still vastly different from the one we have. More planning will be done to 
     /// deal with this.
+    /// 
+    ///Change the way that items are dropped.
     public void RemoveItem(Collectable item)
     {
         //checks if the item is stackable
@@ -111,6 +119,10 @@ public class Inventory
                 if (invenItem is PotionIngredient ingredient
                     && invenItem.GetType() == item.GetType())
                 {
+                    if (ingredient.amountInInv > 1)
+                    {
+                        ingredient.DropLogic();
+                    }
                     ingredient.amountInInv--;
                     ingredientInInven = ingredient;
                 }
@@ -118,13 +130,27 @@ public class Inventory
             //if the item isn't in the inventory and the amount is <= 0  removes it from the itemList
             if (ingredientInInven != null && ingredientInInven.amountInInv <= 0)
             {
+                item.transform.parent = null;
+                Vector3 dropPos = Player.Instance.transform.position + Vector3.right;
+                dropPos.y = 0.7f;
+
+                item.transform.position = dropPos;
+                item.gameObject.SetActive(true);
                 itemList.Remove(item);
             }
         }
         //if the item isn't stackable it removes it from the inventroy itemList
         else
         {
+            item.transform.parent = null;
+            Vector3 dropPos = Player.Instance.transform.position + Vector3.right;
+            dropPos.y = 0.7f;
+
+            item.transform.position = dropPos;
+            item.gameObject.SetActive(true);
             itemList.Remove(item);
+            item.DropLogic();
+
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -140,7 +166,7 @@ public class Inventory
     {
         if (potion == null)
         {
-            Debug.Log("Potion null");
+            Debug.LogError("Potion null");
             return false;
         }
 
