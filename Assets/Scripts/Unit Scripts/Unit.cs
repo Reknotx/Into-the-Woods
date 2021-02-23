@@ -59,6 +59,10 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dmgAmount"></param>
     public virtual void TakeDamage(int dmgAmount)
     {
         Health -= dmgAmount;
