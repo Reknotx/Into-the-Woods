@@ -72,6 +72,7 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         //int x = 0;
 
         //creates new inventory UI elements for the different items in the item list
+        ///Updates the inventory UI
         for (int i = 0; i < inventory.ItemList.Count; i++)
         {
             Collectable item = inventory.ItemList[i];
@@ -95,6 +96,7 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
             if (item is PotionIngredient ingredient && ingredient.amountInInv > 1)
             {
                 itemSlots[i].transform.GetChild(0).GetComponent<Text>().text = ingredient.amountInInv.ToString();
+                Debug.Log(ingredient.amountInInv.ToString());
             }
             else
             {
@@ -102,7 +104,7 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
             }
         }
 
-
+        ///Updates potions
         for (int i = 0; i < inventory.Potions.Length; i++)
         {
             if (inventory.Potions[i] == null) continue;

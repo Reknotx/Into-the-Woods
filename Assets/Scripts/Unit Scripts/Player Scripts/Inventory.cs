@@ -46,6 +46,8 @@ public class Inventory
     /// system that was made following the tutorial.
     public bool AddItem(Collectable item)
     {
+        Debug.Log(itemList.Count);
+
         ///checks if the item is a potion ingredient
         if (item is PotionIngredient)
         {
@@ -65,13 +67,15 @@ public class Inventory
             }
 
             // if the item isn't in the inventory it adds it to the inventory itemList
-            if (!ingredientInInven && itemList.Count != 5)
+            if (!ingredientInInven && itemList.Count <= 4)
             {
                 itemList.Add(item);
                 item.GetComponent<PotionIngredient>().amountInInv = 1;
             }
             else
             {
+                ///The ingredient amount was incremented and we want to update the UI now.
+                OnItemListChanged?.Invoke(this, EventArgs.Empty);
                 return false;
             }
         }
