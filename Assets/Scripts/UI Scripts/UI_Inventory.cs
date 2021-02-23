@@ -135,13 +135,8 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         this.focus = focus;
     }
 
-
     public void DropItem()
     {
-        Debug.Log("Inventory count = " + inventory.ItemList.Count);
-
-        Debug.Log("Focus = " + focus);
-
         if (focus == -1) return;
 
         if (inventory.ItemList.Count < focus) return;
