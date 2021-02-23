@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class MenuManagement : MonoBehaviour
 {
 
+    public string surveyLink;
+    public string bugReportLink;
+
     /// Author: JT Esmond
     /// Date: 2/21/2021
     /// <summary>
@@ -70,5 +73,25 @@ public class MenuManagement : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    /// Author: JT Esmond
+    /// Date: 2/21/2021
+    /// <summary>
+    /// function for any Survey Button
+    /// </summary>
+    public void Survey()
+    {
+        Application.OpenURL(surveyLink);
+    }
+
+    /// Author: JT Esmond
+    /// Date: 2/21/2021
+    /// <summary>
+    /// function for any Bug Report Button
+    /// </summary>
+    public void BugReport()
+    {
+        Application.OpenURL(bugReportLink);
     }
 }

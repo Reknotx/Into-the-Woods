@@ -13,7 +13,7 @@ public class ClockUI : MonoBehaviour
 {
     //floats that are used in handling the Clock UI
     public float timerMinutes;
-    private const float realSecondsPerInGameDay = 5f;
+    private const float realSecondsPerInGameDay = 60f;
     private float day;
 
     //transform for the clockhand
