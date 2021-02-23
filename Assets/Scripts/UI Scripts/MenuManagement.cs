@@ -52,6 +52,8 @@ public class MenuManagement : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        WinLoseUI.Instance.won = false;
+        WinLoseUI.Instance.lost = false;
     }
 
     /// Author: JT Esmond

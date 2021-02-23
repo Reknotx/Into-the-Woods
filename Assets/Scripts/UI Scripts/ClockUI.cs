@@ -15,7 +15,7 @@ public class ClockUI : MonoBehaviour
     public float timerMinutes;
     private const float realSecondsPerInGameDay = 60f;
     private float day;
-
+    private int timer = 10;
     //transform for the clockhand
     private Transform clockHandTransform;
 
@@ -29,6 +29,11 @@ public class ClockUI : MonoBehaviour
         dayText = transform.GetChild(0).transform.GetChild(0).GetComponent<Text>();
     }
 
+    private void Start()
+    {
+
+            StartCoroutine("timerTracker");
+    }
     private void Update()
     {
         //sets the day float variable
@@ -53,5 +58,25 @@ public class ClockUI : MonoBehaviour
         //*** temporary timer info that can be deleted when the day night cycle is implemented
         string minutesString = Mathf.Floor(timerMinutes - Mathf.Floor(day)).ToString("0");
         dayText.text = minutesString + " Minutes";
+
+        if (timer == 0)
+        {
+            WinLoseUI.Instance.YouLose();
+        }
+    }
+
+    /// Author: JT Esmond
+    /// Date: 02/22/2021
+    /// <summary>
+    /// tracks the temporary timer that tracks the time passed.
+    /// </summary>
+    private IEnumerator timerTracker()
+    {
+
+        for (int i = 0; i < 10; i++)
+        {
+            yield return new WaitForSeconds(60f);
+            timer--;
+        }
     }
 }
