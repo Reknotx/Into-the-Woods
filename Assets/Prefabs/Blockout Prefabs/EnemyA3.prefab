@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 5966129434969635619}
   - component: {fileID: 6924429624845962432}
   - component: {fileID: 8282171048700837281}
+  - component: {fileID: 3535846298173309051}
   m_Layer: 10
   m_Name: EnemyA3
   m_TagString: Untagged
@@ -345,3 +346,23 @@ MonoBehaviour:
   bullet: {fileID: 2390468039183794067, guid: 6ed150b3fa7ed844ca1dd357dfd42987, type: 3}
   bulletForce: 5
   shotCooldown: 5
+--- !u!114 &3535846298173309051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966129434969635620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00afb6eb1627e7246a2875c39e77cfd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  health: 100
+  PlayerObject: {fileID: 0}
+  awarenessRange: 6.5
+  aimerObj: {fileID: 5966129434810412446}
+  bullet: {fileID: 2390468039183794067, guid: 6ed150b3fa7ed844ca1dd357dfd42987, type: 3}
+  bulletForce: 5
+  shotCooldown: 0
