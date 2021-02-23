@@ -11,6 +11,6 @@ public class AttackSpell : TrackingSpell
 {
     public override void TriggerSpellEffect(GameObject other)
     {
-        other.GetComponent<Enemy>().Health -= PlayerInfo.AttackDamage;
+        other.GetComponent<Enemy>().TakeDamage(PlayerInfo.AttackDamage);
     }
 }
