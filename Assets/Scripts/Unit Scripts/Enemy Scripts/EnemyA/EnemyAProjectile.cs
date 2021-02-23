@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// I'll try to utilize this but I don't exactly know how it works. - Paul.
 public class EnemyAProjectile : MonoBehaviour
 {
+    public float selfDestructTime = 5f;
+
     public enum EnemyVariant
     {
         A,
@@ -15,7 +19,15 @@ public class EnemyAProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.layer == 8) // If "Player" layer.
+        {
+            SpellEffectOnPlayer();
+        }
+    }
+
+    private void Start()
+    {
+        Destroy(this.gameObject, selfDestructTime);
     }
 
     /// <summary>
@@ -33,6 +45,7 @@ public class EnemyAProjectile : MonoBehaviour
         {
             case EnemyVariant.A:
                 ///Deal damage
+                Player.Instance.TakeDamage(1);
                 break;
             
             case EnemyVariant.B:
@@ -47,6 +60,7 @@ public class EnemyAProjectile : MonoBehaviour
                 break;
         }
 
+        Destroy(this.gameObject);
     }
 
 }
