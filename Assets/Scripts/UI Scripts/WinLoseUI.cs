@@ -7,27 +7,25 @@ using UnityEngine;
 /// <summary>
 /// Class that handles the UI for the Win Lose states
 /// </summary>
-public class WinLoseUI : MonoBehaviour
+public class WinLoseUI : SingletonPattern<WinLoseUI>
 {
-    public static WinLoseUI Instance;
-
     private GameObject youWin;
     private GameObject youLose;
 
     [HideInInspector] public bool won;
     [HideInInspector] public bool lost;
 
-    public void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        Instance = this;
+        base.Awake();
 
         youWin = transform.GetChild(0).gameObject;
         youLose = transform.GetChild(1).gameObject;
+    }
+
+    private void Start()
+    {
+        Time.timeScale = 1f;
     }
 
     /// Author: JT Esmond
