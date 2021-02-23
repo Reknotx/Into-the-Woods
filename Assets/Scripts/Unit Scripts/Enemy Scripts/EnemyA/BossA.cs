@@ -9,7 +9,7 @@ using UnityEngine;
 /// that they release will deal 1 damage to the player."
 /// </summary>
 
-public class EnemyA_1 : EnemyA
+public class BossA : EnemyA
 {
     protected override void Start()
     {
@@ -18,12 +18,13 @@ public class EnemyA_1 : EnemyA
         // Custom stats
         if (Health == 0)
         {
-            Health = 15;
+            Health = 100;
         }
         if (shotCooldown == 0)
         {
-            shotCooldown = 1f;
+            shotCooldown = 0.5f;
         }
+
         // Might need to replace this with Unit function when it's done.
 
     }
