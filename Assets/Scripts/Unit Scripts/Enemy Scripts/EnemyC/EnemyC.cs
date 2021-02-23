@@ -29,7 +29,7 @@ public class EnemyC : Enemy
         {
             Player.Instance.TakeDamage(1);
             StartCoroutine(TackleCooldown(1f));
-            Debug.Log(onCooldown);
+            //Debug.Log(onCooldown);
         }
     }
 
