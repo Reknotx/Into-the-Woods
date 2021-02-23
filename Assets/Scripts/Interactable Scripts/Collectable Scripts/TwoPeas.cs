@@ -6,8 +6,6 @@ public class TwoPeas : Collectable
 {
     public override void DropLogic()
     {
-        base.DropLogic();
-
         if (Player.Instance.PInven.HasItem(this) == false)
             PlayerInfo.DoubleShot = false;
     }

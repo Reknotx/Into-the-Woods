@@ -19,7 +19,7 @@ public class Avocado : Collectable
 
             if (_uses == 0)
             {
-                DropLogic();
+                Player.Instance.PInven.RemoveItem(this);
             }
         }
     }

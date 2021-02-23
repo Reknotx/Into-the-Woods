@@ -120,12 +120,7 @@ public class Player : Unit
         { 
             _bonusHealth = value;
 
-            Debug.Log("Bonus health now = " + _bonusHealth);
-
             HealthUI.Instance.UpdateBonusHealth();
-
-
-            //Debug.Log("Player bonus health " + _bonusHealth.ToString());
         }
     }
     #endregion
