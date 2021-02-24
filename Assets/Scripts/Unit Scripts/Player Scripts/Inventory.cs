@@ -281,6 +281,18 @@ public class Inventory
         return false;
     }
 
+    public Collectable GetItem(Collectable item)
+    {
+        foreach (Collectable invenItem in itemList)
+        {
+            if (invenItem.GetType() == item.GetType()) return invenItem;
+        }
+
+
+        return null;
+
+    }
+
     /// Author: Chase O'Connor
     /// Date: 2/18/2021
     /// <summary>

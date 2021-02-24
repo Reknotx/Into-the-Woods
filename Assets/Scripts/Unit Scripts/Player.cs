@@ -11,6 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class Player : Unit
 {
+    
     #region Fields
     #region Public
     /// <summary> The singleton instance of the player. </summary>
@@ -115,9 +116,19 @@ public class Player : Unit
 
         set 
         { 
+            if (value < _bonusHealth)
+            {
+                foreach (Transform item in PlayerInvenItems.transform)
+                {
+                    if (item.GetComponent<Collectable>() is Avocado)
+                    {
+                        item.GetComponent<Avocado>().Uses--;
+                        break;
+                    }
+                }
+            }
+
             _bonusHealth = value;
-
-
 
             HealthUI.Instance.UpdateBonusHealth();
         }
