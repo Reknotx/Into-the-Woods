@@ -24,7 +24,7 @@ public class Inventory
     /// <summary> The array of our potions </summary>
     public Potion[] Potions => potions;
 
-    //holds the actual inventory
+    /// <summary> The inventory constructor, initializes the lists and arrays. </summary>
     public Inventory()
     {
         itemList = new List<Collectable>();
@@ -33,7 +33,7 @@ public class Inventory
         //Debug.Log(itemList.Count);
     }
 
-    //function that adds items to the inventory itemList
+    #region Items
     /// Author: JT
     /// Date: 2/16/2021
     /// <summary>
@@ -91,6 +91,7 @@ public class Inventory
         return true;
     }
 
+
     /// Author: JT
     /// Date: 2/16/2021
     /// <summary>
@@ -130,31 +131,80 @@ public class Inventory
             //if the item isn't in the inventory and the amount is <= 0  removes it from the itemList
             if (ingredientInInven != null && ingredientInInven.amountInInv <= 0)
             {
-                item.transform.parent = null;
-                Vector3 dropPos = Player.Instance.transform.position + Vector3.right;
-                dropPos.y = 0.7f;
-
-                item.transform.position = dropPos;
-                item.gameObject.SetActive(true);
-                itemList.Remove(item);
+                DropItem(item);
             }
         }
         //if the item isn't stackable it removes it from the inventroy itemList
         else
         {
-            item.transform.parent = null;
-            Vector3 dropPos = Player.Instance.transform.position + Vector3.right;
-            dropPos.y = 0.7f;
-
-            item.transform.position = dropPos;
-            item.gameObject.SetActive(true);
-            itemList.Remove(item);
-            item.DropLogic();
+            DropItem(item);
 
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
+
+
+        ///Internal function to drop the item.
+        void DropItem(Collectable droppedItem, bool IsIngredient = false)
+        {
+            System.Random rand = new System.Random();
+
+            int dropMod = rand.Next(0, 2) == 0 ? -1 : 1;
+
+            float dropX = Mathf.Clamp((float)rand.NextDouble(), 0.5f, 1f) * 2f * dropMod;
+            dropMod = rand.Next(0, 2) == 0 ? -1 : 1;
+            float dropZ = Mathf.Clamp((float)rand.NextDouble(), 0.5f, 1f) * 2f * dropMod;
+
+            droppedItem.transform.parent = null;
+            Vector3 dropPos = Player.Instance.transform.position + new Vector3(dropX, 0f, dropZ);
+
+            Vector3 dropDelta = Player.Instance.transform.position - dropPos;
+
+
+            Debug.Log("Drop Pos mag: " + dropDelta.magnitude);
+
+
+            dropPos.y = 0.7f;
+
+            droppedItem.transform.position = dropPos;
+            droppedItem.gameObject.SetActive(true);
+            itemList.Remove(droppedItem);
+            droppedItem.DropLogic();
+        }
     }
 
+
+    /// Author: Chase O'Connor
+    /// Date: 2/17/2021
+    /// <summary>
+    /// Loops through the list searching for the specific item.
+    /// </summary>
+    /// <param name="item">The type of item we want to search for.</param>
+    /// <returns>True if we have the item, false otherwise.</returns>
+    public bool HasItem(Collectable item)
+    {
+        if (itemList.Count == 0) return false;
+
+        foreach (Collectable invenItem in itemList)
+        {
+            if (invenItem.GetType() == item.GetType()) return true;
+        }
+        return false;
+    }
+
+    public Collectable GetItem(Collectable item)
+    {
+        foreach (Collectable invenItem in itemList)
+        {
+            if (invenItem.GetType() == item.GetType()) return invenItem;
+        }
+
+
+        return null;
+
+    }
+    #endregion
+
+    #region Potions
     ///Author: Chase O'Connor
     ///Date: 2/18/2021
     /// <summary>
@@ -264,36 +314,6 @@ public class Inventory
     }
 
     /// Author: Chase O'Connor
-    /// Date: 2/17/2021
-    /// <summary>
-    /// Loops through the list searching for the specific item.
-    /// </summary>
-    /// <param name="item">The type of item we want to search for.</param>
-    /// <returns>True if we have the item, false otherwise.</returns>
-    public bool HasItem(Collectable item)
-    {
-        if (itemList.Count == 0) return false;
-
-        foreach (Collectable invenItem in itemList)
-        {
-            if (invenItem.GetType() == item.GetType()) return true;
-        }
-        return false;
-    }
-
-    public Collectable GetItem(Collectable item)
-    {
-        foreach (Collectable invenItem in itemList)
-        {
-            if (invenItem.GetType() == item.GetType()) return invenItem;
-        }
-
-
-        return null;
-
-    }
-
-    /// Author: Chase O'Connor
     /// Date: 2/18/2021
     /// <summary>
     /// Searches our inventory for the potion ingredient we want and gives the amount we have.
@@ -335,22 +355,6 @@ public class Inventory
         return 0;
     }
 
-    /// Author: Chase O'Connor
-    /// Date: 2/18/2021
-    /// <summary>
-    /// Turns off the item in the world and changes it's parent to 
-    /// the storage game object for the player so they have the
-    /// references.
-    /// </summary>
-    /// <param name="item">The item that was successfully added to the inventory.</param>
-    private void TurnOffItem(Collectable item)
-    {
-        item.gameObject.transform.parent = Player.Instance.PlayerInvenItems.transform;
-        item.gameObject.transform.localPosition = Vector3.zero;
-        item.gameObject.SetActive(false);
-    }
-
-
     /// <summary>
     /// Counts the number of potions in our inventory.
     /// </summary>
@@ -367,4 +371,76 @@ public class Inventory
 
         return count;
     }
+    #endregion
+
+    /// Author: Chase O'Connor
+    /// Date: 2/18/2021
+    /// <summary>
+    /// Turns off the item in the world and changes it's parent to 
+    /// the storage game object for the player so they have the
+    /// references.
+    /// </summary>
+    /// <param name="item">The item that was successfully added to the inventory.</param>
+    private void TurnOffItem(Collectable item)
+    {
+        item.gameObject.transform.parent = Player.Instance.PlayerInvenItems.transform;
+        item.gameObject.transform.localPosition = Vector3.zero;
+        item.gameObject.SetActive(false);
+    }
+
+
+    
+
+    ///Work on the below stuff later
+    #region Iterator. Work on later
+
+    /// <summary> Returns an iterator to sequentially run through the inventory list. </summary>
+    /// <returns>An iterator over the player's inventory.</returns>
+    public IIterator GetInventoryIterator()
+    {
+        return new InventoryIterator(this);
+    }
+
+
+    protected class InventoryIterator : IIterator
+    {
+
+        int index;
+        private List<Collectable> itemList;
+        private Inventory invenRef;
+
+        public InventoryIterator(List<Collectable> list)
+        {
+            index = -1;
+            itemList = list;
+            Next();
+        }
+
+        public InventoryIterator(Inventory inventory)
+        {
+            index = -1;
+            invenRef = inventory;
+            Next();
+        }
+
+
+        public Collectable GetCurrentItem()
+        {
+            return invenRef.itemList[index];
+        }
+
+        public bool hasMoreItems()
+        {
+            return index == -1;
+        }
+
+        public void Next()
+        {
+            index++;
+
+            if (index == invenRef.itemList.Count) index = -1;
+        }
+    }
+
+    #endregion
 }

@@ -69,9 +69,9 @@ public class Unit : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Deals damage to the unit
     /// </summary>
-    /// <param name="dmgAmount"></param>
+    /// <param name="dmgAmount">The amount of damage dealt to this Unit.</param>
     public virtual void TakeDamage(int dmgAmount)
     {
         Health -= dmgAmount;

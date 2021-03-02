@@ -118,6 +118,8 @@ public class Player : Unit
         { 
             if (value < _bonusHealth)
             {
+                ///Try and work on this later, it's not important at the moment
+
                 foreach (Transform item in PlayerInvenItems.transform)
                 {
                     if (item.GetComponent<Collectable>() is Avocado)
