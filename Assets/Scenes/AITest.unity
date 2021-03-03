@@ -311,6 +311,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4957105566267230467, guid: a0a35021286a9c546a08ec9144b27632,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4957105566747393125, guid: a0a35021286a9c546a08ec9144b27632,
         type: 3}
       propertyPath: m_Name
@@ -371,7 +376,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4957105566747393126, guid: a0a35021286a9c546a08ec9144b27632, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a0a35021286a9c546a08ec9144b27632, type: 3}
 --- !u!1 &337110507
 GameObject:
@@ -1144,6 +1150,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 163916192374685893, guid: a5c166c67e3fce64498165b5b21f6d32,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 163916193854581243, guid: a5c166c67e3fce64498165b5b21f6d32,
         type: 3}
@@ -2879,6 +2890,28 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1247275183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4957105566267230464, guid: a0a35021286a9c546a08ec9144b27632,
+    type: 3}
+  m_PrefabInstance: {fileID: 203475439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1247275190
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247275183}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1329539686
 GameObject:
   m_ObjectHideFlags: 0
