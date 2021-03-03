@@ -3,11 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// I'll try to utilize this but I don't exactly know how it works. - Paul.
+
 public class EnemyBomb : MonoBehaviour
 {
-    public float selfDestructTime = 5f;
+    [SerializeField] protected float fuseTime; // How long before bomb blows up.
+    [SerializeField] protected int bombDamage; // How much damage the bomb does.
+    [SerializeField] protected GameObject bombVisual; // Visual bomb ball.
+    [SerializeField] protected GameObject explosionVisual; // Visual explosion effect.
+    private bool explosionLive; // If explosion hitbox is active and can hurt player.
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (explosionLive && other.gameObject.layer == 8) // If "Player" layer.
+        {
+            Player.Instance.TakeDamage(bombDamage);
+            explosionLive = false;
+        }
+    }
+
+    private void Start()
+    {
+        explosionVisual.SetActive(false);
+        StartCoroutine(StartFuse(fuseTime));
+    }
+
+    IEnumerator StartFuse(float time)
+    {
+        // Fuse and buildup.
+        yield return new WaitForSeconds(time);
+
+        // Explode.
+        bombVisual.SetActive(false);
+        explosionVisual.SetActive(true);
+        explosionLive = true;
+        yield return new WaitForSeconds(0.1f);
+        explosionLive = false;
+        explosionVisual.SetActive(false);
+
+        // Destroy object.
+        // This is where you'd put smoke effects I assume.
+        //yield return new WaitForSeconds(0.5f);
+        Destroy(this.gameObject);
+
+    }
+
+    /*
     public enum EnemyVariant
     {
         A,
@@ -25,20 +65,7 @@ public class EnemyBomb : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        Destroy(this.gameObject, selfDestructTime);
-    }
-
-    /// <summary>
-    /// This could be in the base enemy class
-    /// </summary>
-    public void UpdateDest()
-    {
-
-    }
-
-
+    
     private void SpellEffectOnPlayer()
     {
         switch (enemyVariant)
@@ -62,5 +89,5 @@ public class EnemyBomb : MonoBehaviour
 
         Destroy(this.gameObject);
     }
-
+    */
 }

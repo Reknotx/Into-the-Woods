@@ -15,7 +15,7 @@ using UnityEngine;
 public class EnemyB_2 : EnemyB
 {
     [SerializeField] protected GameObject liveBombPrefab;
-    [SerializeField] protected float bombDropCooldown; // How long to wait between dropping bombs.
+    //[SerializeField] protected float bombDropCooldown; // How long to wait between dropping bombs.
 
     protected override void Start()
     {
@@ -27,12 +27,13 @@ public class EnemyB_2 : EnemyB
             Health = 30;
         }
 
-        InvokeRepeating("DropBomb", bombDropCooldown, bombDropCooldown);
+        InvokeRepeating("DropBomb", wanderCooldown, wanderCooldown);
 
     }
 
     protected void DropBomb()
     {
+        WanderToPoint();
         Instantiate(liveBombPrefab, this.transform.position, this.transform.rotation);
     }
 

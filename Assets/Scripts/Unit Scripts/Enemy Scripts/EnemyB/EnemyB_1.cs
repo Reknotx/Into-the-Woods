@@ -21,7 +21,14 @@ public class EnemyB_1 : EnemyB
         {
             Health = 15;
         }
-        
 
+        WanderAround();
     }
+
+    // Just a repeating random walk around. No other features.
+    protected virtual void WanderAround()
+    {
+        InvokeRepeating("WanderToPoint", wanderCooldown, wanderCooldown);
+    }
+
 }

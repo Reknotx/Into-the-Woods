@@ -34,16 +34,14 @@ public class EnemyB : Enemy
         base.Start();
 
 
-        WanderAround();
-
     }
 
 
     #region Wandering AI
-    protected void WanderAround()
-    {
-        InvokeRepeating("WanderToPoint", 1f, wanderCooldown);
-    }
+    /// <summary>
+    /// These handle the core wandering logic used by all the EnemyB subtypes.
+    /// They all use some variant of this, but call it with different timings.
+    /// </summary>
 
     protected void WanderToPoint()
     {
