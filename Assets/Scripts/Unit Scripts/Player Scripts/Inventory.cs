@@ -122,7 +122,7 @@ public class Inventory
                 {
                     if (ingredient.amountInInv > 1)
                     {
-                        ingredient.DropLogic();
+                        UnityEngine.Object.Instantiate(ingredient.gameObject, RandDropPos(), Quaternion.identity).SetActive(true);
                     }
                     ingredient.amountInInv--;
                     ingredientInInven = ingredient;
@@ -144,7 +144,25 @@ public class Inventory
 
 
         ///Internal function to drop the item.
-        void DropItem(Collectable droppedItem, bool IsIngredient = false)
+        void DropItem(Collectable droppedItem)
+        {
+            droppedItem.transform.parent = null;
+
+            Vector3 dropPos = RandDropPos();
+           
+            Vector3 dropDelta = Player.Instance.transform.position - dropPos;
+
+            //Debug.Log("Drop Pos mag: " + dropDelta.magnitude);
+
+            dropPos.y = 0.7f;
+
+            droppedItem.transform.position = dropPos;
+            droppedItem.gameObject.SetActive(true);
+            itemList.Remove(droppedItem);
+            droppedItem.DropLogic();
+        }
+
+        Vector3 RandDropPos()
         {
             System.Random rand = new System.Random();
 
@@ -154,21 +172,7 @@ public class Inventory
             dropMod = rand.Next(0, 2) == 0 ? -1 : 1;
             float dropZ = Mathf.Clamp((float)rand.NextDouble(), 0.5f, 1f) * 2f * dropMod;
 
-            droppedItem.transform.parent = null;
-            Vector3 dropPos = Player.Instance.transform.position + new Vector3(dropX, 0f, dropZ);
-
-            Vector3 dropDelta = Player.Instance.transform.position - dropPos;
-
-
-            Debug.Log("Drop Pos mag: " + dropDelta.magnitude);
-
-
-            dropPos.y = 0.7f;
-
-            droppedItem.transform.position = dropPos;
-            droppedItem.gameObject.SetActive(true);
-            itemList.Remove(droppedItem);
-            droppedItem.DropLogic();
+            return Player.Instance.transform.position + new Vector3(dropX, 0f, dropZ);
         }
     }
 

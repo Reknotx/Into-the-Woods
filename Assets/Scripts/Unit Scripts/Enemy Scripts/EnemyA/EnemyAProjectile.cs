@@ -8,19 +8,22 @@ public class EnemyAProjectile : MonoBehaviour
 {
     public float selfDestructTime = 5f;
 
+    /// <summary> The amount of damage this spell deals to the player. </summary>
+    [SerializeField] private int DMG = 1;
+
     public enum EnemyVariant
     {
-        A,
-        B,
-        C
+        V1,
+        V2,
+        V3
     }
 
-    public EnemyVariant enemyVariant = EnemyVariant.A;
+    public EnemyVariant enemyVariant = EnemyVariant.V1;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8) // If "Player" layer.
-        {
+        if (other.gameObject.layer == 8 && PlayerInfo.IsProtected == false) // If "Player" layer.
+        { 
             SpellEffectOnPlayer();
         }
     }
@@ -38,22 +41,24 @@ public class EnemyAProjectile : MonoBehaviour
 
     }
 
-
     private void SpellEffectOnPlayer()
     {
         switch (enemyVariant)
         {
-            case EnemyVariant.A:
+            case EnemyVariant.V1:
                 ///Deal damage
-                Player.Instance.TakeDamage(1);
+                Player.Instance.TakeDamage(DMG);
                 break;
             
-            case EnemyVariant.B:
+            case EnemyVariant.V2:
                 ///damage and freeze spell casting
+                Player.Instance.StartCoroutine(Player.Instance.SpellsFrozen(3f));
+                Player.Instance.TakeDamage(2);
                 break;
             
-            case EnemyVariant.C:
+            case EnemyVariant.V3:
                 ///Bleed damage only
+                Player.Instance.StartCoroutine(Player.Instance.Bleed(3));
                 break;
             
             default:

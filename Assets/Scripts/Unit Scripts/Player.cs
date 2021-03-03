@@ -44,9 +44,6 @@ public class Player : Unit
     #endregion
 
     #region Private
-    [SerializeField]
-    private int PlayerCurrentHealth;
-
     /// <summary> The private field of the bonus health. </summary>
     private int _bonusHealth;
 
@@ -102,8 +99,6 @@ public class Player : Unit
             }
 
             HealthUI.Instance.UpdateHealth();
-            PlayerCurrentHealth = base.Health;
-
         }
     }
 
@@ -153,9 +148,10 @@ public class Player : Unit
         if (spells[0] != null) SelectedSpell = spells[0];
     }
 
-    public void Start()
+    protected override void Start()
     {
-        Health = health;
+        base.Start();
+
         BonusHealth = 0;
 
         UI_Inventory.Instance.SetInventory(PInven);
@@ -368,7 +364,9 @@ public class Player : Unit
     public override void TakeDamage(int dmgAmount)
     {
         if (PlayerInfo.IsProtected) return;
-        Health -= dmgAmount;
+
+        base.TakeDamage(dmgAmount);
+
     }
 
     #region Special Effects. Put in special class later!!!
@@ -438,6 +436,32 @@ public class Player : Unit
         yield return new WaitForSeconds(duration);
 
         PlayerInfo.SpellFreezeImmune = false;
+    }
+
+    /// Author: Chase O'Connor
+    /// Date: 3/2/2021
+    /// <summary> Makes the player unable to cast any spells for a certain time. </summary>
+    /// <param name="duration">How long the player is unable to cast in seconds.</param>
+    public IEnumerator SpellsFrozen(float duration)
+    {
+        PlayerInfo.SpellsFrozen = true;
+
+        yield return new WaitForSeconds(duration);
+
+        PlayerInfo.SpellsFrozen = false;
+    }
+
+    ///Author: Chase O'Connor
+    ///Date: 3/2/2021
+    /// <summary> Starts the bleed DOT. </summary>
+    /// <param name="duration">How long in seconds does the bleed effect last for.</param>
+    public IEnumerator Bleed(int duration)
+    {
+        for (int i = 0; i < duration; i++)
+        {
+            yield return new WaitForSeconds(1f);
+            Health--;
+        }
     }
     #endregion
 }

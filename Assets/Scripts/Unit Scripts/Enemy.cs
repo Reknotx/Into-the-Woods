@@ -35,8 +35,10 @@ public class Enemy : Unit
     /// for its operations. This way, the designers don't have to fiddle with
     /// enemy stuff in the inspector or hierarchy (hopefully!).
     /// </summary>
-    protected virtual void Start()
+    /// Edit - Chase O'Connor: Made a start function in Unit that is virtual for initializing health.
+    protected override void Start()
     {
+        base.Start();
         InitAI();
     }
 

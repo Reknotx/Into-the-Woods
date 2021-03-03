@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 8744796478905502418}
   - component: {fileID: 8744796478905502417}
   m_Layer: 10
-  m_Name: shield
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8744796478985080739}
   - component: {fileID: 2703399771969280613}
-  - component: {fileID: 4144699338014767866}
+  - component: {fileID: 1498464982811825391}
   m_Layer: 10
   m_Name: EnemyA2
   m_TagString: Untagged
@@ -166,7 +166,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4144699338014767866
+--- !u!114 &1498464982811825391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,17 +175,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8744796478985080738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95b81d721ef23dc4fbb54ed6f06f2a46, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ab83c966c8898246a3a1008bfed66c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  health: 30
+  StartHealth: 1
   PlayerObject: {fileID: 0}
-  awarenessRange: 5
+  awarenessRange: 0
   aimerObj: {fileID: 8744796477877341244}
-  bullet: {fileID: 2390468039183794067, guid: 6ed150b3fa7ed844ca1dd357dfd42987, type: 3}
-  bulletForce: 5
-  shotCooldown: 3
+  bullet: {fileID: 7094212887252069291, guid: 7aab4428a99116a4684ff7ec67ff8929, type: 3}
+  bulletForce: 0
+  shotCooldown: 0
+  shieldDurability: 3
 --- !u!1 &8744796479534969975
 GameObject:
   m_ObjectHideFlags: 0

@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  health: 6
+  StartHealth: 1
   PlayerObject: {fileID: 0}
   awarenessRange: 0
 --- !u!1001 &569369349
@@ -1691,10 +1691,20 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 116
       objectReference: {fileID: 0}
+    - target: {fileID: 163916192374685893, guid: a5c166c67e3fce64498165b5b21f6d32,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.52
+      objectReference: {fileID: 0}
     - target: {fileID: 163916192685382132, guid: a5c166c67e3fce64498165b5b21f6d32,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 163916193854581244, guid: a5c166c67e3fce64498165b5b21f6d32,
+        type: 3}
+      propertyPath: StartHealth
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 163916193975777088, guid: a5c166c67e3fce64498165b5b21f6d32,
         type: 3}
@@ -2035,6 +2045,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3502718301986585729, guid: a5c166c67e3fce64498165b5b21f6d32,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 30.199951
       objectReference: {fileID: 0}
     - target: {fileID: 4082667342389725399, guid: a5c166c67e3fce64498165b5b21f6d32,
         type: 3}
