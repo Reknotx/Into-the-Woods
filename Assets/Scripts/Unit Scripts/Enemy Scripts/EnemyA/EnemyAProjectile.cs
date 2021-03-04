@@ -15,7 +15,8 @@ public class EnemyAProjectile : MonoBehaviour
     {
         V1,
         V2,
-        V3
+        V3,
+        Boss
     }
 
     public EnemyVariant enemyVariant = EnemyVariant.V1;
@@ -59,6 +60,11 @@ public class EnemyAProjectile : MonoBehaviour
             case EnemyVariant.V3:
                 ///Bleed damage only
                 Player.Instance.StartCoroutine(Player.Instance.Bleed(3));
+                break;
+
+            case EnemyVariant.Boss:
+                Player.Instance.StartCoroutine(Player.Instance.Bleed(5));
+                Player.Instance.StartCoroutine(Player.Instance.SpellsFrozen(5f));
                 break;
             
             default:

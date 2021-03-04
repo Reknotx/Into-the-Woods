@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 2220524275916480243}
   - component: {fileID: 2220524275916480241}
   - component: {fileID: 3534078266242558339}
-  - component: {fileID: 3033512908248609811}
   - component: {fileID: 2538801254426372113}
   m_Layer: 10
   m_Name: Cube
@@ -164,28 +163,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  health: 100
+  StartHealth: 100
   PlayerObject: {fileID: 0}
-  awarenessRange: 4
+  awarenessRange: 8
   contactDamage: 0
   contactDamageAmount: 0
   aimerObj: {fileID: 8188161283139615269}
-  bullet: {fileID: 2390468039183794067, guid: 6ed150b3fa7ed844ca1dd357dfd42987, type: 3}
+  bullet: {fileID: 4184307235607753559, guid: fc943272dcb4c724d89900a4ca80c162, type: 3}
   bulletForce: 3
   shotCooldown: 0.5
---- !u!65 &3033512908248609811
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2220524275916480240}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2538801254426372113
 Rigidbody:
   m_ObjectHideFlags: 0

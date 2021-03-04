@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 5966129434969635619}
   - component: {fileID: 6924429624845962432}
   - component: {fileID: -9147367780878519292}
+  - component: {fileID: 2207127597372863755}
   m_Layer: 10
   m_Name: EnemyA3
   m_TagString: Untagged
@@ -340,8 +341,32 @@ MonoBehaviour:
   speed: 1
   StartHealth: 50
   PlayerObject: {fileID: 0}
-  awarenessRange: 0
+  awarenessRange: 4
+  contactDamage: 0
+  contactDamageAmount: 0
   aimerObj: {fileID: 5966129434810412446}
   bullet: {fileID: 1773860605470565557, guid: 16c6016a7a1e55245a17880a3f9211f1, type: 3}
-  bulletForce: 0
-  shotCooldown: 0
+  bulletForce: 5
+  shotCooldown: 1
+--- !u!195 &2207127597372863755
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966129434969635620}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 10
+  m_Acceleration: 100
+  avoidancePriority: 50
+  m_AngularSpeed: 100
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.2
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 0
