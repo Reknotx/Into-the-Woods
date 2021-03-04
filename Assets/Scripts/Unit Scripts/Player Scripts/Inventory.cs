@@ -122,7 +122,10 @@ public class Inventory
                 {
                     if (ingredient.amountInInv > 1)
                     {
-                        UnityEngine.Object.Instantiate(ingredient.gameObject, RandDropPos(), Quaternion.identity).SetActive(true);
+                        Vector3 dropPos = RandDropPos();
+                        dropPos.y = 0.7f;
+
+                        UnityEngine.Object.Instantiate(ingredient.gameObject, dropPos, Quaternion.identity).SetActive(true);
                     }
                     ingredient.amountInInv--;
                     ingredientInInven = ingredient;
@@ -150,7 +153,7 @@ public class Inventory
 
             Vector3 dropPos = RandDropPos();
            
-            Vector3 dropDelta = Player.Instance.transform.position - dropPos;
+            //Vector3 dropDelta = Player.Instance.transform.position - dropPos;
 
             //Debug.Log("Drop Pos mag: " + dropDelta.magnitude);
 
@@ -166,13 +169,41 @@ public class Inventory
         {
             System.Random rand = new System.Random();
 
-            int dropMod = rand.Next(0, 2) == 0 ? -1 : 1;
+            Vector3 dropPos = Vector3.zero;
 
-            float dropX = Mathf.Clamp((float)rand.NextDouble(), 0.5f, 1f) * 2f * dropMod;
-            dropMod = rand.Next(0, 2) == 0 ? -1 : 1;
-            float dropZ = Mathf.Clamp((float)rand.NextDouble(), 0.5f, 1f) * 2f * dropMod;
+            while(true)
+            {
+                int dropMod = rand.Next(0, 2) == 0 ? -1 : 1;
 
-            return Player.Instance.transform.position + new Vector3(dropX, 0f, dropZ);
+                float dropX = Mathf.Clamp((float)rand.NextDouble(), 0.5f, 1f) * 2f * dropMod;
+
+                dropMod = rand.Next(0, 2) == 0 ? -1 : 1;
+
+                float dropZ = Mathf.Clamp((float)rand.NextDouble(), 0.5f, 1f) * 2f * dropMod;
+
+                dropPos = Player.Instance.transform.position + new Vector3(dropX, 0f, dropZ);
+
+                Ray ray = Camera.main.ViewportPointToRay(Camera.main.WorldToViewportPoint(dropPos));
+
+                int layerMask = ~(1 << 30);
+
+                Physics.Raycast(ray, out RaycastHit hit, 1000f, layerMask);
+
+                Debug.Log(hit.collider.gameObject.layer);
+
+                if (hit.collider.gameObject.layer == 31)
+                {
+                    Debug.Log("Nothing here, placing object.");
+                    break;
+                }
+                else
+                {
+                    Debug.Log("Making another pass to avoid stacking.");
+                }
+            }
+
+            //return Player.Instance.transform.position + new Vector3(dropX, 0f, dropZ);
+            return dropPos;
         }
     }
 
@@ -201,8 +232,6 @@ public class Inventory
         {
             if (invenItem.GetType() == item.GetType()) return invenItem;
         }
-
-
         return null;
 
     }

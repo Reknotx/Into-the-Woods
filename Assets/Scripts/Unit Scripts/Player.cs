@@ -168,6 +168,7 @@ public class Player : Unit
         {
             Move();
         }
+
     }
 
     private void Update()
@@ -253,6 +254,7 @@ public class Player : Unit
     private void Rotate()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         Physics.Raycast(ray, out RaycastHit hit, 1000f, 1 << 31);
 
         if (hit.collider == null) return;
