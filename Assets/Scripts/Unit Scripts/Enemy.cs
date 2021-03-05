@@ -27,6 +27,10 @@ public class Enemy : Unit
 
     // Stats
     // HP is currently handled by Unit.cs
+    protected bool onCooldownShoot; // Whether this unit's shooting attack is on cooldown.
+    protected bool onCooldownBody; // Whether this unit's contact damage attack is on cooldown.
+    [SerializeField] protected bool contactDamage; // Do I hurt the player on touch?
+    [SerializeField] protected int contactDamageAmount; // How much damage do I do on touch?
 
     /// Author: Paul Hernandez
     /// Date: 2/20/2021
@@ -71,6 +75,8 @@ public class Enemy : Unit
         }
 
         myHome = transform.position; // If I get a "return home" command, I'll go back to where I was placed.
+
+        this.gameObject.GetComponent<NavMeshAgent>().speed = speed; // Set my "speed" variable inherited from Unit to my NavMeshAgent speed.
     }
 
     /// Author: Paul Hernandez
@@ -110,6 +116,31 @@ public class Enemy : Unit
 
     #endregion
 
+    #region Contact Damage
+
+    protected void OnTriggerStay(Collider other)
+    {
+        if (contactDamage && !onCooldownBody && other.gameObject.layer == 8) // If "Player" layer.
+        {
+            Player.Instance.TakeDamage(contactDamageAmount);
+            StartCoroutine(TackleCooldown(1f));
+            //Debug.Log(onCooldown);
+        }
+    }
+
+    /// Author: Paul Hernandez
+    /// Date: 2/22/2021
+    /// <summary>
+    /// This puts the body contact hitbox for this unit on cooldown.
+    /// </summary>
+    protected IEnumerator TackleCooldown(float time)
+    {
+        onCooldownBody = true;
+        yield return new WaitForSeconds(time);
+        onCooldownBody = false;
+    }
+
+    #endregion
 
 
 
