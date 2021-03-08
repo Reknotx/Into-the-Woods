@@ -26,6 +26,7 @@ public class Room : MonoBehaviour
         {
             enemies.Add(enemy.GetComponent<Enemy>());
             Debug.Log(enemy.name);
+            enemy.gameObject.SetActive(false);
         }
 
         OpenDoors();
@@ -53,6 +54,11 @@ public class Room : MonoBehaviour
         foreach (GameObject door in doors)
         {
             door.SetActive(true);
+        }
+
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.gameObject.SetActive(true);
         }
     }
 
