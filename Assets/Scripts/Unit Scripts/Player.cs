@@ -135,6 +135,8 @@ public class Player : Unit
     protected override void Awake()
     {
         base.Awake();
+        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+
 
         if (Instance != null && Instance != this)
         {

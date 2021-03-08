@@ -60,6 +60,7 @@ public class Enemy : Unit
         if (this.gameObject.GetComponent<NavMeshAgent>() != null)
         {
             agent = this.gameObject.GetComponent<NavMeshAgent>();
+            GetComponent<NavMeshAgent>().speed = speed; // Set my "speed" variable inherited from Unit to my NavMeshAgent speed.
         }
         else
         {
@@ -78,7 +79,6 @@ public class Enemy : Unit
 
         myHome = transform.position; // If I get a "return home" command, I'll go back to where I was placed.
 
-        this.gameObject.GetComponent<NavMeshAgent>().speed = speed; // Set my "speed" variable inherited from Unit to my NavMeshAgent speed.
     }
 
     /// Author: Paul Hernandez
