@@ -71,6 +71,7 @@ public class Room : MonoBehaviour
         if (other.gameObject.layer == 8 /*&& enemies.Count != 0*/)
         {
             CloseDoors();
+            CameraTransition.Instance.TransitionToPoint(transform.position);
         }
     }
 
