@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8347183052383086679}
-  - component: {fileID: 877335355228985386}
   - component: {fileID: 4610350611436052492}
   - component: {fileID: 4557620215505986933}
+  - component: {fileID: 877335355228985386}
   m_Layer: 11
   m_Name: EnemyBulletBase
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &877335355228985386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2390468039183794067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aa0ee2928271d646bae8b07a9c7068e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyVariant: 0
 --- !u!54 &4610350611436052492
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -76,6 +63,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &877335355228985386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2390468039183794067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa0ee2928271d646bae8b07a9c7068e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfDestructTime: 5
+  DMG: 1
+  enemyVariant: 0
 --- !u!1 &3119513687687024270
 GameObject:
   m_ObjectHideFlags: 0

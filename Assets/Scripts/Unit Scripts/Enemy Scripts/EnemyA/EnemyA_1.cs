@@ -11,22 +11,4 @@ using UnityEngine;
 
 public class EnemyA_1 : EnemyA
 {
-    protected override void Start()
-    {
-        base.Start();
-
-        // Custom stats
-        if (Health == 0)
-        {
-            Health = 15;
-        }
-        if (shotCooldown == 0)
-        {
-            shotCooldown = 1f;
-        }
-        // Might need to replace this with Unit function when it's done.
-
-    }
-
-
 }

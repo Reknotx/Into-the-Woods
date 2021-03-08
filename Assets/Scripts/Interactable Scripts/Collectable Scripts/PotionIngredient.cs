@@ -26,6 +26,5 @@ public abstract class PotionIngredient : Collectable
     /// </summary>
     public override void DropLogic()
     {
-        Instantiate(this.gameObject, Player.Instance.transform.position + Vector3.right, Quaternion.identity).SetActive(true);
     }
 }

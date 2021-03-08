@@ -37,8 +37,6 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         this.inventory = inventory;
 
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
-
-        //itemSlots[0].gameObject.GetComponent<Button>().OnPointerEnter   
     }
 
     //event function that calls RefreshInventoryItems function
@@ -57,13 +55,6 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
     /// system that was made following the tutorial.
     private void RefreshInventoryItems()
     {
-        //destroys any previous inventory elements
-        //foreach (Transform child in itemSlotContainer)
-        //{
-        //    if (child == itemSlotTemplate) continue;
-        //    Destroy(child.gameObject);
-        //}
-
         int index = 0;
         foreach (Image image in itemSlots)
         {
@@ -86,19 +77,6 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
             Collectable item = inventory.ItemList[i];
             
             itemSlots[i].sprite = item.UISprite;
-
-            #region Old UI system
-            ////creates the new inventory UI elements and sets its position depending on how many items are in the inventory
-            //RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
-            //itemSlotRectTransform.gameObject.SetActive(true);
-            //itemSlotRectTransform.anchoredPosition = new Vector2(465.9085f + x, itemSlotTemplate.transform.position.y);
-
-            ////sets the image on the item to the correct sprite for that item
-            //Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
-            //image.sprite = item.UISprite;
-
-            //x += 82;
-            #endregion
 
             //increases the amount for the stackable items and displays the proper number in the UI
             if (item is PotionIngredient ingredient && ingredient.amountInInv > 1)
