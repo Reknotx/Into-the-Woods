@@ -17,15 +17,16 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        if (doors != null)
+        if (doors == null)
         {
-            Debug.Log("Doors initialized by other room");
-            return;
+            doors = GameObject.FindGameObjectsWithTag("Door");
         }
 
-        GameObject[] tempDoor = GameObject.FindGameObjectsWithTag("Door");
-
-        doors = tempDoor;
+        foreach (Transform enemy in transform.Find("Enemies"))
+        {
+            enemies.Add(enemy.GetComponent<Enemy>());
+            Debug.Log(enemy.name);
+        }
 
         OpenDoors();
     }
@@ -68,10 +69,15 @@ public class Room : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8 /*&& enemies.Count != 0*/)
+        if (other.gameObject.layer == 8)
         {
-            CloseDoors();
+            if (enemies.Count != 0)
+            {
+                CloseDoors();
+            }
+
             CameraTransition.Instance.TransitionToPoint(transform.position);
+            PlayerInfo.CurrentRoom = this;
         }
     }
 
