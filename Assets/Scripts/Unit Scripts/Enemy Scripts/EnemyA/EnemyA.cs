@@ -20,7 +20,6 @@ public class EnemyA : Enemy
     [SerializeField] protected float bulletForce; // How fast to shoot bullet.
     protected float shotAnticipation; // How long do I have to see the target before firing?
     [SerializeField] protected float shotCooldown; // How long to wait before firing again.
-    protected bool onCooldown; // Am I on cooldown?
     // protected float shotVelocity; // How fast does the bullet fire?
 
 
@@ -53,7 +52,7 @@ public class EnemyA : Enemy
     /// </summary>
     protected void AimAtPlayer()
     {
-        if (!onCooldown)
+        if (!onCooldownShoot)
         {
             distanceFromPlayer = Vector3.Distance(transform.position, PlayerObject.transform.position);
 
@@ -78,9 +77,6 @@ public class EnemyA : Enemy
 
             }
         }
-
-        
-
     }
 
 
@@ -91,9 +87,9 @@ public class EnemyA : Enemy
     /// </summary>
     IEnumerator fireCooldown(float time)
     {
-        onCooldown = true;
+        onCooldownShoot = true;
         yield return new WaitForSeconds(time);
-        onCooldown = false;
+        onCooldownShoot = false;
     }
 
 }

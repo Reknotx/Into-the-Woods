@@ -11,6 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class Player : Unit
 {
+    
     #region Fields
     #region Public
     /// <summary> The singleton instance of the player. </summary>
@@ -43,9 +44,6 @@ public class Player : Unit
     #endregion
 
     #region Private
-    [SerializeField]
-    private int PlayerCurrentHealth;
-
     /// <summary> The private field of the bonus health. </summary>
     private int _bonusHealth;
 
@@ -101,8 +99,6 @@ public class Player : Unit
             }
 
             HealthUI.Instance.UpdateHealth();
-            PlayerCurrentHealth = base.Health;
-
         }
     }
 
@@ -115,9 +111,21 @@ public class Player : Unit
 
         set 
         { 
+            if (value < _bonusHealth)
+            {
+                ///Try and work on this later, it's not important at the moment
+
+                foreach (Transform item in PlayerInvenItems.transform)
+                {
+                    if (item.GetComponent<Collectable>() is Avocado)
+                    {
+                        item.GetComponent<Avocado>().Uses--;
+                        break;
+                    }
+                }
+            }
+
             _bonusHealth = value;
-
-
 
             HealthUI.Instance.UpdateBonusHealth();
         }
@@ -127,6 +135,8 @@ public class Player : Unit
     protected override void Awake()
     {
         base.Awake();
+        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+
 
         if (Instance != null && Instance != this)
         {
@@ -140,9 +150,10 @@ public class Player : Unit
         if (spells[0] != null) SelectedSpell = spells[0];
     }
 
-    public void Start()
+    protected override void Start()
     {
-        Health = health;
+        base.Start();
+
         BonusHealth = 0;
 
         UI_Inventory.Instance.SetInventory(PInven);
@@ -159,6 +170,7 @@ public class Player : Unit
         {
             Move();
         }
+
     }
 
     private void Update()
@@ -168,7 +180,7 @@ public class Player : Unit
         spellTicker.Tick(Time.deltaTime);
 
         /// The player wants to cast a spell.
-        if (Input.GetMouseButtonDown(0) && !BrewingSystem.Instance.gameObject.activeSelf) CastSpell();
+        if (Input.GetMouseButtonDown(0) && !PlayerInfo.SpellsFrozen && !BrewingSystem.Instance.gameObject.activeSelf) CastSpell();
         else if (Input.mouseScrollDelta.y > 0)
         {
             ///Move to next spell, spell 2 to spell 3
@@ -244,11 +256,12 @@ public class Player : Unit
     private void Rotate()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         Physics.Raycast(ray, out RaycastHit hit, 1000f, 1 << 31);
 
         if (hit.collider == null) return;
 
-        transform.LookAt(new Vector3(hit.point.x, 1f, hit.point.z));
+        transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
     }
     #endregion
 
@@ -355,7 +368,9 @@ public class Player : Unit
     public override void TakeDamage(int dmgAmount)
     {
         if (PlayerInfo.IsProtected) return;
-        Health -= dmgAmount;
+
+        base.TakeDamage(dmgAmount);
+
     }
 
     #region Special Effects. Put in special class later!!!
@@ -425,6 +440,32 @@ public class Player : Unit
         yield return new WaitForSeconds(duration);
 
         PlayerInfo.SpellFreezeImmune = false;
+    }
+
+    /// Author: Chase O'Connor
+    /// Date: 3/2/2021
+    /// <summary> Makes the player unable to cast any spells for a certain time. </summary>
+    /// <param name="duration">How long the player is unable to cast in seconds.</param>
+    public IEnumerator SpellsFrozen(float duration)
+    {
+        PlayerInfo.SpellsFrozen = true;
+
+        yield return new WaitForSeconds(duration);
+
+        PlayerInfo.SpellsFrozen = false;
+    }
+
+    ///Author: Chase O'Connor
+    ///Date: 3/2/2021
+    /// <summary> Starts the bleed DOT. </summary>
+    /// <param name="duration">How long in seconds does the bleed effect last for.</param>
+    public IEnumerator Bleed(int duration)
+    {
+        for (int i = 0; i < duration; i++)
+        {
+            yield return new WaitForSeconds(1f);
+            Health--;
+        }
     }
     #endregion
 }

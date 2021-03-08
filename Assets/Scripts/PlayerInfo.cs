@@ -33,6 +33,10 @@ public static class PlayerInfo
     /// by enemies.</value>
     public static bool IsInvisible { get; set; } = false;
 
+    /// <summary> Indicates if the player's spell casting is frozen. </summary>
+    /// <value>A value of true means the player is unable to cast any spells.</value>
+    public static bool SpellsFrozen { get; set; } = false;
+
     /// <summary> Indicates if the player is currently immune to spell freezing. </summary>
     /// <value>A value of true means the player can't have their spell casting frozen by enemies.</value>
     public static bool SpellFreezeImmune { get; set; } = false;

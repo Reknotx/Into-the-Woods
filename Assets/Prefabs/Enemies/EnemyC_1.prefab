@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8030712385557941135}
   - component: {fileID: 8030712385557941133}
   - component: {fileID: 8030712385557941134}
+  - component: {fileID: 2806715992559722802}
+  - component: {fileID: 7296864119625648882}
   m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
@@ -129,10 +131,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70d457c37ef7464fa328c3786c95e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 10
   health: 15
   PlayerObject: {fileID: 0}
   awarenessRange: 4
+  contactDamage: 1
+  contactDamageAmount: 1
+--- !u!65 &2806715992559722802
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030712385557941132}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7296864119625648882
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030712385557941132}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8030712386084962025
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +175,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8030712386084962027}
-  - component: {fileID: 8030712386084962026}
   m_Layer: 10
   m_Name: EnemyC_1
   m_TagString: Untagged
@@ -165,19 +197,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &8030712386084962026
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8030712386084962025}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
