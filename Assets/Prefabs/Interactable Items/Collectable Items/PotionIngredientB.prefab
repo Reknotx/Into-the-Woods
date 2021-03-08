@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 0.30011997, y: 0.30011997, z: 0.30011997}
   m_Children: []
   m_Father: {fileID: 9073458403585220480}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4165731051811462573
 MeshFilter:
@@ -79,6 +79,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-8708601528138316100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9073458403585220484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8baa1ae2d12d5ce4cb4a3ee3741d514a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UISprite: {fileID: 21300000, guid: 3aa382c298f61934dab8ffb8c35d5830, type: 3}
+  amountInInv: 0
 --- !u!1 &2257749516248310563
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +123,7 @@ Transform:
   m_LocalScale: {x: 0.099999994, y: 0.62855, z: 0.099999994}
   m_Children: []
   m_Father: {fileID: 9073458403585220480}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2655027111941317076
 MeshFilter:
@@ -158,20 +172,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-8708601528138316100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9073458403585220484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8baa1ae2d12d5ce4cb4a3ee3741d514a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UISprite: {fileID: 21300000, guid: 3aa382c298f61934dab8ffb8c35d5830, type: 3}
-  amountInInv: 0
 --- !u!1001 &1994751024050335958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ PrefabInstance:
     - target: {fileID: 915396425055037120, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7369473543905947474, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
         type: 3}
