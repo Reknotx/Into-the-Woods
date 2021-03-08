@@ -16,5 +16,10 @@ public class RareChest : MonoBehaviour
     {
         ///Start chest opening animation
         ///Start item rising animation
+        ///
+
+        Vector3 spawnPos = new Vector3(transform.position.x, storedObj.transform.position.y, transform.position.z);
+        Instantiate(storedObj, spawnPos, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
