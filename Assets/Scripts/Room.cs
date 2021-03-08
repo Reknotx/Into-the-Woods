@@ -11,7 +11,7 @@ using UnityEngine;
 /// <rem
 public class Room : MonoBehaviour
 {
-    public List<Enemy> enemies = new List<Enemy>();
+    [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
 
     static GameObject[] doors;
 
