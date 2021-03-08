@@ -75,11 +75,11 @@ public class Room : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 8)
-        {
-            OpenDoors();
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.layer == 8)
+    //    {
+    //        OpenDoors();
+    //    }
+    //}
 }

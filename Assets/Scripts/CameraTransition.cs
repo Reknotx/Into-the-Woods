@@ -6,6 +6,7 @@ public class CameraTransition : SingletonPattern<CameraTransition>
 {
     float zOffset = 6.2f;
 
+    public float transSpeed = 1.5f;
 
     protected override void Awake()
     {
@@ -30,7 +31,7 @@ public class CameraTransition : SingletonPattern<CameraTransition>
 
         while (moving)
         {
-            float u = (Time.time - timeStart) / 1f;
+            float u = (Time.time - timeStart) / (1 / transSpeed);
 
 
             if (u >= 1f)
