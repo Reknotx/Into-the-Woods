@@ -27,6 +27,12 @@ public class Enemy : Unit
 
     // Stats
     // HP is currently handled by Unit.cs
+    protected bool onCooldownShoot; // Whether this unit's shooting attack is on cooldown.
+    protected bool onCooldownBody; // Whether this unit's contact damage attack is on cooldown.
+    [SerializeField] protected bool contactDamage; // Do I hurt the player on touch?
+    [SerializeField] protected int contactDamageAmount; // How much damage do I do on touch?
+
+    //protected bool isDamageFlashing; // If the unit is currently flashing from damage.
 
     /// Author: Paul Hernandez
     /// Date: 2/20/2021
@@ -54,8 +60,14 @@ public class Enemy : Unit
         if (this.gameObject.GetComponent<NavMeshAgent>() != null)
         {
             agent = this.gameObject.GetComponent<NavMeshAgent>();
+            this.gameObject.GetComponent<NavMeshAgent>().speed = speed; // Set my "speed" variable inherited from Unit to my NavMeshAgent speed.
         }
-        else
+        else if (this.gameObject.GetComponent<EnemyA_1>() == null 
+            && this.gameObject.GetComponent<EnemyA_2>() == null 
+            && this.gameObject.GetComponent<EnemyA_3>() == null
+            && this.gameObject.GetComponent<BossA>() == null
+            ) // If this isn't an enemy that doesn't move...
+            // Maybe I should just check a private variable for this...
         {
             Debug.Log("Enemy is missing NavMesh Agent!");
         }
@@ -71,6 +83,8 @@ public class Enemy : Unit
         }
 
         myHome = transform.position; // If I get a "return home" command, I'll go back to where I was placed.
+
+        //this.gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_Emission"); // Ensure that emission is on if it's not, so we can flash.
     }
 
     /// Author: Paul Hernandez
@@ -110,6 +124,31 @@ public class Enemy : Unit
 
     #endregion
 
+    #region Contact Damage
+
+    protected void OnTriggerStay(Collider other)
+    {
+        if (contactDamage && !onCooldownBody && other.gameObject.layer == 8) // If "Player" layer.
+        {
+            Player.Instance.TakeDamage(contactDamageAmount);
+            StartCoroutine(TackleCooldown(1f));
+            //Debug.Log(onCooldown);
+        }
+    }
+
+    /// Author: Paul Hernandez
+    /// Date: 2/22/2021
+    /// <summary>
+    /// This puts the body contact hitbox for this unit on cooldown.
+    /// </summary>
+    protected IEnumerator TackleCooldown(float time)
+    {
+        onCooldownBody = true;
+        yield return new WaitForSeconds(time);
+        onCooldownBody = false;
+    }
+
+    #endregion
 
 
 
@@ -124,5 +163,37 @@ public class Enemy : Unit
         yield return new WaitForSeconds(freezeDuration);
 
         IsFrozen = false;
+    }
+
+    public override void TakeDamage(int dmgAmount)
+    {
+        base.TakeDamage(dmgAmount);
+        StartCoroutine(FlashColor());
+    }
+
+
+    /// Author: Paul Hernandez
+    /// Date: 3/7/2021
+    /// <summary>
+    /// This just makes the unit material flash an emissive color.
+    /// Material must have Emission set to true and Global Illumination set to Realtime!!!!!!!!!!!!!!!
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator FlashColor()
+    {
+        if (GetComponent<MeshRenderer>() != null)
+        {
+            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
+            yield return new WaitForSeconds(0.1f);
+            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.black);
+        }
+        else // Look in children objects instead, such as in the case of the current level designer versions of enemy objects.
+        {
+            GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
+            yield return new WaitForSeconds(0.1f);
+            GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.black);
+        }
+        
+
     }
 }
