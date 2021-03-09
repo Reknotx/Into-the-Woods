@@ -11,12 +11,14 @@ using UnityEngine;
 /// <rem
 public class Room : MonoBehaviour
 {
-    [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
+    public List<Enemy> enemies = new List<Enemy>(0);
 
     static GameObject[] doors;
 
     private void Start()
     {
+        enemies.Clear();
+
         if (doors == null)
         {
             doors = GameObject.FindGameObjectsWithTag("Door");
@@ -58,6 +60,7 @@ public class Room : MonoBehaviour
 
         foreach (Enemy enemy in enemies)
         {
+            Debug.Log(enemy.gameObject.name);
             enemy.gameObject.SetActive(true);
         }
     }
