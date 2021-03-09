@@ -14,5 +14,7 @@ public class TwoPeas : Collectable
     {
         if (Player.Instance.PInven.AddItem(this)) 
             PlayerInfo.DoubleShot = true;
+
+        PopupCheck();
     }
 }
