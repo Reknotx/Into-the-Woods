@@ -16,5 +16,7 @@ public class AttackCandy : Collectable
             PlayerInfo.AttackDamage++;
             Debug.Log("Player Attack now: " + PlayerInfo.AttackDamage);
         }
+
+        PopupCheck();
     }
 }

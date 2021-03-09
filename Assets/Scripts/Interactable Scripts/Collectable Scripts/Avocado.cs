@@ -31,6 +31,8 @@ public class Avocado : Collectable
 
         if (Player.Instance.PInven.AddItem(this)) 
             Player.Instance.BonusHealth += Uses;
+
+        PopupCheck();
     }
 
     /// <summary> Drops the avocado if we drop it ourselves, or it runs out of uses.</summary>

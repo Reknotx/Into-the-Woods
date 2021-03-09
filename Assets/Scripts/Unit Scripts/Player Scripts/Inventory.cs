@@ -10,6 +10,25 @@ using UnityEngine;
 /// </summary>
 public class Inventory
 {
+
+    public enum Items
+    {
+        Avocado,
+        AttackCandy,
+        SpecialCurrency,
+        PotionIngredientA,
+        PotionIngredientB,
+        PotionIngredientC,
+        PotionIngredientD,
+        Totem,
+        LuckyPenny,
+        BalloonBouquet,
+        NightOwlToken,
+        TwoPeas,
+        Compass
+    }
+
+
     public event EventHandler OnItemListChanged;
 
     /// <summary> The list of potions we currently have. </summary>
@@ -24,11 +43,30 @@ public class Inventory
     /// <summary> The array of our potions </summary>
     public Potion[] Potions => potions;
 
+    public Dictionary<Items, bool> prevCollected;
+
     /// <summary> The inventory constructor, initializes the lists and arrays. </summary>
     public Inventory()
     {
         itemList = new List<Collectable>();
         potions = new Potion[3];
+
+        prevCollected = new Dictionary<Items, bool>()
+        {
+            {Items.AttackCandy, false },
+            {Items.Avocado, false },
+            {Items.SpecialCurrency, false },
+            {Items.PotionIngredientA, false },
+            {Items.PotionIngredientB, false },
+            {Items.PotionIngredientC, false },
+            {Items.PotionIngredientD, false },
+            {Items.Totem, false },
+            {Items.LuckyPenny, false },
+            {Items.BalloonBouquet, false },
+            {Items.NightOwlToken, false },
+            {Items.TwoPeas, false },
+            {Items.Compass, false }
+        };
 
         //Debug.Log(itemList.Count);
     }
@@ -145,7 +183,7 @@ public class Inventory
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
 
-
+        #region Internal Functions
         ///Internal function to drop the item.
         void DropItem(Collectable droppedItem)
         {
@@ -205,6 +243,7 @@ public class Inventory
             //return Player.Instance.transform.position + new Vector3(dropX, 0f, dropZ);
             return dropPos;
         }
+        #endregion
     }
 
 
@@ -226,6 +265,7 @@ public class Inventory
         return false;
     }
 
+
     public Collectable GetItem(Collectable item)
     {
         foreach (Collectable invenItem in itemList)
@@ -233,6 +273,62 @@ public class Inventory
             if (invenItem.GetType() == item.GetType()) return invenItem;
         }
         return null;
+
+    }
+
+    /// <summary>
+    /// Checks to see if the collected item has been picked up
+    /// before by the player.
+    /// </summary>
+    /// <param name="item">The collected item.</param>
+    /// <returns>True if we have collected it before, false if first time.</returns>
+    /// <remarks>This function also sets the value of the dictionary associated with this item
+    /// to true if this is the first time we have picked it up.</remarks>
+    public bool HasCollectedBefore(Collectable item)
+    {
+        Items type = GetType(item);
+
+        bool returnVal = prevCollected[type];
+
+        if (!returnVal)
+        {
+            ///If this is our first time picking up the item we 
+            ///must set the value in the dictionary to true.
+            prevCollected[type] = true;
+        }
+
+        return returnVal;
+
+        Items GetType(Collectable i)
+        {
+            if (i is Avocado) return Items.Avocado;
+            
+            else if (i is Totem) return Items.Totem;
+            
+            else if (i is TwoPeas) return Items.TwoPeas;
+            
+            else if (i is Compass) return Items.Compass;
+            
+            else if (i is LuckyPenny) return Items.LuckyPenny;
+            
+            else if (i is AttackCandy) return Items.AttackCandy;
+            
+            else if (i is Currency) return Items.SpecialCurrency;
+            
+            else if (i is NightOwlToken) return Items.NightOwlToken;
+            
+            else if (i is BalloonBouquet) return Items.BalloonBouquet;
+            
+            else if (i is PotionIngredientA) return Items.PotionIngredientA;
+            
+            else if (i is PotionIngredientB) return Items.PotionIngredientB;
+            
+            else if (i is PotionIngredientB) return Items.PotionIngredientC;
+            
+            else if (i is PotionIngredientB) return Items.PotionIngredientD;
+
+            return Items.AttackCandy;
+        }
 
     }
     #endregion
