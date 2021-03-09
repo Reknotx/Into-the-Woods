@@ -27,14 +27,24 @@ public class EnemyB_2 : EnemyB
             Health = 30;
         }
 
-        InvokeRepeating("DropBomb", wanderCooldown, wanderCooldown);
+        
 
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        InvokeRepeating("DropBomb", wanderCooldown, wanderCooldown);
     }
 
     protected void DropBomb()
     {
-        WanderToPoint();
-        Instantiate(liveBombPrefab, this.transform.position, this.transform.rotation);
+        if (this.gameObject.activeSelf == true)
+        {
+            WanderToPoint();
+            Instantiate(liveBombPrefab, this.transform.position, this.transform.rotation);
+        }
+        
     }
 
 }
