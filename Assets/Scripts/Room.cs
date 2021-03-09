@@ -18,9 +18,15 @@ public class Room : MonoBehaviour
     private void Start()
     {
         enemies.Clear();
+        
 
         if (doors == null)
         {
+            doors = GameObject.FindGameObjectsWithTag("Door");
+        }
+        else if (doors[0] == null)
+        {
+            doors = null;
             doors = GameObject.FindGameObjectsWithTag("Door");
         }
 
