@@ -49,7 +49,7 @@ public class Unit : MonoBehaviour
                 {
                     WinLoseUI.Instance.YouWin();
                 }
-                else if (this is Enemy enemy)
+                else if (this is Enemy enemy && PlayerInfo.CurrentRoom != null)
                 {
                     PlayerInfo.CurrentRoom.RemoveEnemy(enemy);
                 }
