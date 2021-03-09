@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4957105566267230478}
-  - component: {fileID: 2499651819003542528}
   m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
@@ -31,19 +30,6 @@ Transform:
   m_Father: {fileID: 4957105566747393127}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2499651819003542528
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4957105566267230464}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4957105566747393125
 GameObject:
   m_ObjectHideFlags: 0
@@ -53,9 +39,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4957105566747393127}
+  - component: {fileID: 1553922807962662114}
   - component: {fileID: 6987241512475087200}
   - component: {fileID: 4708694096673910260}
-  - component: {fileID: 1553922807962662114}
+  - component: {fileID: 4135710371096812752}
+  - component: {fileID: 6740795969689566233}
   m_Layer: 10
   m_Name: EnemyB_1
   m_TagString: Untagged
@@ -79,6 +67,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553922807962662114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957105566747393125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b35a6517e253043a54e7a17a33639a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  StartHealth: 1
+  PlayerObject: {fileID: 0}
+  awarenessRange: 100
+  contactDamage: 1
+  contactDamageAmount: 1
+  wanderCooldown: 4
+  wanderDistance: 3
 --- !u!195 &6987241512475087200
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -117,26 +125,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1553922807962662114
-MonoBehaviour:
+--- !u!65 &4135710371096812752
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4957105566747393125}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8b35a6517e253043a54e7a17a33639a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  StartHealth: 1
-  PlayerObject: {fileID: 0}
-  awarenessRange: 100
-  contactDamage: 1
-  contactDamageAmount: 1
-  wanderCooldown: 4
-  wanderDistance: 3
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3, z: 1}
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!65 &6740795969689566233
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957105566747393125}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3, z: 1}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &6896543060919808766
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +162,6 @@ GameObject:
   - component: {fileID: 8066577374733686098}
   - component: {fileID: 5368260256944142193}
   - component: {fileID: 1398260611022182245}
-  - component: {fileID: 7575407932976467437}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -217,16 +230,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7575407932976467437
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6896543060919808766}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

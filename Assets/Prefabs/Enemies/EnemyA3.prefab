@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &2895968710192528963
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486104189182224277}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 196.80113, y: 328.48102, z: 212.27672}
-  m_Center: {x: -0.000015258789, y: -0.000015258789, z: -2.1068077}
 --- !u!1 &5966129434810412446
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,6 +49,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5966129434969635619}
   - component: {fileID: -9147367780878519292}
+  - component: {fileID: 9013042058659185807}
+  - component: {fileID: 7538243741059827711}
   m_Layer: 10
   m_Name: EnemyA3
   m_TagString: Untagged
@@ -107,6 +96,35 @@ MonoBehaviour:
   bullet: {fileID: 1773860605470565557, guid: 16c6016a7a1e55245a17880a3f9211f1, type: 3}
   bulletForce: 5
   shotCooldown: 1
+--- !u!65 &9013042058659185807
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966129434969635620}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 3, z: 2}
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!54 &7538243741059827711
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966129434969635620}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: Infinity
+  m_AngularDrag: Infinity
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 94
+  m_CollisionDetection: 0
 --- !u!1001 &756487083815869124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -169,6 +187,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb90944dcb8a5cb45931c8774e8da53e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e22f5a58c9bf4854c8c0641dd1aa460b, type: 2}
     - target: {fileID: 919132149155446097, guid: fb90944dcb8a5cb45931c8774e8da53e,
         type: 3}
       propertyPath: m_Name
@@ -176,12 +199,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb90944dcb8a5cb45931c8774e8da53e, type: 3}
---- !u!1 &486104189182224277 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fb90944dcb8a5cb45931c8774e8da53e,
-    type: 3}
-  m_PrefabInstance: {fileID: 756487083815869124}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1005760136120728879 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fb90944dcb8a5cb45931c8774e8da53e,
