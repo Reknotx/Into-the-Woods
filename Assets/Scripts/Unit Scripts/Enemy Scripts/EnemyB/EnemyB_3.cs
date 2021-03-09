@@ -64,12 +64,18 @@ public class EnemyB_3 : EnemyB
     {
         isShielded = false;
         shieldVisual.SetActive(false);
-        agent.SetDestination(PickRandomPoint(agent.transform.position, wanderDistance, 31));
+        if (this.gameObject.activeSelf == true)
+        {
+            agent.SetDestination(PickRandomPoint(agent.transform.position, wanderDistance, 31));
+        }
         yield return new WaitForSeconds(timeOff);
 
         isShielded = true;
         shieldVisual.SetActive(true);
-        agent.SetDestination(this.transform.position);
+        if (this.gameObject.activeSelf == true)
+        {
+            agent.SetDestination(this.transform.position);
+        }
         yield return new WaitForSeconds(timeOn);
         RunNShield();
     }
