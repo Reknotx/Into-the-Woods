@@ -11,7 +11,6 @@ using UnityEngine.UI;
 /// </summary>
 public class Player : Unit
 {
-    
     #region Fields
     #region Public
     /// <summary> The singleton instance of the player. </summary>

@@ -13,5 +13,7 @@ public class Compass : Collectable
     public override void Interact()
     {
         if (Player.Instance.PInven.AddItem(this)) PlayerInfo.SpellTracking = true;
+
+        PopupCheck();
     }
 }

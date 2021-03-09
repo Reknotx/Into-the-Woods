@@ -53,7 +53,7 @@ public class ClockUI : MonoBehaviour
 
         //*** counter for the actual day counter, remove coments when day night cycle implemented
         //string dayString = (Mathf.FloorToInt(day)).ToString("");
-        //dayText.text = ("Day: " + dayString);
+       // dayText.text = ("Day: " + dayString);
 
         //*** temporary timer info that can be deleted when the day night cycle is implemented
         string minutesString = Mathf.Floor(timerMinutes - Mathf.Floor(day)).ToString("0");

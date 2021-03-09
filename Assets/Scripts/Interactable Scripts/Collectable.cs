@@ -18,5 +18,18 @@ public abstract class Collectable : Interactable
     {
         ///Add to inventory
         Player.Instance.PInven.AddItem(this);
+        PopupCheck();
+    }
+
+    /// <summary>
+    /// Checks to see if the popup for the item needs to be displayed.
+    /// </summary>
+    protected void PopupCheck()
+    {
+        if (!Player.Instance.PInven.HasCollectedBefore(this))
+        {
+            Debug.Log("Collected before");
+            PopUpManager.Instance.PopUp(this);
+        }
     }
 }
