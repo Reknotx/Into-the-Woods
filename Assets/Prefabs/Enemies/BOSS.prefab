@@ -48,11 +48,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5966129434969635619}
-  - component: {fileID: -9147367780878519292}
   - component: {fileID: 9013042058659185807}
   - component: {fileID: 7538243741059827711}
+  - component: {fileID: 3706779525447463571}
   m_Layer: 10
-  m_Name: EnemyA3
+  m_Name: BOSS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,35 +67,13 @@ Transform:
   m_GameObject: {fileID: 5966129434969635620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 5966129434810412445}
   - {fileID: 1005760136120728879}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-9147367780878519292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5966129434969635620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158e5fa0e62c1fd4d940d1aec81c1659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  StartHealth: 50
-  PlayerObject: {fileID: 0}
-  awarenessRange: 4
-  contactDamage: 0
-  contactDamageAmount: 0
-  aimerObj: {fileID: 5966129434810412446}
-  bullet: {fileID: 1773860605470565557, guid: 16c6016a7a1e55245a17880a3f9211f1, type: 3}
-  bulletForce: 5
-  shotCooldown: 1
 --- !u!65 &9013042058659185807
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125,6 +103,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 0
+--- !u!114 &3706779525447463571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966129434969635620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00afb6eb1627e7246a2875c39e77cfd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  StartHealth: 100
+  PlayerObject: {fileID: 0}
+  awarenessRange: 8
+  contactDamage: 0
+  contactDamageAmount: 0
+  aimerObj: {fileID: 5966129434810412446}
+  bullet: {fileID: 4184307235607753559, guid: cbaaf357ad5f81743b9fe9a71dc93ef1, type: 3}
+  bulletForce: 3
+  shotCooldown: 0.5
 --- !u!1001 &756487083815869124
 PrefabInstance:
   m_ObjectHideFlags: 0
