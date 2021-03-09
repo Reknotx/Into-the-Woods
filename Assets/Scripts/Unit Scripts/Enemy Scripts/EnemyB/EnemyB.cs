@@ -45,7 +45,10 @@ public class EnemyB : Enemy
 
     protected void WanderToPoint()
     {
-        agent.SetDestination(PickRandomPoint(agent.transform.position, wanderDistance, 31));
+        if (this.gameObject.activeSelf == true)
+        {
+            agent.SetDestination(PickRandomPoint(agent.transform.position, wanderDistance, 31));
+        }
         //Debug.Log(this.gameObject.transform.position);
     }
 
