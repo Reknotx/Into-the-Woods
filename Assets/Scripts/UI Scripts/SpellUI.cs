@@ -70,8 +70,8 @@ public class SpellUI : MonoBehaviour
         }
 
         listLocation = 0;
-        UpdateSpellList();
-        SpellOn();
+        //UpdateSpellList();
+        //SpellOn();
         listSize = 3;
     }
 
