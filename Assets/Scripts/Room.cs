@@ -11,21 +11,23 @@ using UnityEngine;
 /// <rem
 public class Room : MonoBehaviour
 {
-    public List<Enemy> enemies = new List<Enemy>();
+    [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
 
     static GameObject[] doors;
 
     private void Start()
     {
-        if (doors != null)
+        if (doors == null)
         {
-            Debug.Log("Doors initialized by other room");
-            return;
+            doors = GameObject.FindGameObjectsWithTag("Door");
         }
 
-        GameObject[] tempDoor = GameObject.FindGameObjectsWithTag("Door");
-
-        doors = tempDoor;
+        foreach (Transform enemy in transform.Find("Enemies"))
+        {
+            enemies.Add(enemy.GetComponent<Enemy>());
+            Debug.Log(enemy.name);
+            enemy.gameObject.SetActive(false);
+        }
 
         OpenDoors();
     }
@@ -53,6 +55,11 @@ public class Room : MonoBehaviour
         {
             door.SetActive(true);
         }
+
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.gameObject.SetActive(true);
+        }
     }
 
     /// <summary> Opens all of the doors in the level. </summary>
@@ -68,17 +75,23 @@ public class Room : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8 /*&& enemies.Count != 0*/)
+        if (other.gameObject.layer == 8)
         {
-            CloseDoors();
+            if (enemies.Count != 0)
+            {
+                CloseDoors();
+            }
+
+            CameraTransition.Instance.TransitionToPoint(transform.position);
+            PlayerInfo.CurrentRoom = this;
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 8)
-        {
-            OpenDoors();
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.layer == 8)
+    //    {
+    //        OpenDoors();
+    //    }
+    //}
 }

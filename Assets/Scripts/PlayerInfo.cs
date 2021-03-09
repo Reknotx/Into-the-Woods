@@ -40,4 +40,7 @@ public static class PlayerInfo
     /// <summary> Indicates if the player is currently immune to spell freezing. </summary>
     /// <value>A value of true means the player can't have their spell casting frozen by enemies.</value>
     public static bool SpellFreezeImmune { get; set; } = false;
+
+    /// <summary> The room the player is currently in. </summary>
+    public static Room CurrentRoom { get; set; }
 }
