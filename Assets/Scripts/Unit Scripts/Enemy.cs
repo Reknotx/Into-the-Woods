@@ -109,7 +109,10 @@ public class Enemy : Unit
         distanceFromPlayer = Vector3.Distance(transform.position, PlayerObject.transform.position);
         if (distanceFromPlayer < awarenessRange)
         {
-            agent.SetDestination(PlayerObject.transform.position);
+            if (this.gameObject.activeSelf == true)
+            {
+                agent.SetDestination(PlayerObject.transform.position);
+            }
         }
     }
 
