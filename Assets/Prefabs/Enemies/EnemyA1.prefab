@@ -45,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0087792, z: 1}
+  m_Center: {x: 0, y: 0.5004075, z: 0}
 --- !u!114 &3108348980762590779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +63,8 @@ MonoBehaviour:
   StartHealth: 15
   PlayerObject: {fileID: 0}
   awarenessRange: 5
+  contactDamage: 0
+  contactDamageAmount: 0
   aimerObj: {fileID: 5211695692969055804}
   bullet: {fileID: 1828166905602745274, guid: 689f1c5eaa1f79247b1027e16e2c0981, type: 3}
   bulletForce: 5
@@ -92,7 +94,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5211695692969055804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.424, y: 0.321, z: 0.145}
+  m_LocalPosition: {x: 0.424, y: 0.828, z: 0.145}
   m_LocalScale: {x: 0.3, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5211695692472448719}
@@ -132,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5211695693273914287}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.074, y: -0.006, z: 0.145}
+  m_LocalPosition: {x: 0.074, y: 0.501, z: 0.145}
   m_LocalScale: {x: 0.4, y: 1, z: 0.4}
   m_Children: []
   m_Father: {fileID: 5211695692472448719}
