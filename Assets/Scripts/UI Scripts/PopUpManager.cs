@@ -62,6 +62,10 @@ public class PopUpManager : MonoBehaviour
         {
             gameObject.transform.Find("AvocadoPopUp").gameObject.SetActive(true);
         }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     /// Author: JT Esmond
