@@ -46,6 +46,8 @@ public class SpellUI : MonoBehaviour
     public GameObject selectedSpell;
     #endregion
 
+    public Text spellText;
+
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -68,59 +70,58 @@ public class SpellUI : MonoBehaviour
         }
 
         listLocation = 0;
-        UpdateSpellList();
-        SpellOn();
+        //UpdateSpellList();
+        //SpellOn();
+        listSize = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
+
         //temporary keybinds to test the UI
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) //scoll forward
         {
-            SpellOff();
+            //SpellOff();
             listLocation++;
             if (listLocation == listSize +1) listLocation = 0;
-            SpellOn();
+            //SpellOn();
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0f) //scroll backward
         {
-            SpellOff();
+            //SpellOff();
             listLocation--;
             if (listLocation < 0) listLocation = listSize;
-            SpellOn();
+            //SpellOn();
         }
 
-        if (Input.GetKeyDown("l"))
+        if (listLocation == 0)
         {
-            hasBarrierBreakerSpell = true;
-            UpdateSpellList();
-            Debug.Log("has barrier breaker Spell");
+            spellText.text = ("Attack Spell");
         }
-        if (Input.GetKeyDown("k"))
+        else if (listLocation == 1)
         {
-            hasFreezeSpell = true;
-            UpdateSpellList();
-            Debug.Log("has freeze Spell");
+            spellText.text = ("Freeze Spell");
         }
-        if (Input.GetKeyDown("j"))
+        else if (listLocation == 2)
         {
-            hasProtectionSpell = true;
-            UpdateSpellList();
-            Debug.Log("has protection Spell");
+            spellText.text = ("Protection Spell");
         }
-        if (Input.GetKeyDown("h"))
+        else if (listLocation == 3)
         {
-            hasUnlockingSpell = true;
-            UpdateSpellList();
-            Debug.Log("has unlocking Spell");
+            spellText.text = ("Barrier Breaker Spell");
         }
-        */
+
     }
 
     #region Functions
 
+    /// Author: JT Esmond
+    /// Date: 3/8/2021
+    /// <summary>
+    /// temporary function to edit the text element to display the current spell
+    /// </summary>
+    /// 
     #region SpellOn
     /// Author: JT Esmond
     /// Date: 2/8/2021

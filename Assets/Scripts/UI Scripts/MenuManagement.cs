@@ -8,6 +8,7 @@ public class MenuManagement : MonoBehaviour
 
     public string surveyLink;
     public string bugReportLink;
+    private int randomLocation;
 
     private void Start()
     {
@@ -23,23 +24,28 @@ public class MenuManagement : MonoBehaviour
     /// </summary>
     public void PlayGame()
     {
-        //SceneManager.LoadScene();
+        randomLocation = Random.Range(0, 5);
+        if (randomLocation == 0)
+        {
+            SceneManager.LoadScene("LevelVariation1");
+        }
+        else if (randomLocation == 1)
+        {
+            SceneManager.LoadScene("LevelVariation2");
+        }
+        else if (randomLocation == 2)
+        {
+            SceneManager.LoadScene("LevelVariation3");
+        }
+        else if (randomLocation == 3)
+        {
+            SceneManager.LoadScene("LevelVariation4");
+        }
+        else if (randomLocation == 4)
+        {
+            SceneManager.LoadScene("LevelVariation5");
+        }
     }
-
-    /// Author: JT Esmond
-    /// Date: 2/21/2021
-    /// <summary>
-    /// Both of these are temporary functions to load the premade levels
-    /// </summary>
-    public void MapA()
-    {
-        SceneManager.LoadScene("MapA");
-    }
-    public void MapB()
-    {
-        SceneManager.LoadScene("MapB");
-    }
-
 
     /// Author: JT Esmond
     /// Date: 2/21/2021
