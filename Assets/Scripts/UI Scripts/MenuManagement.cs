@@ -9,6 +9,13 @@ public class MenuManagement : MonoBehaviour
     public string surveyLink;
     public string bugReportLink;
 
+    private void Start()
+    {
+        ///Limits the game's refresh rate to our current monitors refresh rate to 
+        ///avoid having the game eating up our system.
+        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+    }
+
     /// Author: JT Esmond
     /// Date: 2/21/2021
     /// <summary>
