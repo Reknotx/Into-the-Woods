@@ -31,6 +31,42 @@ public class PopUpManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            TotemPopUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            LuckyPennyPopUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            AttackCandyPopUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            BalloonBouquetPopUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.G))
+        {
+            NightOwlPopUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            TwoPeasPopUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.J))
+        {
+            CompassPopUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            AvocadoPopUp();
+        }
+    }
+
     /// Author: JT Esmond
     /// Date: 3/8/2021
     /// <summary>
