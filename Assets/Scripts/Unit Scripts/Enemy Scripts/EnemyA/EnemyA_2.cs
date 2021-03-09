@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyA_2 : MonoBehaviour
+public class EnemyA_2 : EnemyA
 {
-    // Start is called before the first frame update
-    void Start()
+    public int shieldDurability = 3;
+
+    public override void TakeDamage(int dmgAmount)
     {
-        
+        if (shieldDurability != 0)
+        {
+            shieldDurability--;
+            if (shieldDurability == 0)
+            {
+                ///turn off the shield
+                transform.Find("Shield").gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            base.TakeDamage(dmgAmount);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

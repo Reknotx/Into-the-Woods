@@ -41,8 +41,10 @@ public class Enemy : Unit
     /// for its operations. This way, the designers don't have to fiddle with
     /// enemy stuff in the inspector or hierarchy (hopefully!).
     /// </summary>
-    protected virtual void Start()
+    /// Edit - Chase O'Connor: Made a start function in Unit that is virtual for initializing health.
+    protected override void Start()
     {
+        base.Start();
         InitAI();
     }
 
@@ -60,7 +62,7 @@ public class Enemy : Unit
         if (this.gameObject.GetComponent<NavMeshAgent>() != null)
         {
             agent = this.gameObject.GetComponent<NavMeshAgent>();
-            this.gameObject.GetComponent<NavMeshAgent>().speed = speed; // Set my "speed" variable inherited from Unit to my NavMeshAgent speed.
+            GetComponent<NavMeshAgent>().speed = speed; // Set my "speed" variable inherited from Unit to my NavMeshAgent speed.
         }
         else if (this.gameObject.GetComponent<EnemyA_1>() == null 
             && this.gameObject.GetComponent<EnemyA_2>() == null 
