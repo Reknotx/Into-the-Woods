@@ -241,9 +241,11 @@ public class Player : Unit
     /// </summary>
     protected override void Move()
     {
+        moveDir = Vector3.zero;
+
         moveDir = new Vector3(Input.GetAxis("Horizontal"),
                               0f,
-                              Input.GetAxis("Vertical"));
+                              Input.GetAxis("Vertical")).normalized;
 
         base.Move();
     }
