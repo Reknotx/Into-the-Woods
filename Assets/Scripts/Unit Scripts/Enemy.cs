@@ -131,7 +131,7 @@ public class Enemy : Unit
 
     #region Contact Damage
 
-    protected void OnTriggerStay(Collider other)
+    protected virtual void OnTriggerStay(Collider other)
     {
         if (contactDamage && !onCooldownBody && other.gameObject.layer == 8) // If "Player" layer.
         {
