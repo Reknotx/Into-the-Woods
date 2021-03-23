@@ -15,5 +15,40 @@ using UnityEngine;
 
 public class EnemyC_3 : EnemyC
 {
-   
+    private int currentHealth;
+    [SerializeField] protected GameObject SubEnemyPrefab;
+
+
+    protected override void Start()
+    {
+        base.Start();
+
+        if (Health == 0)
+        {
+            Health = 50;
+        }
+    }
+
+    public override int Health
+    {
+        get => currentHealth;
+
+        set
+        {
+            currentHealth = value;
+
+            if (currentHealth <= 0)
+            {
+                if (this is Enemy enemy && PlayerInfo.CurrentRoom != null)
+                {
+                    PlayerInfo.CurrentRoom.RemoveEnemy(enemy);
+                }
+
+                // Split here.
+                Instantiate(SubEnemyPrefab);
+
+                Destroy(gameObject);
+            }
+        }
+    }
 }
