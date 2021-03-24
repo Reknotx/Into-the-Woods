@@ -7,8 +7,8 @@ using UnityEngine;
 /// <summary> Provides the player with a new recipe that they can now craft. </summary>
 public class LearnPotion : Interactable
 {
-    [Tooltip("The potion recipe that will be unlocked.")]
     /// <summary> The recipe that will be unlocked. </summary>
+    [Tooltip("The potion recipe that will be unlocked.")]
     [SerializeField] private PotionRecipe unlockRecipe;
 
     /// <summary> Unlocks a potion recipe that the player can now craft. </summary>
