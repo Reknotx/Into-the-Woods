@@ -13,7 +13,7 @@ public class ClockUI : MonoBehaviour
 {
     //floats that are used in handling the Clock UI
     public float timerMinutes;
-    private const float realSecondsPerInGameDay = 60f;
+    private const float realSecondsPerInGameDay = 360f;
     private float day;
     private int timer = 10;
     //transform for the clockhand
@@ -47,9 +47,6 @@ public class ClockUI : MonoBehaviour
 
         //rotates the clock hand the correct amount based off of the normalized day value
         clockHandTransform.eulerAngles = new Vector3(0, 0, -dayNormalized * rotationDegreesPerDay);
-
-
-
 
         //*** counter for the actual day counter, remove coments when day night cycle implemented
         //string dayString = (Mathf.FloorToInt(day)).ToString("");

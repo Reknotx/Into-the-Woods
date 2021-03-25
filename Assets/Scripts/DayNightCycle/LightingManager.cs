@@ -8,8 +8,7 @@ using UnityEngine;
 /// Class that handles the functionality of the Day night cycle
 /// </summary>
 /// 
-[ExecuteAlways]
-public class LightingManager : MonoBehaviour
+public class LightingManager : SingletonPattern<LightingManager>
 {
     //reference for the light in the scene
     [SerializeField] private Light DirectionalLight;
@@ -18,21 +17,29 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private LightingPreset Preset;
 
     //reference for the TimeOfDay variable;
-    [SerializeField] private float TimeOfDay;
+    [HideInInspector] public float TimeOfDay;
 
     //variables used to check if its night or not
     private float time;
-    private bool night;
+    [HideInInspector] public bool night;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    private void Start()
+    {
+        TimeOfDay += 180;
+    }
 
     private void Update()
     {
-        time = transform.rotation.x;
-        if (time >= -25)
+        if(TimeOfDay >= 90 && TimeOfDay <=270)
         {
             night = false;
         }
-        else if (TimeOfDay >= 295 && TimeOfDay <= 60)
+        else
         {
             night = true;
         }
@@ -45,15 +52,13 @@ public class LightingManager : MonoBehaviour
         {
             TimeOfDay += Time.deltaTime;
             TimeOfDay %= 360f;
-            UpdateLighting(TimeOfDay / 720f);
-        }
-        else
-        {
             UpdateLighting(TimeOfDay / 360f);
         }
 
-        Debug.Log(night);
-
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            TimeOfDay = 180;
+        }
     }
 
     /// Author: JT Esmond
