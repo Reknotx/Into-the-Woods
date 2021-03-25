@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 8942420308749994943}
   - component: {fileID: 2962554021858876735}
   - component: {fileID: 5612588426009593460}
+  - component: {fileID: 7266080971592001424}
   m_Layer: 10
   m_Name: EnemyC3_Mini
   m_TagString: Untagged
@@ -285,12 +286,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.5
-  StartHealth: 50
+  StartHealth: 15
   PlayerObject: {fileID: 0}
   awarenessRange: 6
-  contactDamage: 0
-  contactDamageAmount: 0
+  contactDamage: 1
+  contactDamageAmount: 1
+  splitOnDeath: 0
   SubEnemyPrefab: {fileID: 0}
+  miniSpawnDistance: 0.5
 --- !u!195 &8942420308749994943
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -338,6 +341,19 @@ BoxCollider:
   m_GameObject: {fileID: 4046133777341551770}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3, z: 1}
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!65 &7266080971592001424
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4046133777341551770}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 3, z: 1}
