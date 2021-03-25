@@ -364,6 +364,7 @@ public class Player : Unit
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
     private void OpenInventory() => UI_Inventory.Instance.InventoryDisplay();
+    //private void OpenInventory() => MainHUDManager.Instance.inventoryUI.InventoryDisplay();
     #endregion
 
     public override void TakeDamage(int dmgAmount)

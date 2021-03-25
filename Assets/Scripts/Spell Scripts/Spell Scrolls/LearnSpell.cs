@@ -13,5 +13,7 @@ public class LearnSpell : Interactable
     {
         if (!Player.Instance.spells.Contains(spellScroll.spellToLearn))
             Player.Instance.spells.Add(spellScroll.spellToLearn);
+
+        Destroy(gameObject);
     }
 }
