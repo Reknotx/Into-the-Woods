@@ -30,11 +30,14 @@ public class LightingManager : SingletonPattern<LightingManager>
 
     private void Start()
     {
+        //sets the time of day at start at noon
         TimeOfDay += 180;
     }
 
     private void Update()
     {
+
+        //sets a boolean depending on the time of day
         if(TimeOfDay >= 90 && TimeOfDay <=270)
         {
             night = false;
@@ -44,10 +47,11 @@ public class LightingManager : SingletonPattern<LightingManager>
             night = true;
         }
 
+
         if (Preset == null)
             return;
 
-
+        //runs the day night cycle
         if (Application.isPlaying)
         {
             TimeOfDay += Time.deltaTime;
@@ -55,6 +59,7 @@ public class LightingManager : SingletonPattern<LightingManager>
             UpdateLighting(TimeOfDay / 360f);
         }
 
+        //temporary testing for setting time of day
         if(Input.GetKeyDown(KeyCode.A))
         {
             TimeOfDay = 180;
