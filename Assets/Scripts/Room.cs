@@ -8,18 +8,85 @@ using UnityEngine;
 /// <summary>
 /// Handles the individual rooms in the game and their functionality.
 /// </summary>
-/// <rem
 public class Room : MonoBehaviour
 {
     public List<Enemy> enemies = new List<Enemy>(0);
 
     static GameObject[] doors;
 
+    #region Pathfinding stuff
+    /// <summary> The position in the map for this room. </summary>
+    [HideInInspector]
+    public Vector2 gridPosition;
+
+    /// <summary> The g score of this room. </summary>
+    [HideInInspector]
+    public int gCost = 0;
+
+    /// <summary> The h score of this room. </summary>
+    [HideInInspector]
+    public int hCost = 0;
+
+    /// <summary> The parent of this room in the algorithm. </summary>
+    [HideInInspector]
+    public Room parent;
+
+    /// <summary> The f score of this room. </summary>
+    public int fCost { get => gCost + hCost; }
+    #endregion
+
+
+    int _minConnect = 1;
+
+    int _maxConnect = 4;
+
+    int _currConnect;
+
+    /// <summary>
+    /// Refers to the minimum number of connections this room is allowed
+    /// to have.
+    /// </summary>
+    /// Essentially what this is used for is for indicating which rooms
+    /// are on critical paths. All rooms that are on a critical path or
+    /// a branching path has a minimum of 2, but CAN have more than 2;
+    public int MinConnections
+    {
+        get => _minConnect;
+
+        set { _minConnect = Mathf.Clamp(value, 1, 4); }
+    }
+
+    /// <summary>
+    /// Refers to the maximum number of connections this room is allowed
+    /// to have.
+    /// </summary>
+    /// Essentially what this is used for is to indicate the limit of connections
+    /// for rooms. How many they can have in total. Corners can have 2, edge rooms
+    /// can have 3, and all other rooms can have up to 4.
+    public int MaxConnections
+    {
+        get => _maxConnect;
+
+        set { _maxConnect = Mathf.Clamp(value, 2, 4); }
+    }
+
+    /// <summary>
+    /// Refers to the current number of connections this room has
+    /// to other surrounding rooms.
+    /// </summary>
+    /// Essentially what this is used for is to indicate the current number
+    /// of connections this room has at the moment to other rooms.
+    public int CurrConnections
+    {
+        get => _currConnect;
+
+        set { _currConnect = Mathf.Clamp(value, 1, 4); }
+    }
+
     private void Start()
     {
         enemies.Clear();
         
-
         if (doors == null)
         {
             doors = GameObject.FindGameObjectsWithTag("Door");
