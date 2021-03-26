@@ -9,6 +9,8 @@ public class AStar : MonoBehaviour
 
     private Room[,] grid;
 
+    private Dictionary<string, List<Room>> paths;
+
     private void Start()
     {
         ///After the world has been generated assign the proper values
@@ -33,7 +35,26 @@ public class AStar : MonoBehaviour
 
             }
         }
+
+        paths = new Dictionary<string, List<Room>>()
+        {
+            {"Main Path", null},
+            {"Branch Path 1", null},
+            {"Branch Path 2", null},
+            {"Branch Path 3", null},
+            {"Branch Path 4", null}
+        };
+
     }
+
+
+    
+
+    public void GeneratePath(Room startRoom, Room endRoom)
+    {
+
+    }
+
 
     public List<Room> Algo(Room startRoom, Room endRoom)
     {

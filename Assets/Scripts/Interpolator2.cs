@@ -46,25 +46,6 @@ public class Interpolator2 : MonoBehaviour
         {
             float u = (Time.time - timeStart) / timeDuration;
 
-            //if (u >= 1f)
-            //{
-            //    u = 1f;
-            //    moving = false;
-            //}
-
-            //if (u >= uMax)
-            //{
-            //    u = uMax;
-            //    moving = false;
-
-            //}
-
-            //if (u <= uMin)
-            //{
-            //    u = uMin;
-            //    moving = false;
-            //}
-
             if (loopMove)
             {
                 timeStart = Time.time;
