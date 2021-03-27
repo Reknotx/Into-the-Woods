@@ -16,8 +16,10 @@ public class Room : MonoBehaviour
 
     #region Pathfinding stuff
     /// <summary> The position in the map for this room. </summary>
+    /// <remarks>This is indicative of the position of this room
+    /// on the 2D grid array.</remarks>
     [HideInInspector]
-    public Vector2 gridPosition;
+    public Vector2 gridPosition = Vector2.zero;
 
     /// <summary> The g score of this room. </summary>
     [HideInInspector]
@@ -41,6 +43,8 @@ public class Room : MonoBehaviour
     int _maxConnect = 4;
 
     int _currConnect;
+
+
 
     /// <summary>
     /// Refers to the minimum number of connections this room is allowed
@@ -115,6 +119,7 @@ public class Room : MonoBehaviour
     public void RemoveEnemy(Enemy deadEnemy)
     {
         enemies.Remove(deadEnemy);
+
         if (enemies.Count == 0)
         {
             OpenDoors();

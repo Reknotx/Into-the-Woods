@@ -3,19 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 #region Structs
-[Serializable]
-public struct DropRates
-{
-    [Range(0f, 1f)]
-    public float lowTierRate;
-    
-    [Range(0f, 1f)]
-    public float midTierRate;
-    
-    [Range(0f, 1f)]
-    public float highTierRate;
-}
 
 [Serializable]
 public struct LootI
@@ -26,8 +15,30 @@ public struct LootI
     [Tooltip("The prefab for the interactable item.")]
     public GameObject item;
     
+    [Tooltip("When turned on this item can only spawn at night.")]
+    public bool nightOnly;
+
+    [Tooltip("The source that this item can drop from.")]
+    public DropSource source;
+
     [Tooltip("The rate at which each item drops from the chests.")]
     public DropRates rates;
+
+
+
+    [Serializable]
+    public struct DropRates
+    {
+        [Range(0f, 1f)]
+        public float lowTierRate;
+    
+        [Range(0f, 1f)]
+        public float midTierRate;
+    
+        [Range(0f, 1f)]
+        public float highTierRate;
+    }
+
 }
 #endregion
 
@@ -36,6 +47,25 @@ public enum ChestTier
     Low,
     Mid,
     High
+}
+
+public enum DropSource
+{
+    /// <summary> Item can drop from enemies. </summary>
+    Enemies,
+
+    /// <summary> Item can drop from chests. </summary>
+    Chests,
+
+    /// <summary> Item can drop from enemies and chests. </summary>
+    EnemiesAndChests
+}
+
+public enum EnemyDropSource
+{
+    EnemyA,
+    EnemyB,
+    EnemyC
 }
 
 /// <summary>
@@ -47,9 +77,6 @@ public class LootTable : ScriptableObject
 {
     public List<LootI> loot = new List<LootI>();
     //public List<LootInfo> items = new List<LootInfo>();
-
-
-
 
     public float GetTierWeightTotal(ChestTier tier)
     {
@@ -78,5 +105,24 @@ public class LootTable : ScriptableObject
 
         return totalWeights;
     }
+
+
+    public bool Drop()
+    {
+        float total = GetTierWeightTotal(ChestTier.Low);
+
+        foreach (LootI info in loot)
+        {
+
+        }
+
+
+        float chance = UnityEngine.Random.Range(0f, total);
+
+        //if (chance <= )
+
+        return false;
+    }
+
 
 }

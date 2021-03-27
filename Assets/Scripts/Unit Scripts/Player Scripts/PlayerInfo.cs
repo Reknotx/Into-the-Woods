@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary> 
 /// A static class that holds all of the info of the player.
 /// </summary>
-public static class PlayerInfo
+public class PlayerInfo
 {
     /// <summary> The damage of the attack spell. </summary>
     public static int AttackDamage { get; set; } = 5;
@@ -43,4 +43,16 @@ public static class PlayerInfo
 
     /// <summary> The room the player is currently in. </summary>
     public static Room CurrentRoom { get; set; }
+
+    public static void Reset()
+    {
+        AttackDamage = 5;
+        DoubleShot = false;
+        SpellTracking = false;
+        DoubleHarvest = false;
+        IsProtected = false;
+        IsInvisible = false;
+        SpellsFrozen = false;
+        SpellFreezeImmune = false;
+    }
 }

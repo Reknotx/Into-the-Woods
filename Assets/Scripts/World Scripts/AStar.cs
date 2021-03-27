@@ -9,10 +9,13 @@ public class AStar : MonoBehaviour
 
     private Room[,] grid;
 
-    private Dictionary<string, List<Room>> paths;
+    private Dictionary<string, List<Room>> paths = new Dictionary<string, List<Room>>();
 
     private void Start()
     {
+        grid = new Room[columns, rows];
+
+
         ///After the world has been generated assign the proper values
         for (int x = 0; x < columns; x++)
         {
@@ -35,24 +38,12 @@ public class AStar : MonoBehaviour
 
             }
         }
-
-        paths = new Dictionary<string, List<Room>>()
-        {
-            {"Main Path", null},
-            {"Branch Path 1", null},
-            {"Branch Path 2", null},
-            {"Branch Path 3", null},
-            {"Branch Path 4", null}
-        };
-
     }
-
-
-    
 
     public void GeneratePath(Room startRoom, Room endRoom)
     {
-
+        ///Let's start with the crit path to test
+        paths.Add("Main Path", Algo(startRoom, endRoom));
     }
 
 
@@ -165,6 +156,11 @@ public class AStar : MonoBehaviour
 
         if (distX > distZ) return 10 * distZ + 10 * (distX - distZ);
         else return 10 * distX + 10 * (distZ - distX);
+
+    }
+
+    public void MakeConnections()
+    {
 
     }
 }
