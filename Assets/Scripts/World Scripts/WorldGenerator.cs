@@ -20,16 +20,20 @@ public class WorldGenerator : MonoBehaviour
     public GameObject[] BossRoomList; // The boss room prefab.
     public GameObject[] FieldRoomList; // List of field room prefabs to be assigned in the inspector.
 
-    private List<GameObject> FieldRoomPicks = new List<GameObject>(); // The current list of picked field rooms for this world.
-    private GameObject[] FieldRoomFinal; // The final array of picked field rooms as an array.
+    [SerializeField] private List<GameObject> FieldRoomPicks = new List<GameObject>(); // The current list of picked field rooms for this world.
+    [SerializeField] private GameObject[] FieldRoomFinal; // The final array of picked field rooms as an array.
 
-    private List<Vector3> gridPositions = new List<Vector3>(); // A list of possible locations to place tiles.
+    [SerializeField] private List<Vector3> gridPositions = new List<Vector3>(); // A list of possible locations to place tiles.
+
+    public GameObject[,] generatedMapArray; // the rooms we're using as a 2D array of objects.
 
     // These two have their own thing because they get re-rolled until they're a valid distance (minimumJourney) from each other.
     private Vector3 intendedStart = new Vector3(); // The location of the starting home spawn room.
     private Vector3 intendedEnd = new Vector3(); // The location of the ending boss room. 
     private int intendedStartIndex; // Index of the above start location.
     private int intendedEndIndex; // Index of the above end location.
+
+    public WorldRoomContainer roomContainer; //
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +45,7 @@ public class WorldGenerator : MonoBehaviour
 
         GenerateRoomList();
 
-
+        generatedMapArray = new GameObject[WorldColumns, WorldRows];
     }
 
     #region Setup
@@ -118,9 +122,13 @@ public class WorldGenerator : MonoBehaviour
             {
                 // At each index add a new Vector3 to our list with the x and y coordinates of that position.
                 gridPositions.Add(new Vector3(x, 0f, z));
+
+                // Chase's suggested integration.
+                Vector3 pos = new Vector3(x * 20, 0f, z * 20);
+                GameObject temp = Instantiate(roomContainer.roomPrefabs[Random.Range(0,roomContainer.roomPrefabs.Count)], pos, Quaternion.identity);
+                generatedMapArray[x, z] = temp;
             }
         }
-
 
         // Find valid start and end points.
         do
@@ -149,10 +157,13 @@ public class WorldGenerator : MonoBehaviour
         }
         LayoutAtPoint(HomeRoomList, intendedStart);
         LayoutAtPoint(BossRoomList, intendedEnd);
-        
+
 
         // Lay down the remainder of tiles.
         FieldRoomFinal = FieldRoomPicks.ToArray();
+
+        //generatedMapArray = Make2DArray(FieldRoomFinal, WorldRows, WorldColumns);
+
         LayoutAtRandom(FieldRoomFinal, (WorldRows*WorldColumns-2));
 
     }
@@ -298,6 +309,19 @@ public class WorldGenerator : MonoBehaviour
     }
     #endregion
 
-
+    #region ArrayTransferNonsense
+    private static T[,] Make2DArray<T>(T[] input, int height, int width)
+    {
+        T[,] output = new T[height, width];
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                output[i, j] = input[i * width + j];
+            }
+        }
+        return output;
+    }
+    #endregion
 
 }
