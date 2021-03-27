@@ -28,9 +28,6 @@ public class WorldGenerator2 : MonoBehaviour
     {
         SafetyCheck();
 
-        roomArrange = new GameObject[WorldColumns, WorldRows];
-        roomInstances = new GameObject[WorldColumns, WorldRows];
-
         if (manualSeed)
             Random.InitState(seed);
 
@@ -47,6 +44,9 @@ public class WorldGenerator2 : MonoBehaviour
     void SafetyCheck()
     {
         WorldRoomsParent = new GameObject("WorldRoomsParent").transform;
+
+        roomArrange = new GameObject[WorldColumns, WorldRows];
+        roomInstances = new GameObject[WorldColumns, WorldRows];
 
         if (WorldXScale == 0)
         {
@@ -75,7 +75,6 @@ public class WorldGenerator2 : MonoBehaviour
         }
 
     }
-
     #endregion
 
     #region MainWorldGeneration
@@ -104,7 +103,14 @@ public class WorldGenerator2 : MonoBehaviour
 
         }
 
-        // Still needs shuffling. 
+        // Shuffling the selected field rooms.
+        for (int i = 0; i < FieldRoomPicks.Count; i++)
+        {
+            GameObject temp = FieldRoomPicks[i];
+            int randomIndex = Random.Range(i, FieldRoomPicks.Count);
+            FieldRoomPicks[i] = FieldRoomPicks[randomIndex];
+            FieldRoomPicks[randomIndex] = temp;
+        }
 
 
         // =========================================================================================           
@@ -171,8 +177,6 @@ public class WorldGenerator2 : MonoBehaviour
         }
 
     }
-
-
     #endregion
 
 
