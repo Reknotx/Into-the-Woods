@@ -136,6 +136,7 @@ public class Player : Unit
         base.Awake();
         Application.targetFrameRate = Screen.currentResolution.refreshRate;
 
+        PlayerInfo.Reset();
 
         if (Instance != null && Instance != this)
         {
@@ -156,6 +157,13 @@ public class Player : Unit
         BonusHealth = 0;
 
         UI_Inventory.Instance.SetInventory(PInven);
+
+        List<GameObject> moveList = new List<GameObject>();
+        foreach (Transform playerChildObjs in transform)
+        {
+            Debug.Log(playerChildObjs.name);
+
+        }
     }
 
     #region Updates
@@ -212,12 +220,8 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.R) && UI_Inventory.Instance.gameObject.activeSelf)
         {
             ///Drop item.
-
             UI_Inventory.Instance.DropItem();
         }
-
-        ///TODO - Delete later when Paul works on Enemy AI
-        if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
         
         /// The player wants to interact with an item.
         /// See the note for this function down below.
@@ -364,6 +368,7 @@ public class Player : Unit
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
     private void OpenInventory() => UI_Inventory.Instance.InventoryDisplay();
+    //private void OpenInventory() => MainHUDManager.Instance.inventoryUI.InventoryDisplay();
     #endregion
 
     public override void TakeDamage(int dmgAmount)

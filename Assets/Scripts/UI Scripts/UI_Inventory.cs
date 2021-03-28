@@ -10,11 +10,15 @@ using UnityEngine.UI;
 /// </summary>
 public class UI_Inventory : SingletonPattern<UI_Inventory>
 {
+    readonly int imageIndex = 0;
+    readonly int amountIndex = 1;
+
+
     /// <summary> The reference to the player inventory. </summary>
     private Inventory inventory;
 
     /// <summary> The list of the item sprites that are displayed. </summary>
-    public List<Image> itemSlots = new List<Image>();
+    public List<GameObject> itemSlots = new List<GameObject>();
 
     /// <summary> The list of the potion sprites that are displayed. </summary>
     public List<Image> potionSlots = new List<Image>();
@@ -55,12 +59,11 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
     /// system that was made following the tutorial.
     private void RefreshInventoryItems()
     {
-        int index = 0;
-        foreach (Image image in itemSlots)
+        foreach (GameObject image in itemSlots)
         {
-            image.sprite = null;
-            itemSlots[index].transform.GetChild(0).GetComponent<Text>().text = "";
-            index++;
+            image.transform.GetChild(imageIndex).GetComponent<Image>().sprite = null;
+            image.transform.GetChild(imageIndex).GetComponent<Image>().enabled = false;
+            image.transform.GetChild(amountIndex).GetComponent<Text>().text = "";
         }
 
         foreach (Image potionImage in potionSlots)
@@ -76,16 +79,17 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         {
             Collectable item = inventory.ItemList[i];
             
-            itemSlots[i].sprite = item.UISprite;
+            itemSlots[i].transform.GetChild(imageIndex).GetComponent<Image>().sprite = item.UISprite;
+            itemSlots[i].transform.GetChild(imageIndex).GetComponent<Image>().enabled = true;
 
             //increases the amount for the stackable items and displays the proper number in the UI
             if (item is PotionIngredient ingredient && ingredient.amountInInv > 1)
             {
-                itemSlots[i].transform.GetChild(0).GetComponent<Text>().text = ingredient.amountInInv.ToString();
+                itemSlots[i].transform.GetChild(amountIndex).GetComponent<Text>().text = ingredient.amountInInv.ToString();
             }
             else
             {
-                itemSlots[i].transform.GetChild(0).GetComponent<Text>().text = "";
+                itemSlots[i].transform.GetChild(amountIndex).GetComponent<Text>().text = "";
             }
         }
 

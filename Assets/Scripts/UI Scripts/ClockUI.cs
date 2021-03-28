@@ -12,10 +12,14 @@ using UnityEngine.UI;
 public class ClockUI : MonoBehaviour
 {
     //floats that are used in handling the Clock UI
-    public float timerMinutes;
     private const float realSecondsPerInGameDay = 60f;
+
+
     private float day;
+    public float timerMinutes;
     private int timer = 10;
+
+
     //transform for the clockhand
     private Transform clockHandTransform;
 
@@ -47,9 +51,6 @@ public class ClockUI : MonoBehaviour
 
         //rotates the clock hand the correct amount based off of the normalized day value
         clockHandTransform.eulerAngles = new Vector3(0, 0, -dayNormalized * rotationDegreesPerDay);
-
-
-
 
         //*** counter for the actual day counter, remove coments when day night cycle implemented
         //string dayString = (Mathf.FloorToInt(day)).ToString("");
