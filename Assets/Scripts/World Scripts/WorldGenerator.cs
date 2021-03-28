@@ -178,6 +178,7 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
                 roomInstances[i, z] = Instantiate(roomArrange[i, z], new Vector3(i * WorldXScale, 0f, z * WorldZScale), Quaternion.identity);
                 roomInstances[i, z].transform.SetParent(WorldRoomsParent);
                 roomScripts[i, z] = roomInstances[i, z].GetComponent<Room>();
+                roomScripts[i, z].GetComponent<Room>().gridPosition = new Vector2(i, z);
             }
         }
 
