@@ -51,6 +51,7 @@ public class Unit : MonoBehaviour
                 }
                 else if (this is Enemy enemy && PlayerInfo.CurrentRoom != null)
                 {
+                    enemy.Drop();
                     PlayerInfo.CurrentRoom.RemoveEnemy(enemy);
                 }
 

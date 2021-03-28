@@ -203,4 +203,14 @@ public class Enemy : Unit
         
 
     }
+
+    public void Drop()
+    {
+        GameObject item = lootTable.Drop();
+
+        if (item != null)
+        {
+            Instantiate(item, transform.position, Quaternion.identity);
+        }
+    }
 }

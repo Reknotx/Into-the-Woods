@@ -48,13 +48,27 @@ public class EnemyLootTable : LootTable
     }
 
 
-    public void Drop()
+    public GameObject Drop()
     {
         float total = GetWeightTotal();
 
         insertionSort(loot);
 
+        float num = UnityEngine.Random.Range(0f, total);
 
+        foreach (LootInfo info in loot)
+        {
+            if (num < info.rate)
+            {
+                return info.item;
+            }
+            else
+            {
+                num -= info.rate;
+            }
+        }
+
+        return null;
 
         void insertionSort(List<LootInfo> unsortedLoot)
         {
@@ -74,12 +88,6 @@ public class EnemyLootTable : LootTable
 
             loot.Reverse();
         }
-
-
-
-
-
-
     }
 
 }
