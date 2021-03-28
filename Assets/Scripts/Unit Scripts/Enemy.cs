@@ -32,6 +32,8 @@ public class Enemy : Unit
     [SerializeField] protected bool contactDamage; // Do I hurt the player on touch?
     [SerializeField] protected int contactDamageAmount; // How much damage do I do on touch?
 
+    public EnemyLootTable lootTable;
+
     //protected bool isDamageFlashing; // If the unit is currently flashing from damage.
 
     /// Author: Paul Hernandez
