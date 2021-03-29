@@ -115,6 +115,23 @@ public class SpellUI : MonoBehaviour
     }
 
     #region Functions
+    /// Author: JT Esmond
+    /// Date: 3/29/2021
+    /// <summary>
+    /// functions to be called when the player uses the scroll wheel to change their spell
+    /// </summary>
+    public void SpellUp()
+    {
+        SpellOff();
+        listLocation++;
+        SpellOn();
+    }
+    public void SpellDown()
+    {
+        SpellOff();
+        listLocation--;
+        SpellOn();
+    }
 
     /// Author: JT Esmond
     /// Date: 3/8/2021

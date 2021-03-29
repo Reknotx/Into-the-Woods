@@ -9,15 +9,13 @@ using UnityEngine.UI;
 /// The UI class that handles the physical representation of the day night cycle
 ///  </summary>
 
-public class ClockUI : MonoBehaviour
+public class ClockUI : SingletonPattern<ClockUI>
 {
     //floats that are used in handling the Clock UI
-    private const float realSecondsPerInGameDay = 60f;
+    private const float realSecondsPerInGameDay = 360f;
 
 
     private float day;
-    public float timerMinutes;
-    private int timer = 10;
 
 
     //transform for the clockhand
@@ -26,8 +24,9 @@ public class ClockUI : MonoBehaviour
     //text reference for the clock UI text
     private Text dayText;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         //setting the reference for the clock hand and the reference for the text element
         clockHandTransform = transform.Find("clockHand");
         dayText = transform.GetChild(0).transform.GetChild(0).GetComponent<Text>();
@@ -52,15 +51,15 @@ public class ClockUI : MonoBehaviour
         //rotates the clock hand the correct amount based off of the normalized day value
         clockHandTransform.eulerAngles = new Vector3(0, 0, -dayNormalized * rotationDegreesPerDay);
 
-        //*** counter for the actual day counter, remove coments when day night cycle implemented
-        //string dayString = (Mathf.FloorToInt(day)).ToString("");
-       // dayText.text = ("Day: " + dayString);
+        //
+        string dayString = (Mathf.FloorToInt(day)).ToString("");
+        dayText.text = ("Day: " + dayString);
 
-        //*** temporary timer info that can be deleted when the day night cycle is implemented
-        string minutesString = Mathf.Floor(timerMinutes - Mathf.Floor(day)).ToString("0");
-        dayText.text = minutesString + " Minutes";
-
-        if (timer == 0)
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            SetTime();
+        }
+        if (day > 3)
         {
             WinLoseUI.Instance.YouLose();
         }
@@ -74,10 +73,21 @@ public class ClockUI : MonoBehaviour
     private IEnumerator timerTracker()
     {
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 4; i++)
         {
-            yield return new WaitForSeconds(60f);
-            timer--;
+            yield return new WaitForSeconds(360f);
+            day++;
         }
+    }
+
+    /// Author: JT Esmond
+    /// Date: 3/29/2021
+    /// <summary>
+    /// function that sets the time of day for the clock
+    /// </summary>
+    public void SetTime()
+    {
+        day = 0;
+        LightingManager.Instance.SetTime();
     }
 }
