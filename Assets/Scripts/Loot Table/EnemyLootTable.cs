@@ -58,7 +58,7 @@ public class EnemyLootTable : LootTable
 
         foreach (LootInfo info in loot)
         {
-            if (num < info.rate)
+            if (num <= info.rate)
             {
                 return info.item;
             }
