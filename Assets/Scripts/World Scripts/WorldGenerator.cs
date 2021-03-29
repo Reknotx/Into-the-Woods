@@ -121,7 +121,6 @@ public class WorldGenerator : MonoBehaviour
             }
         }
 
-
         // Find valid start and end points.
         do
         {

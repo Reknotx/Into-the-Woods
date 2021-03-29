@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +29,9 @@ public enum Result
     NightWalkerPotion
 }
 
+/// Author: Chase O'Connor
+/// Date: 2/18/2021
+/// <summary> A potion recipe that can be crafted from the Cauldron. </summary>
 [CreateAssetMenu]
 public class PotionRecipe : ScriptableObject
 {

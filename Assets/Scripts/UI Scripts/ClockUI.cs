@@ -12,10 +12,14 @@ using UnityEngine.UI;
 public class ClockUI : MonoBehaviour
 {
     //floats that are used in handling the Clock UI
-    public float timerMinutes;
-    private const float realSecondsPerInGameDay = 360f;
+    private const float realSecondsPerInGameDay = 60f;
+
+
     private float day;
+    public float timerMinutes;
     private int timer = 10;
+
+
     //transform for the clockhand
     private Transform clockHandTransform;
 
