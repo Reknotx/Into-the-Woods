@@ -103,7 +103,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7319920427231891631}
   - component: {fileID: 5380151119445424900}
-  - component: {fileID: 8942420308749994943}
   - component: {fileID: 2962554021858876735}
   - component: {fileID: 5612588426009593460}
   - component: {fileID: 888956117677198417}
@@ -144,35 +143,14 @@ MonoBehaviour:
   speed: 3.5
   StartHealth: 40
   PlayerObject: {fileID: 0}
-  awarenessRange: 6
+  awarenessRange: 8.5
+  movementSpeed: 3
   contactDamage: 1
   contactDamageAmount: 4
   splitOnDeath: 1
   SubEnemyPrefab: {fileID: 4046133777341551770, guid: b3e9e186cb005aa47a1c2adf67768b26,
     type: 3}
   miniSpawnDistance: 0.5
---- !u!195 &8942420308749994943
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4046133777341551770}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 1
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!54 &2962554021858876735
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -182,12 +160,12 @@ Rigidbody:
   m_GameObject: {fileID: 4046133777341551770}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 5
+  m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!65 &5612588426009593460
 BoxCollider:
@@ -200,7 +178,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 3, z: 2}
+  m_Size: {x: 2, y: 2.8, z: 2}
   m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!65 &888956117677198417
 BoxCollider:
@@ -213,7 +191,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 3, z: 2}
+  m_Size: {x: 2, y: 2.8, z: 2}
   m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &6875759630759949510
 GameObject:
