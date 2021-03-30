@@ -9,19 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6ae78f1507834e9fea62eb35f89d2, type: 3}
-  m_Name: Enemy A 1 Loot Table
+  m_Script: {fileID: 11500000, guid: 829663a904c71e3459934259bcc443cc, type: 3}
+  m_Name: Test Loot Table
   m_EditorClassIdentifier: 
-  loot:
+  chestLoot:
   - itemName: Heart
     item: {fileID: 4921924201872911902, guid: 1e5dac954afe5204cac3f10279384833, type: 3}
     nightOnly: 0
-    rate: 50
-  - itemName: Potion Ingredient
-    item: {fileID: 8342655057114069148, guid: 22788a57581cb6049a40d113ee0514e0, type: 3}
-    nightOnly: 0
-    rate: 30
-  - itemName: Avocado
-    item: {fileID: 8342655057114069148, guid: 22788a57581cb6049a40d113ee0514e0, type: 3}
-    nightOnly: 0
-    rate: 30
+    rates:
+      lowTierRate: 100
+      midTierRate: 0
+      highTierRate: 0
