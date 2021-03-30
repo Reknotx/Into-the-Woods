@@ -11,43 +11,85 @@ using UnityEngine.AI;
 public class EnemyB : Enemy
 {
 
+    [SerializeField] protected float wanderMaxTime;
+    protected float wanderMinTime;
+    protected float wanderCooldown; // How often does the unit walk to a random point?
 
-    [SerializeField] protected float wanderCooldown; // How often does the unit walk to a random point?
+    //[SerializeField] protected float wanderDistance; // How far to go?
 
-    [SerializeField] protected float wanderDistance; // How far to go?
+    protected int wanderDirection;
 
 
     protected override void Start()
     {
-        if (wanderCooldown <= 0)
-        {
-            wanderCooldown = 4f;
-            Debug.Log("Please use a positive value for wanderCooldown. Set to default.");
-        }
-
-        if (wanderDistance <= 0)
-        {
-            wanderDistance = 3f;
-            Debug.Log("Please use a positive value for wanderDistance. Set to default.");
-        }
+        StartCoroutine(WanderSustain(0.5f));
 
         base.Start();
 
 
     }
 
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+
+
+        WanderInDirection();
+
+    }
 
     #region Wandering AI
     /// <summary>
     /// These handle the core wandering logic used by all the EnemyB subtypes.
     /// They all use some variant of this, but call it with different timings.
     /// </summary>
+    /// 
+
+    // New wander behavior.
+    protected void WanderInDirection()
+    {
+
+        if (wanderDirection < 2) // Up or down
+        {
+            if (wanderDirection == 0) // Up
+            {
+                this.GetComponent<Rigidbody>().AddForce(this.transform.forward * movementSpeed * 0.1f, ForceMode.Impulse);
+            }
+            else // 1, Down
+            {
+                this.GetComponent<Rigidbody>().AddForce(-this.transform.forward * movementSpeed * 0.1f, ForceMode.Impulse);
+            }
+        }
+        else
+        {
+            if (wanderDirection == 2) // Left
+            {
+                this.GetComponent<Rigidbody>().AddForce(-this.transform.right * movementSpeed * 0.1f, ForceMode.Impulse);
+            }
+            else // 3, Right
+            {
+                this.GetComponent<Rigidbody>().AddForce(this.transform.right * movementSpeed * 0.1f, ForceMode.Impulse);
+            }
+        }
+
+    }
+
+    public IEnumerator WanderSustain(float distance)
+    {
+        yield return new WaitForSeconds(distance);
+
+        wanderDirection = Random.Range(0, 4);
+        wanderCooldown = Random.Range(wanderMinTime, wanderMaxTime);
+        StartCoroutine(WanderSustain(wanderCooldown));
+    }
+
 
     protected void WanderToPoint()
     {
         if (this.gameObject.activeSelf == true)
         {
-            agent.SetDestination(PickRandomPoint(agent.transform.position, wanderDistance, 31));
+            //agent.SetDestination(PickRandomPoint(agent.transform.position, wanderDistance, 31));
         }
         //Debug.Log(this.gameObject.transform.position);
     }
@@ -70,13 +112,14 @@ public class EnemyB : Enemy
         randomDirection += origin;
 
         // Point on the navmesh.
-        NavMeshHit navHit;
+        //NavMeshHit navHit;
 
         // Get that position on the navmesh of the layermask.
-        NavMesh.SamplePosition(randomDirection, out navHit, distance, layermask);
+        //NavMesh.SamplePosition(randomDirection, out navHit, distance, layermask);
 
         // Return the point found.
-        return navHit.position;
+        //return navHit.position;
+        return new Vector3();
     }
 #endregion
 }

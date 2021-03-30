@@ -16,7 +16,11 @@ using UnityEngine;
 public class EnemyC_3 : EnemyC
 {
     private int currentHealth;
+
+    [SerializeField] protected bool splitOnDeath;
     [SerializeField] protected GameObject SubEnemyPrefab;
+    [SerializeField] protected float miniSpawnDistance;
+
 
 
     protected override void Start()
@@ -44,8 +48,11 @@ public class EnemyC_3 : EnemyC
                     PlayerInfo.CurrentRoom.RemoveEnemy(enemy);
                 }
 
-                // Split here.
-                Instantiate(SubEnemyPrefab);
+                if (splitOnDeath)
+                {
+                    Instantiate(SubEnemyPrefab, this.transform.position + new Vector3(miniSpawnDistance, 0f, 0f), this.transform.rotation);
+                    Instantiate(SubEnemyPrefab, this.transform.position + new Vector3(-miniSpawnDistance, 0f, 0f), this.transform.rotation);
+                }             
 
                 Destroy(gameObject);
             }

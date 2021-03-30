@@ -66,7 +66,7 @@ public class EnemyB_3 : EnemyB
         shieldVisual.SetActive(false);
         if (this.gameObject.activeSelf == true)
         {
-            agent.SetDestination(PickRandomPoint(agent.transform.position, wanderDistance, 31));
+            //agent.SetDestination(PickRandomPoint(agent.transform.position, wanderDistance, 31));
         }
         yield return new WaitForSeconds(timeOff);
 
@@ -74,7 +74,7 @@ public class EnemyB_3 : EnemyB
         shieldVisual.SetActive(true);
         if (this.gameObject.activeSelf == true)
         {
-            agent.SetDestination(this.transform.position);
+            //agent.SetDestination(this.transform.position);
         }
         yield return new WaitForSeconds(timeOn);
         RunNShield();
