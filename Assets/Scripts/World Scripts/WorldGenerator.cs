@@ -27,6 +27,9 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     {
         base.Awake();
 
+        PrefsCheck();
+        // Check the PlayerPrefs for any special modifiers to change the parameters.
+
         SafetyCheck();
         // Ensures that variables aren't set to values that will cause errors.
 
@@ -38,6 +41,26 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     }
 
     #region Setup
+    /// Author: Paul Hernandez
+    /// Date: 3/30/2021
+    /// <summary>
+    /// Gets preferences from local files using Unity's PlayerPrefs.
+    /// </summary>
+    void PrefsCheck()
+    {
+        WorldRows = PlayerPrefs.GetInt("PWorldRows", 4);
+        WorldColumns = PlayerPrefs.GetInt("PWorldColumns", 4);
+        if (PlayerPrefs.GetInt("useSeed", 0) == 1)
+        {
+            manualSeed = true;
+            seed = PlayerPrefs.GetInt("seed");
+        }
+        else
+        {
+            manualSeed = false;
+        }
+    }
+
     /// Author: Paul Hernandez
     /// Date: 2/5/2021
     /// <summary>
