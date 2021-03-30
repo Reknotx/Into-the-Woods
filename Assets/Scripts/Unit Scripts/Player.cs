@@ -48,6 +48,8 @@ public class Player : Unit
 
     /// <summary> The index referencing the currently selected spell. </summary>
     private int _spellIndex = 0;
+
+    private GameObject _selectedSpell = null;
     #endregion
     #endregion
 
@@ -58,7 +60,18 @@ public class Player : Unit
 
     /// <summary> The currently selected spell. </summary>
     /// <value> The GameObject that will be spawned when the player attacks. </value>
-    public GameObject SelectedSpell { get; set; }
+    public GameObject SelectedSpell {
+        get => _selectedSpell;
+        set
+        {
+            _selectedSpell = value;
+
+            if (SpellUI.Instance != null)
+            {
+                //SpellUI.Instance.UpdateSpellUI(value.GetComponent<Spell>());
+            }
+        }
+    }
 
     /// <summary> Indicates if the player is near an interactable. </summary>
     /// <value> A flag to tell the player that they are next to an interactable item. </value>
