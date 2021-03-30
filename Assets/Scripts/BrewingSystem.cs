@@ -35,6 +35,8 @@ public class BrewingSystem : SingletonPattern<BrewingSystem>
         brewingOptions[_brewingIndex].SetActive(true);
 
         gameObject.SetActive(false);
+
+
     }
 
     /// <summary>
