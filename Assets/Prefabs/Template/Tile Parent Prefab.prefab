@@ -415,9 +415,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9195499566096239597}
-  - {fileID: 1961209525391650285}
-  - {fileID: 5078761864945869431}
   - {fileID: 6273576068289754701}
+  - {fileID: 5078761864945869431}
+  - {fileID: 1961209525391650285}
   m_Father: {fileID: 5548478023741586957}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -482,6 +482,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
+  gridPosition: {x: 0, y: 0}
+  gCost: 0
+  hCost: 0
+  parent: {fileID: 0}
 --- !u!1 &3779079872374215404
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,7 +750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1961209525391650285}
   m_Layer: 0
-  m_Name: East Door
+  m_Name: West Door
   m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -768,7 +772,7 @@ Transform:
   - {fileID: 8535956126674207725}
   - {fileID: 8535956126785648738}
   m_Father: {fileID: 2603167160765022015}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8068886642096959242
 GameObject:
@@ -1001,7 +1005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6273576068289754701}
   m_Layer: 0
-  m_Name: West Door
+  m_Name: East Door
   m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1023,7 +1027,7 @@ Transform:
   - {fileID: 4088376787357508040}
   - {fileID: 3107652073493576774}
   m_Father: {fileID: 2603167160765022015}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8455937191291456390
 GameObject:

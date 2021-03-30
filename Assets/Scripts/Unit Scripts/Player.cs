@@ -34,6 +34,8 @@ public class Player : Unit
     /// </summary>
     public GameObject PlayerInvenItems;
 
+    public PotionRecipe startPotion;
+
     [Tooltip("The speed at which spells are launched from the player.")]
     /// <summary> The speed at which the spell is fired. </summary>
     public float spellSpeed = 500;
@@ -48,6 +50,8 @@ public class Player : Unit
 
     /// <summary> The index referencing the currently selected spell. </summary>
     private int _spellIndex = 0;
+
+    private GameObject _selectedSpell = null;
     #endregion
     #endregion
 
@@ -58,7 +62,18 @@ public class Player : Unit
 
     /// <summary> The currently selected spell. </summary>
     /// <value> The GameObject that will be spawned when the player attacks. </value>
-    public GameObject SelectedSpell { get; set; }
+    public GameObject SelectedSpell {
+        get => _selectedSpell;
+        set
+        {
+            _selectedSpell = value;
+
+            if (SpellUI.Instance != null)
+            {
+                SpellUI.Instance.UpdateSpellUI(value.GetComponent<Spell>());
+            }
+        }
+    }
 
     /// <summary> Indicates if the player is near an interactable. </summary>
     /// <value> A flag to tell the player that they are next to an interactable item. </value>
@@ -158,6 +173,7 @@ public class Player : Unit
 
         PInven = new Inventory();
 
+
         if (spells[0] != null) SelectedSpell = spells[0];
     }
 
@@ -168,6 +184,7 @@ public class Player : Unit
         BonusHealth = 0;
 
         UI_Inventory.Instance.SetInventory(PInven);
+        startPotion.Craft(PInven, true);
 
         List<GameObject> moveList = new List<GameObject>();
         foreach (Transform playerChildObjs in transform)
@@ -180,6 +197,7 @@ public class Player : Unit
     #region Updates
     public void FixedUpdate()
     {
+        if (BrewingSystem.Instance.gameObject.activeSelf) return;
         ///The player wants to move.
         if (Input.GetKey(KeyCode.W)
             || Input.GetKey(KeyCode.S)
@@ -193,6 +211,7 @@ public class Player : Unit
 
     private void Update()
     {
+        if (BrewingSystem.Instance.gameObject.activeSelf) return;
         Rotate();
 
         spellTicker.Tick(Time.deltaTime);

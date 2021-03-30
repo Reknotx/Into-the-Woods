@@ -13,7 +13,7 @@ using UnityEngine;
 /// </remarks>
 public class InteractCollision : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer != 12) return;
 
