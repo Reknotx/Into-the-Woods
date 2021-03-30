@@ -72,4 +72,46 @@ public class ChestLootTable : LootTable
         return totalWeights;
     }
 
+    //public GameObject Drop(ChestTier tier)
+    //{
+    //    float total = GetTierWeightTotal(tier);
+
+    //    insertionSort(chestLoot);
+
+    //    float num = UnityEngine.Random.Range(0f, total);
+
+    //    foreach (ChestLootInfo info in chestLoot)
+    //    {
+    //        if (num <= info.rate)
+    //        {
+    //            return info.item;
+    //        }
+    //        else
+    //        {
+    //            num -= info.rate;
+    //        }
+    //    }
+
+    //    return null;
+
+    //    void insertionSort(List<ChestLootInfo> unsortedLoot)
+    //    {
+    //        int n = unsortedLoot.Count;
+    //        for (int i = 1; i < n; ++i)
+    //        {
+    //            LootInfo key = unsortedLoot[i];
+    //            int j = i - 1;
+
+    //            while (j >= 0 && unsortedLoot[j].rate > key.rate)
+    //            {
+    //                unsortedLoot[j + 1] = unsortedLoot[j];
+    //                j = j - 1;
+    //            }
+    //            unsortedLoot[j + 1] = key;
+    //        }
+
+    //        chestLoot.Reverse();
+    //    }
+    //}
+
 }

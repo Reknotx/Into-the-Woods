@@ -200,12 +200,14 @@ public class Enemy : Unit
             yield return new WaitForSeconds(0.1f);
             GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.black);
         }
-        
-
     }
 
     public void Drop()
     {
+        float dropYes = Random.Range(0f, 100f);
+
+        if (dropYes <= 35f) return;
+
         GameObject item = lootTable.Drop();
 
         if (item != null)
