@@ -30,7 +30,7 @@ public class EnemyC_2 : EnemyC
         {
             //Debug.Log(distanceFromPlayer);
             Instantiate(explosionPrefab, this.transform.position, this.transform.rotation);
-            Destroy(this.gameObject);
+            Health = 0;
         }
     }
 
