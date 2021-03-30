@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class RareChest : MonoBehaviour
 {
-    [Tooltip("The item stored in this chest.")]
-    public GameObject storedObj;
-
     public Animator animator;
 
-    
+    public ChestLootTable lootTable;
+
+    public ChestTier tier;
 
     /// <summary> Triggers the opening animation for the chest so the item is displayed. </summary>
     public void Open()
@@ -18,8 +17,17 @@ public class RareChest : MonoBehaviour
         ///Start item rising animation
         ///
 
-        Vector3 spawnPos = new Vector3(transform.position.x, storedObj.transform.position.y, transform.position.z);
-        Instantiate(storedObj, spawnPos, Quaternion.identity);
+
+        GameObject item = lootTable.Drop(tier);
+
+        if (item != null)
+        {
+            Vector3 spawnPos = new Vector3(transform.position.x, item.transform.position.y + .5f, transform.position.z);
+            Instantiate(item, spawnPos, Quaternion.identity);
+
+        }
+
+
         Destroy(gameObject);
     }
 }

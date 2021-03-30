@@ -91,7 +91,7 @@ public class Room : MonoBehaviour
     {
         ///Don't forget to uncomment this
         #region Door Removal
-        /*
+
         if (gridPosition.x == 0
             || gridPosition.x == WorldGenerator.Instance.WorldColumns - 1
             || gridPosition.y == 0
@@ -106,8 +106,6 @@ public class Room : MonoBehaviour
                 {
                     moveList.Add(item.gameObject);
                 }
-
-
             }
             else if (gridPosition.x == WorldGenerator.Instance.WorldColumns - 1)
             {
@@ -140,7 +138,7 @@ public class Room : MonoBehaviour
                 item.transform.parent = transform.GetChild(2);
             }
         }
-        */
+
         #endregion
 
         enemies.Clear();
