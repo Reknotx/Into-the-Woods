@@ -76,6 +76,12 @@ public abstract class Spell : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.layer == 27)
+        {
+            Debug.Log("hello");
+            Destroy(gameObject);
+        }
+
         if ((1 << collision.gameObject.layer) != layerToHit.value) return;
 
         TriggerSpellEffect(collision.gameObject);

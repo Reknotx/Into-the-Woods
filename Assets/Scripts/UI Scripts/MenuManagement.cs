@@ -24,27 +24,7 @@ public class MenuManagement : MonoBehaviour
     /// </summary>
     public void PlayGame()
     {
-        randomLocation = Random.Range(0, 5);
-        if (randomLocation == 0)
-        {
-            SceneManager.LoadScene("LevelVariation1");
-        }
-        else if (randomLocation == 1)
-        {
-            SceneManager.LoadScene("LevelVariation2");
-        }
-        else if (randomLocation == 2)
-        {
-            SceneManager.LoadScene("LevelVariation3");
-        }
-        else if (randomLocation == 3)
-        {
-            SceneManager.LoadScene("LevelVariation4");
-        }
-        else if (randomLocation == 4)
-        {
-            SceneManager.LoadScene("LevelVariation5");
-        }
+        SceneManager.LoadScene("MainGame");
     }
 
     /// Author: JT Esmond
