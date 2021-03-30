@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864268948937199988}
-  m_LocalRotation: {x: -0.061628457, y: 0.70441604, z: 0.70441604, w: 0.061628457}
+  m_LocalRotation: {x: 0.06162846, y: -0.70441616, z: -0.70441586, w: -0.061628435}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -179.7, z: -10}
+  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: -10}
 --- !u!108 &864268948937199991
 Light:
   m_ObjectHideFlags: 0
@@ -43,8 +43,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0.01
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -105,6 +105,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1636ec875d17a2e4085e034e93d479cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DirectionalLight: {fileID: 864268948937199991}
-  Preset: {fileID: 11400000, guid: 33a6d0ba850aca5418acb1f27fefc5b9, type: 2}
-  TimeOfDay: 0
+  night: 0

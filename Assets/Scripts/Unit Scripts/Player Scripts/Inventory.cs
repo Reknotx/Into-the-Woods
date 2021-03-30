@@ -265,6 +265,78 @@ public class Inventory
         return false;
     }
 
+    public bool HasItem(Items item)
+    {
+        if (ItemList.Count == 0) return false;
+
+        bool returnVal = false;
+
+        foreach (Collectable invenItem in itemList)
+        {
+            switch (item)
+            {
+                case Items.Avocado:
+                    if (invenItem is Avocado) returnVal = true; 
+                    break;
+
+                case Items.AttackCandy:
+                    if (invenItem is AttackCandy) returnVal = true; 
+                    break;
+
+                case Items.SpecialCurrency:
+                    //if (invenItem is SpecialCurrency) returnVal = true;
+                    break;
+
+                case Items.PotionIngredientA:
+                    if (invenItem is PotionIngredientA) returnVal = true;
+                    break;
+
+                case Items.PotionIngredientB:
+                    if (invenItem is PotionIngredientB) returnVal = true;
+                    break;
+
+                case Items.PotionIngredientC:
+                    if (invenItem is PotionIngredientC) returnVal = true;
+                    break;
+
+                case Items.PotionIngredientD:
+                    if (invenItem is PotionIngredientD) returnVal = true;
+                    break;
+
+                case Items.Totem:
+                    if (invenItem is Totem) returnVal = true;
+                    break;
+
+                case Items.LuckyPenny:
+                    if (invenItem is LuckyPenny) returnVal = true;
+                    break;
+
+                case Items.BalloonBouquet:
+                    if (invenItem is LuckyPenny) returnVal = true;
+                    break;
+
+                case Items.NightOwlToken:
+                    if (invenItem is NightOwlToken) returnVal = true;
+                    break;
+
+                case Items.TwoPeas:
+                    if (invenItem is TwoPeas) returnVal = true;
+                    break;
+
+                case Items.Compass:
+                    if (invenItem is Compass) returnVal = true;
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (returnVal == true) break;
+        }
+
+        return returnVal;
+    }
+
 
     public Collectable GetItem(Collectable item)
     {
