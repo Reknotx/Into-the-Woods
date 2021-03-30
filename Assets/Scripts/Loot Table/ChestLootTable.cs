@@ -29,6 +29,27 @@ public struct ChestLootInfo
         [Range(0f, 100f)]
         public float highTierRate;
     }
+
+    public float GetTierWeight(ChestTier tier)
+    {
+        float returnVal = 0f;
+
+        switch (tier)
+        {
+            case ChestTier.Low:
+                returnVal = rates.lowTierRate;
+                break;
+            case ChestTier.Mid:
+                returnVal = rates.midTierRate;
+                break;
+            case ChestTier.High:
+                returnVal = rates.highTierRate;
+                break;
+
+        }
+
+        return returnVal;
+    }
 }
 
 
@@ -72,46 +93,48 @@ public class ChestLootTable : LootTable
         return totalWeights;
     }
 
-    //public GameObject Drop(ChestTier tier)
-    //{
-    //    float total = GetTierWeightTotal(tier);
+    public GameObject Drop(ChestTier tier)
+    {
+        float total = GetTierWeightTotal(tier);
 
-    //    insertionSort(chestLoot);
+        insertionSort(chestLoot);
 
-    //    float num = UnityEngine.Random.Range(0f, total);
+        float num = UnityEngine.Random.Range(0f, total);
 
-    //    foreach (ChestLootInfo info in chestLoot)
-    //    {
-    //        if (num <= info.rate)
-    //        {
-    //            return info.item;
-    //        }
-    //        else
-    //        {
-    //            num -= info.rate;
-    //        }
-    //    }
+        foreach (ChestLootInfo info in chestLoot)
+        {
 
-    //    return null;
 
-    //    void insertionSort(List<ChestLootInfo> unsortedLoot)
-    //    {
-    //        int n = unsortedLoot.Count;
-    //        for (int i = 1; i < n; ++i)
-    //        {
-    //            LootInfo key = unsortedLoot[i];
-    //            int j = i - 1;
+            if (num <= info.GetTierWeight(tier))
+            {
+                return info.item;
+            }
+            else
+            {
+                num -= info.GetTierWeight(tier);
+            }
+        }
 
-    //            while (j >= 0 && unsortedLoot[j].rate > key.rate)
-    //            {
-    //                unsortedLoot[j + 1] = unsortedLoot[j];
-    //                j = j - 1;
-    //            }
-    //            unsortedLoot[j + 1] = key;
-    //        }
+        return null;
 
-    //        chestLoot.Reverse();
-    //    }
-    //}
+        void insertionSort(List<ChestLootInfo> unsortedLoot)
+        {
+            int n = unsortedLoot.Count;
+            for (int i = 1; i < n; ++i)
+            {
+                ChestLootInfo key = unsortedLoot[i];
+                int j = i - 1;
+
+                while (j >= 0 && unsortedLoot[j].GetTierWeight(tier) > key.GetTierWeight(tier))
+                {
+                    unsortedLoot[j + 1] = unsortedLoot[j];
+                    j = j - 1;
+                }
+                unsortedLoot[j + 1] = key;
+            }
+
+            chestLoot.Reverse();
+        }
+    }
 
 }

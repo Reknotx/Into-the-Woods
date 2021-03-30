@@ -96,8 +96,13 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         ///Updates potions
         for (int i = 0; i < inventory.Potions.Length; i++)
         {
-            if (inventory.Potions[i] == null) continue;
+            if (inventory.Potions[i] == null)
+            {
+                potionSlots[i].gameObject.SetActive(false);
+                continue;
+            }
             potionSlots[i].sprite = inventory.Potions[i].potionSprite;
+            potionSlots[i].gameObject.SetActive(true);
         }
     }
 
