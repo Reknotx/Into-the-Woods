@@ -312,7 +312,7 @@ public class Inventory
                     break;
 
                 case Items.BalloonBouquet:
-                    if (invenItem is LuckyPenny) returnVal = true;
+                    if (invenItem is BalloonBouquet) returnVal = true;
                     break;
 
                 case Items.NightOwlToken:

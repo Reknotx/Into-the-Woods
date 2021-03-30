@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BalloonBouquet : Collectable
 {
-    private int _uses = 2;
+    private int _uses = 3;
 
     /// <summary> The number of uses on this Avocado. </summary>
     /// <value> Represents how many hits this item will take before

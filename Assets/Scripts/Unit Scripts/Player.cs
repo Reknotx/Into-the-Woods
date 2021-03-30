@@ -97,6 +97,7 @@ public class Player : Unit
             {
                 if (PInven.HasItem(Inventory.Items.BalloonBouquet))
                 {
+                    Debug.Log("Has bouquet");
                     foreach (Transform item in PlayerInvenItems.transform)
                     {
                         if (item.GetComponent<Collectable>() is BalloonBouquet)
@@ -187,11 +188,6 @@ public class Player : Unit
         startPotion.Craft(PInven, true);
 
         List<GameObject> moveList = new List<GameObject>();
-        foreach (Transform playerChildObjs in transform)
-        {
-            Debug.Log(playerChildObjs.name);
-
-        }
     }
 
     #region Updates

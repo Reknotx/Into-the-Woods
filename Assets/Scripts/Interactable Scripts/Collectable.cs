@@ -28,7 +28,7 @@ public abstract class Collectable : Interactable
     {
         if (!Player.Instance.PInven.HasCollectedBefore(this))
         {
-            Debug.Log("Collected before");
+            //Debug.Log("Collected before");
             PopUpManager.Instance.PopUp(this);
         }
     }
