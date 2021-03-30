@@ -16,11 +16,15 @@ public class Enemy : Unit
     protected float distanceFromPlayer; // The distance between me and the player.
     [SerializeField] protected float awarenessRange; // How far I can sense the player.
 
-    // Navigation
-    //public bool chasePlayer; // If the enemy is currently chasing the player.
-    protected Vector3 myHome; // Wherever I'm placed in the editor will be my "home".
-    protected NavMeshAgent agent; // My navmesh agent component.
-                                  //public float deAggroTimer; // If the player leaves my range for this time, I'll start going back home.
+    // Neo Navigation DX
+    [SerializeField] protected float movementSpeed;
+    protected bool wallHugMode;
+    protected float rayLength = 1.3f;
+    protected bool wallF;
+    protected bool wallL;
+    protected bool wallR;
+    protected bool wallB;
+
 
     /// <summary> If the enemy is frozen they can't move. </summary>
     public bool IsFrozen { get; set; }
@@ -48,6 +52,12 @@ public class Enemy : Unit
     {
         base.Start();
         InitAI();
+
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        //CheckWalls();
     }
 
 
@@ -60,20 +70,10 @@ public class Enemy : Unit
     /// </summary>
     protected void InitAI()
     {
-        // Look for my own navmesh agent
-        if (this.gameObject.GetComponent<NavMeshAgent>() != null)
+
+        if (movementSpeed == 0)
         {
-            agent = this.gameObject.GetComponent<NavMeshAgent>();
-            GetComponent<NavMeshAgent>().speed = speed; // Set my "speed" variable inherited from Unit to my NavMeshAgent speed.
-        }
-        else if (this.gameObject.GetComponent<EnemyA_1>() == null 
-            && this.gameObject.GetComponent<EnemyA_2>() == null 
-            && this.gameObject.GetComponent<EnemyA_3>() == null
-            && this.gameObject.GetComponent<BossA>() == null
-            ) // If this isn't an enemy that doesn't move...
-            // Maybe I should just check a private variable for this...
-        {
-            Debug.Log("Enemy is missing NavMesh Agent!");
+            movementSpeed = 1f;
         }
 
         // Look for player, with a safety check.
@@ -86,48 +86,99 @@ public class Enemy : Unit
             Debug.Log("No player object found!");
         }
 
-        myHome = transform.position; // If I get a "return home" command, I'll go back to where I was placed.
-
-        //this.gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_Emission"); // Ensure that emission is on if it's not, so we can flash.
     }
 
-    /// Author: Paul Hernandez
-    /// Date: 2/18/2021
-    /// <summary>
-    /// Invokes constant chasing of player by calling MoveToPlayer() every 0.2 seconds.
-    /// </summary>
-    protected void ChasePlayer()
-    {
-        InvokeRepeating("MoveToPlayer", 0f, playerTrackRate);
-    }
+    #endregion
+
+    #region Pathfinding
 
     /// Author: Paul Hernandez
     /// Date: 2/18/2021
     /// <summary>
     /// Tells AI to move to player's CURRENT position, if it's in awarenessRange.
     /// </summary>
-    protected void MoveToPlayer()
+    protected void StupidMoveToPlayer()
     {
         distanceFromPlayer = Vector3.Distance(transform.position, PlayerObject.transform.position);
         if (distanceFromPlayer < awarenessRange)
         {
-            if (this.gameObject.activeSelf == true)
-            {
-                agent.SetDestination(PlayerObject.transform.position);
-            }
+            transform.LookAt(PlayerObject.transform);
+            gameObject.transform.eulerAngles = new Vector3(0f, gameObject.transform.eulerAngles.y, 0f); // reset other rotations asides Y.
+            this.GetComponent<Rigidbody>().AddForce(this.transform.forward * movementSpeed * 0.1f, ForceMode.Impulse);
+
+        }
+        else
+        {
+            // stop moving
         }
     }
 
-    /// Author: Paul Hernandez
-    /// Date: 2/18/2021
-    /// <summary>
-    /// Tells AI to path to where their initial position.
-    /// </summary>
-    protected void ReturnHome()
+    protected void StartMovingTo()
     {
-        CancelInvoke(); // Cancels ChasePlayer.
-        agent.SetDestination(myHome);
+        // Rotate to target
+        transform.LookAt(PlayerObject.transform);
+        gameObject.transform.eulerAngles = new Vector3(0f, gameObject.transform.eulerAngles.y, 0f); // reset other rotations asides Y.
+        
+        // Move forward
+        wallHugMode = false;
+
     }
+
+    
+
+    protected void CheckWalls()
+    {
+        //Vector3 raymondF = transform.TransformDirection(Vector3.forward) * 10;
+        // Debug draw
+        Debug.DrawRay(this.transform.position, this.transform.forward * rayLength, Color.red);
+        Debug.DrawRay(this.transform.position, -this.transform.right * rayLength, Color.blue);
+        Debug.DrawRay(this.transform.position, this.transform.right * rayLength, Color.blue);
+        Debug.DrawRay(this.transform.position, -this.transform.forward * rayLength, Color.blue);
+
+        RaycastHit hit;
+
+        // If there's a wall in front.
+        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, rayLength) 
+            && (hit.transform.gameObject.layer == 27))
+        {
+            wallF = true;
+        }
+        else
+        {
+            wallF = false;
+        }
+        // If there's a wall to the left.
+        if (Physics.Raycast(this.transform.position, -this.transform.right, out hit, rayLength)
+                && hit.transform.gameObject.layer == 27)
+        {
+            wallL = true;
+        }
+        else
+        {
+            wallL = false;
+        }
+        // If there's a wall to the right.
+        if (Physics.Raycast(this.transform.position, this.transform.right, out hit, rayLength)
+            && hit.transform.gameObject.layer == 27)
+        {
+            wallR = true;
+        }
+        else
+        {
+            wallR = false;
+        }
+        // If there's a wall behind.
+        if (Physics.Raycast(this.transform.position, -this.transform.forward, out hit, rayLength)
+            && hit.transform.gameObject.layer == 27)
+        {
+            wallB = true;
+        }
+        else
+        {
+            wallB = false;
+        }
+    }
+
 
     #endregion
 
@@ -157,7 +208,7 @@ public class Enemy : Unit
 
     #endregion
 
-
+    #region misc
 
     /// <summary>
     /// Freezes the enemy in place for the specified amount of time.
@@ -192,7 +243,9 @@ public class Enemy : Unit
         {
             GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
             yield return new WaitForSeconds(0.1f);
-            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.black);
+            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
+
+
         }
         else // Look in children objects instead, such as in the case of the current level designer versions of enemy objects.
         {
@@ -216,4 +269,6 @@ public class Enemy : Unit
             Instantiate(item, transform.position, Quaternion.identity);
         }
     }
+
+    #endregion
 }

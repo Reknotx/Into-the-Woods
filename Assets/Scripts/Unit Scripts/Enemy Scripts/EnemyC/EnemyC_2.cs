@@ -19,8 +19,10 @@ public class EnemyC_2 : EnemyC
 
     // Enemy inherits chase behavior from EnemyC base class.
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         // Very simple AI, just uses the base chasing behavior.
         // When in detonation range, it spawns the explosion object and destroys itself.
         distanceFromPlayer = Vector3.Distance(transform.position, PlayerObject.transform.position);
