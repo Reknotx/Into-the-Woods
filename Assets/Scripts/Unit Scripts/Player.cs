@@ -80,8 +80,19 @@ public class Player : Unit
             ///heart item
             if (value < base.Health)
             {
+                if (PInven.HasItem(Inventory.Items.BalloonBouquet))
+                {
+                    foreach (Transform item in PlayerInvenItems.transform)
+                    {
+                        if (item.GetComponent<Collectable>() is BalloonBouquet)
+                        {
+                            item.GetComponent<BalloonBouquet>().Uses--;
+                            break;
+                        }
+                    }
+                }
                 ///Removing health
-                if (_bonusHealth > 0)
+                else if (_bonusHealth > 0)
                 {
                     BonusHealth--;
                     return;
