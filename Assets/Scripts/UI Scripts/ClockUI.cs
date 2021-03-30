@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class ClockUI : SingletonPattern<ClockUI>
 {
     //floats that are used in handling the Clock UI
-    private const float realSecondsPerInGameDay = 360f;
+    private const float realSecondsPerInGameDay = 300f;
 
 
     private float day;
@@ -75,7 +75,7 @@ public class ClockUI : SingletonPattern<ClockUI>
 
         for (int i = 0; i < 4; i++)
         {
-            yield return new WaitForSeconds(360f);
+            yield return new WaitForSeconds(300f);
             day++;
         }
     }

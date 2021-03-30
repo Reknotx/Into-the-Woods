@@ -42,7 +42,7 @@ public class RoomRestriction : MonoBehaviour
     void Update()
     {
         //checks if it is night or its the players current room and determines wether to open or close the doors
-        if(LightingManager.Instance.night || PlayerInfo.CurrentRoom == this)
+        if(LightingManager.Instance.night)
         {
             OpenNightDoors();
         }

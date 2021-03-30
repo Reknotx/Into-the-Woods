@@ -22,7 +22,7 @@ public class LightingManager : SingletonPattern<LightingManager>
 
     #region float
     // half the value of the length of the day
-    private float _duration = 180f;
+    private float _duration = 150f;
     private float _time;
     private float _customTime;
     #endregion
