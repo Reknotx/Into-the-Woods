@@ -55,8 +55,17 @@ public class PotionRecipe : ScriptableObject
         return true;
     }
 
-    public void Craft(Inventory PInven)
+    public void Craft(Inventory PInven, bool forceCraft = false)
     {
+
+        if (forceCraft)
+        {
+            Potion potion = MakePotion();
+            potion.potionSprite = potionSprite;
+            PInven.AddPotion(potion);
+        }
+
+
         if (CanCraft(PInven))
         {
             foreach (RecipeItem recipeItem in Requirements)

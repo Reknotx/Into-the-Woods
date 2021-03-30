@@ -91,7 +91,7 @@ public class Room : MonoBehaviour
     {
         ///Don't forget to uncomment this
         #region Door Removal
-        /*
+
         if (gridPosition.x == 0
             || gridPosition.x == WorldGenerator.Instance.WorldColumns - 1
             || gridPosition.y == 0
@@ -106,8 +106,6 @@ public class Room : MonoBehaviour
                 {
                     moveList.Add(item.gameObject);
                 }
-
-
             }
             else if (gridPosition.x == WorldGenerator.Instance.WorldColumns - 1)
             {
@@ -140,7 +138,7 @@ public class Room : MonoBehaviour
                 item.transform.parent = transform.GetChild(2);
             }
         }
-        */
+
         #endregion
 
         enemies.Clear();
@@ -158,7 +156,7 @@ public class Room : MonoBehaviour
         foreach (Transform enemy in transform.Find("Enemies"))
         {
             enemies.Add(enemy.GetComponent<Enemy>());
-            Debug.Log(enemy.name);
+            //Debug.Log(enemy.name);
             enemy.gameObject.SetActive(false);
         }
 
@@ -183,7 +181,7 @@ public class Room : MonoBehaviour
     /// <summary> Closes all of the doors in the level. </summary>
     private void CloseDoors()
     {
-        Debug.Log("Closing doors.");
+        //Debug.Log("Closing doors.");
 
         foreach (GameObject door in doors)
         {
@@ -192,7 +190,7 @@ public class Room : MonoBehaviour
 
         foreach (Enemy enemy in enemies)
         {
-            Debug.Log(enemy.gameObject.name);
+            //Debug.Log(enemy.gameObject.name);
             enemy.gameObject.SetActive(true);
         }
     }
@@ -200,7 +198,7 @@ public class Room : MonoBehaviour
     /// <summary> Opens all of the doors in the level. </summary>
     private void OpenDoors()
     {
-        Debug.Log("Opening doors.");
+        //Debug.Log("Opening doors.");
 
         foreach (GameObject door in doors)
         {
