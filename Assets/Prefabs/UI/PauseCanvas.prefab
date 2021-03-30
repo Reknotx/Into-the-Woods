@@ -789,8 +789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcaf50be4f260b4dbb2b72ee42f50e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  surveyLink: https://forms.gle/giF2D1aikwSzPfEC6
-  bugReportLink: https://forms.gle/A2EhyrbExRv2beK26
+  surveyLink: 
+  bugReportLink: 
 --- !u!1 &7011470048726694832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +1015,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7011470048546225930}
+      objectReference: {fileID: 3387879822048655178}
+    - target: {fileID: 314986527083376699, guid: 43827c9f12014934a8569d122de74fbf,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BugReport
+      objectReference: {fileID: 0}
     - target: {fileID: 2951523157921884872, guid: 43827c9f12014934a8569d122de74fbf,
         type: 3}
       propertyPath: m_Name
@@ -1025,7 +1030,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7011470048546225930}
+      objectReference: {fileID: 3387879822048655178}
+    - target: {fileID: 3648067438603622918, guid: 43827c9f12014934a8569d122de74fbf,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Survey
+      objectReference: {fileID: 0}
     - target: {fileID: 7595064506614776360, guid: 43827c9f12014934a8569d122de74fbf,
         type: 3}
       propertyPath: m_RootOrder
@@ -1089,3 +1099,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3139677448377801965}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3387879822048655178 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 330533805736684455, guid: 43827c9f12014934a8569d122de74fbf,
+    type: 3}
+  m_PrefabInstance: {fileID: 3139677448377801965}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fcaf50be4f260b4dbb2b72ee42f50e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
