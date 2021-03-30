@@ -34,8 +34,8 @@ public class ClockUI : SingletonPattern<ClockUI>
 
     private void Start()
     {
-
-            StartCoroutine("timerTracker");
+        day = 1;
+        StartCoroutine("timerTracker");
     }
     private void Update()
     {
@@ -53,7 +53,7 @@ public class ClockUI : SingletonPattern<ClockUI>
 
         //
         string dayString = (Mathf.FloorToInt(day)).ToString("");
-        dayText.text = ("Day: " + dayString);
+        dayText.text = ("Day" + "\n" + dayString);
 
         if(Input.GetKeyDown(KeyCode.L))
         {
