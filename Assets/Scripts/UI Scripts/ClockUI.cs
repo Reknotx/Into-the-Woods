@@ -16,7 +16,7 @@ public class ClockUI : SingletonPattern<ClockUI>
 
 
     private float day;
-
+    private float dayCounter;
 
     //transform for the clockhand
     private Transform clockHandTransform;
@@ -34,7 +34,7 @@ public class ClockUI : SingletonPattern<ClockUI>
 
     private void Start()
     {
-        day = 1;
+        dayCounter = 1;
         StartCoroutine("timerTracker");
     }
     private void Update()
@@ -52,14 +52,14 @@ public class ClockUI : SingletonPattern<ClockUI>
         clockHandTransform.eulerAngles = new Vector3(0, 0, -dayNormalized * rotationDegreesPerDay);
 
         //
-        string dayString = (Mathf.FloorToInt(day)).ToString("");
+        string dayString = (Mathf.FloorToInt(dayCounter)).ToString("");
         dayText.text = ("Day" + "\n" + dayString);
 
         if(Input.GetKeyDown(KeyCode.L))
         {
             SetTime();
         }
-        if (day > 3)
+        if (dayCounter > 3)
         {
             WinLoseUI.Instance.YouLose();
         }
@@ -76,7 +76,7 @@ public class ClockUI : SingletonPattern<ClockUI>
         for (int i = 0; i < 4; i++)
         {
             yield return new WaitForSeconds(300f);
-            day++;
+            dayCounter++;
         }
     }
 
@@ -89,5 +89,6 @@ public class ClockUI : SingletonPattern<ClockUI>
     {
         day = 0;
         LightingManager.Instance.SetTime();
+        dayCounter++;
     }
 }
