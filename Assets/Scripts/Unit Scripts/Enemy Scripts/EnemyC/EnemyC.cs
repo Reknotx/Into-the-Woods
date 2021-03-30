@@ -18,8 +18,14 @@ public class EnemyC : Enemy
         base.Start();
 
         // All enemy C types chase the player.
-        ChasePlayer(); 
+        //ChasePlayer(); 
+        
     }
 
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        StupidMoveToPlayer();
+    }
 
 }
