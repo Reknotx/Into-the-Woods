@@ -6,11 +6,15 @@ public class LuckyPenny : Collectable
 {
     public override void DropLogic()
     {
-        throw new System.NotImplementedException();
+        if (Player.Instance.PInven.HasItem(this) == false)
+            PlayerInfo.DoubleHarvest = false;
     }
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        if (Player.Instance.PInven.AddItem(this))
+            PlayerInfo.DoubleHarvest = true;
+
+        PopupCheck();
     }
 }

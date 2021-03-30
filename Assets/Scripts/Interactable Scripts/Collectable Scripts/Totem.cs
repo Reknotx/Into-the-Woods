@@ -6,11 +6,16 @@ public class Totem : Collectable
 {
     public override void DropLogic()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        base.Interact();
+    }
+
+    public void UseItem()
+    {
+        Player.Instance.Health = 20;
+        Player.Instance.PInven.RemoveItem(this);
     }
 }

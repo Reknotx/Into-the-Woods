@@ -18,6 +18,11 @@ public abstract class Collectable : Interactable
     {
         ///Add to inventory
         Player.Instance.PInven.AddItem(this);
+        if (this is PotionIngredient && PlayerInfo.DoubleHarvest)
+        {
+            Player.Instance.PInven.AddItem(this);
+        }
+
         PopupCheck();
     }
 

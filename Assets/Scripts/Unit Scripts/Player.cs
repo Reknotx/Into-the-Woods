@@ -98,14 +98,7 @@ public class Player : Unit
                 if (PInven.HasItem(Inventory.Items.BalloonBouquet))
                 {
                     Debug.Log("Has bouquet");
-                    foreach (Transform item in PlayerInvenItems.transform)
-                    {
-                        if (item.GetComponent<Collectable>() is BalloonBouquet)
-                        {
-                            item.GetComponent<BalloonBouquet>().Uses--;
-                            break;
-                        }
-                    }
+                    ((BalloonBouquet)PInven.GetItem(Inventory.Items.BalloonBouquet)).Uses--;
                 }
                 ///Removing health
                 else if (_bonusHealth > 0)
@@ -139,16 +132,7 @@ public class Player : Unit
         { 
             if (value < _bonusHealth)
             {
-                ///Try and work on this later, it's not important at the moment
-
-                foreach (Transform item in PlayerInvenItems.transform)
-                {
-                    if (item.GetComponent<Collectable>() is Avocado)
-                    {
-                        item.GetComponent<Avocado>().Uses--;
-                        break;
-                    }
-                }
+                ((Avocado)PInven.GetItem(Inventory.Items.Avocado)).Uses--;
             }
 
             _bonusHealth = value;
@@ -401,7 +385,9 @@ public class Player : Unit
     {
         if (PlayerInfo.IsProtected) return;
 
-        base.TakeDamage(dmgAmount);
+        //int multiplier = GameWorld.Difficulty ? 1 : 2;
+
+        base.TakeDamage(dmgAmount/* * multiplier*/);
 
     }
 

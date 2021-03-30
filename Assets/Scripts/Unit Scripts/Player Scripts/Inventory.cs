@@ -276,11 +276,11 @@ public class Inventory
             switch (item)
             {
                 case Items.Avocado:
-                    if (invenItem is Avocado) returnVal = true; 
+                    if (invenItem is Avocado) returnVal = true;
                     break;
 
                 case Items.AttackCandy:
-                    if (invenItem is AttackCandy) returnVal = true; 
+                    if (invenItem is AttackCandy) returnVal = true;
                     break;
 
                 case Items.SpecialCurrency:
@@ -346,6 +346,78 @@ public class Inventory
         }
         return null;
 
+    }
+
+    public Collectable GetItem(Items item)
+    {
+        if (ItemList.Count == 0) return null;
+
+        Collectable returnVal = null;
+
+        foreach (Collectable invenItem in itemList)
+        {
+            switch (item)
+            {
+                case Items.Avocado:
+                    if (invenItem is Avocado) returnVal = invenItem;
+                    break;
+
+                case Items.AttackCandy:
+                    if (invenItem is AttackCandy) returnVal = invenItem;
+                    break;
+
+                case Items.SpecialCurrency:
+                    //if (invenItem is SpecialCurrency) returnVal = true;
+                    break;
+
+                case Items.PotionIngredientA:
+                    if (invenItem is PotionIngredientA) returnVal = invenItem;
+                    break;
+
+                case Items.PotionIngredientB:
+                    if (invenItem is PotionIngredientB) returnVal = invenItem;
+                    break;
+
+                case Items.PotionIngredientC:
+                    if (invenItem is PotionIngredientC) returnVal = invenItem;
+                    break;
+
+                case Items.PotionIngredientD:
+                    if (invenItem is PotionIngredientD) returnVal = invenItem;
+                    break;
+
+                case Items.Totem:
+                    if (invenItem is Totem) returnVal = invenItem;
+                    break;
+
+                case Items.LuckyPenny:
+                    if (invenItem is LuckyPenny) returnVal = invenItem;
+                    break;
+
+                case Items.BalloonBouquet:
+                    if (invenItem is BalloonBouquet) returnVal = invenItem;
+                    break;
+
+                case Items.NightOwlToken:
+                    if (invenItem is NightOwlToken) returnVal = invenItem;
+                    break;
+
+                case Items.TwoPeas:
+                    if (invenItem is TwoPeas) returnVal = invenItem;
+                    break;
+
+                case Items.Compass:
+                    if (invenItem is Compass) returnVal = invenItem;
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (returnVal == true) break;
+        }
+
+        return returnVal;
     }
 
     /// <summary>
