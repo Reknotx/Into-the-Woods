@@ -36,6 +36,8 @@ public class Enemy : Unit
     [SerializeField] protected bool contactDamage; // Do I hurt the player on touch?
     [SerializeField] protected int contactDamageAmount; // How much damage do I do on touch?
 
+    public EnemyLootTable lootTable;
+
     //protected bool isDamageFlashing; // If the unit is currently flashing from damage.
 
     /// Author: Paul Hernandez
@@ -251,8 +253,21 @@ public class Enemy : Unit
             yield return new WaitForSeconds(0.1f);
             GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.black);
         }
-        
+    }
 
+    public void Drop()
+    {
+        float dropYes = Random.Range(0f, 100f);
+
+        if (dropYes <= 35f) return;
+
+        GameObject item = lootTable.Drop();
+
+        if (item != null)
+        {
+            Debug.Log("Success");
+            Instantiate(item, transform.position, Quaternion.identity);
+        }
     }
 
     #endregion
