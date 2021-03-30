@@ -11,6 +11,9 @@ public class HouseInteractable : Interactable
 {
     public override void Interact()
     {
-        ClockUI.Instance.SetTime();
+        if (LightingManager.Instance.night)
+        {
+            ClockUI.Instance.SetTime();
+        }
     }
 }
