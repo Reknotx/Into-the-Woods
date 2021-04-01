@@ -232,6 +232,8 @@ public class Player : Unit
             ///Drop item.
             UI_Inventory.Instance.DropItem();
         }
+
+        if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
         
         /// The player wants to interact with an item.
         /// See the note for this function down below.

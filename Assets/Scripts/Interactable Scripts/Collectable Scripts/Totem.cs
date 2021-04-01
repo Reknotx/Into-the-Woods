@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Totem : Collectable
 {
+    private bool Used { get; set; }
+
     public override void DropLogic()
     {
+        if (Used) Destroy(gameObject);
     }
 
     public override void Interact()
@@ -15,6 +18,7 @@ public class Totem : Collectable
 
     public void UseItem()
     {
+        Used = true;
         Player.Instance.Health = 20;
         Player.Instance.PInven.RemoveItem(this);
     }

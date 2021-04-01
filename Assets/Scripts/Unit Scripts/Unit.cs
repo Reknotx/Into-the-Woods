@@ -62,7 +62,7 @@ public class Unit : MonoBehaviour
                     PlayerInfo.CurrentRoom.RemoveEnemy(enemy);
                 }
 
-                Destroy(gameObject);
+                if (_currHealth <= 0) Destroy(gameObject);
             }
         }
     }
