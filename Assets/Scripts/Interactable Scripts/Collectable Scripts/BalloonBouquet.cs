@@ -26,7 +26,7 @@ public class BalloonBouquet : Collectable
 
     public override void DropLogic()
     {
-
+        if (Uses == 0) Destroy(gameObject);
     }
 
     public override void Interact()
