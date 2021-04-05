@@ -11,6 +11,7 @@ public class Currency : Collectable
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        ///Add to the player's currency amount
+
     }
 }
