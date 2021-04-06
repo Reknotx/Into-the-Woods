@@ -233,7 +233,7 @@ public class Player : Unit
             UI_Inventory.Instance.DropItem();
         }
 
-        if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
+        //if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
         
         /// The player wants to interact with an item.
         /// See the note for this function down below.
@@ -380,16 +380,17 @@ public class Player : Unit
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
     private void OpenInventory() => UI_Inventory.Instance.InventoryDisplay();
-    //private void OpenInventory() => MainHUDManager.Instance.inventoryUI.InventoryDisplay();
     #endregion
 
     public override void TakeDamage(int dmgAmount)
     {
         if (PlayerInfo.IsProtected) return;
 
-        //int multiplier = GameWorld.Difficulty ? 1 : 2;
+        //Debug.Log(PlayerPrefs.GetInt("playerDamageMultiplier"));
 
-        base.TakeDamage(dmgAmount/* * multiplier*/);
+        int multiplier = PlayerPrefs.GetInt(PrefTags.DmgMulti) == 0 ? 1 : PlayerPrefs.GetInt(PrefTags.DmgMulti);
+
+        base.TakeDamage(dmgAmount * multiplier);
 
     }
 
@@ -484,7 +485,7 @@ public class Player : Unit
         for (int i = 0; i < duration; i++)
         {
             yield return new WaitForSeconds(1f);
-            Health--;
+            TakeDamage(1);
         }
     }
     #endregion
