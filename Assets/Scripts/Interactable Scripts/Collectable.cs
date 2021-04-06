@@ -8,8 +8,6 @@ public abstract class Collectable : Interactable
     /// The logic that may or may not need to be applied when
     /// the player drops an item.
     /// </summary>
-    /// 
-
     public Sprite UISprite;
 
     public abstract void DropLogic();
@@ -18,6 +16,11 @@ public abstract class Collectable : Interactable
     {
         ///Add to inventory
         Player.Instance.PInven.AddItem(this);
+        if (this is PotionIngredient && PlayerInfo.DoubleHarvest)
+        {
+            Player.Instance.PInven.AddItem(this);
+        }
+
         PopupCheck();
     }
 
@@ -28,7 +31,7 @@ public abstract class Collectable : Interactable
     {
         if (!Player.Instance.PInven.HasCollectedBefore(this))
         {
-            Debug.Log("Collected before");
+            //Debug.Log("Collected before");
             PopUpManager.Instance.PopUp(this);
         }
     }
