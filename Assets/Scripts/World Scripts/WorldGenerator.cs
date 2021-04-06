@@ -145,6 +145,7 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
         // We can do math on the 2D indexes to deduce if they're far enough away from each other,
         // since the 2D indexes will reflect their placements asides from the physical distance.
         // One of these will be the spawn, and the other will be the boss.
+        // EDIT: The boss room should be random from a list of boss rooms.
 
         // Starting with two points.
         Vector2Int intendedStart = new Vector2Int();
@@ -158,7 +159,8 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
         // Committing to the array.
         roomArrange[intendedStart.x, intendedStart.y] = roomContainer.spawnRoom;
-        roomArrange[intendedEnd.x, intendedEnd.y] = roomContainer.bossRoom;
+        //roomArrange[intendedEnd.x, intendedEnd.y] = roomContainer.bossRoom;
+        roomArrange[intendedEnd.x, intendedEnd.y] = roomContainer.bossRooms[Random.Range(0, roomContainer.bossRooms.Count)]; // Commit a RANDOM boss room.
 
 
         // =========================================================================================
