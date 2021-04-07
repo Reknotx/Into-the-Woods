@@ -43,7 +43,57 @@ public class AStar : MonoBehaviour
     public void GeneratePath(Room startRoom, Room endRoom)
     {
         ///Let's start with the crit path to test
-        paths.Add("Main Path", Algo(startRoom, endRoom));
+        //paths.Add("Main Path", Algo(startRoom, endRoom));
+        List<Room> tempList = Algo(startRoom, endRoom);
+
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            Room currRoom = tempList[i];
+
+            if (i < tempList.Count - 1)
+            {
+                ///A next room exists
+                Room nextRoom = tempList[i + 1];
+                if (nextRoom.gridPosition.x == currRoom.gridPosition.x)
+                {
+                    ///On same Column so we need to look at
+                    ///north or south
+                    if (currRoom.gridPosition.y > nextRoom.gridPosition.y)
+                    {
+                        ///Current room is above the next room so
+                        ///The south door of the current room and the north
+                        ///door of the next are marked as true
+                        currRoom.connections[Room.Direction.South] = true;
+                        nextRoom.connections[Room.Direction.North] = true;
+                    }
+                    else
+                    {
+                        currRoom.connections[Room.Direction.North] = true;
+                        nextRoom.connections[Room.Direction.South] = true;
+                    }
+
+
+                }
+                else if (nextRoom.gridPosition.y == currRoom.gridPosition.y)
+                {
+                    ///On same row so we need to look at
+                    ///east or west
+                    if (currRoom.gridPosition.x < nextRoom.gridPosition.x)
+                    {
+                        ///current room is to the left of the next room
+                        ///So the east door of the current room and the west
+                        ///door of the next room need to be marked as true
+                        currRoom.connections[Room.Direction.East] = true;
+                        nextRoom.connections[Room.Direction.West] = true;
+                    }
+                    else
+                    {
+                        currRoom.connections[Room.Direction.West] = true;
+                        nextRoom.connections[Room.Direction.East] = true;
+                    }
+                }
+            }
+        }
     }
 
 

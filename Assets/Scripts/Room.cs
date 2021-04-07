@@ -10,6 +10,17 @@ using UnityEngine;
 /// </summary>
 public class Room : MonoBehaviour
 {
+    public enum Direction
+    {
+        North,
+        East,
+        South,
+        West
+    }
+
+
+    public Dictionary<Direction, bool> connections;
+
     public List<Enemy> enemies = new List<Enemy>(0);
 
     static GameObject[] doors;
@@ -37,14 +48,12 @@ public class Room : MonoBehaviour
     public int fCost { get => gCost + hCost; }
     #endregion
 
-
+    #region Connections
     int _minConnect = 1;
 
     int _maxConnect = 4;
 
     int _currConnect;
-
-
 
     /// <summary>
     /// Refers to the minimum number of connections this room is allowed
@@ -85,6 +94,18 @@ public class Room : MonoBehaviour
         get => _currConnect;
 
         set { _currConnect = Mathf.Clamp(value, 1, 4); }
+    }
+    #endregion
+
+    private void Awake()
+    {
+        connections = new Dictionary<Direction, bool>()
+        {
+            {Direction.North, false},
+            {Direction.East, false},
+            {Direction.South, false},
+            {Direction.West, false}
+        };
     }
 
     private void Start()
