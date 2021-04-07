@@ -29,7 +29,7 @@ public class Room : MonoBehaviour
     /// <summary> The position in the map for this room. </summary>
     /// <remarks>This is indicative of the position of this room
     /// on the 2D grid array.</remarks>
-    [HideInInspector]
+    //[HideInInspector]
     public Vector2 gridPosition = Vector2.zero;
 
     /// <summary> The g score of this room. </summary>
@@ -113,52 +113,52 @@ public class Room : MonoBehaviour
         ///Don't forget to uncomment this
         #region Door Removal
 
-        if (gridPosition.x == 0
-            || gridPosition.x == WorldGenerator.Instance.WorldColumns - 1
-            || gridPosition.y == 0
-            || gridPosition.y == WorldGenerator.Instance.WorldRows - 1)
-        {
-            List<GameObject> moveList = new List<GameObject>();
+        //if (gridPosition.x == 0
+        //    || gridPosition.x == WorldGenerator.Instance.WorldColumns - 1
+        //    || gridPosition.y == 0
+        //    || gridPosition.y == WorldGenerator.Instance.WorldRows - 1)
+        //{
+        //    List<GameObject> moveList = new List<GameObject>();
 
-            if (gridPosition.x == 0)
-            {
-                ///We are on the west side.
-                foreach (Transform item in transform.GetChild(1).GetChild(3))
-                {
-                    moveList.Add(item.gameObject);
-                }
-            }
-            else if (gridPosition.x == WorldGenerator.Instance.WorldColumns - 1)
-            {
-                ///We are on the east side.
-                foreach (Transform item in transform.GetChild(1).GetChild(1))
-                {
-                    moveList.Add(item.gameObject);
-                }
-            }
+        //    if (gridPosition.x == 0)
+        //    {
+        //        ///We are on the west side.
+        //        foreach (Transform item in transform.GetChild(1).GetChild(3))
+        //        {
+        //            moveList.Add(item.gameObject);
+        //        }
+        //    }
+        //    else if (gridPosition.x == WorldGenerator.Instance.WorldColumns - 1)
+        //    {
+        //        ///We are on the east side.
+        //        foreach (Transform item in transform.GetChild(1).GetChild(1))
+        //        {
+        //            moveList.Add(item.gameObject);
+        //        }
+        //    }
 
-            if (gridPosition.y == 0)
-            {
-                ///We are on the south side.
-                foreach (Transform item in transform.GetChild(1).GetChild(2))
-                {
-                    moveList.Add(item.gameObject);
-                }
-            }
-            else if (gridPosition.y == WorldGenerator.Instance.WorldRows - 1)
-            {
-                ///We are on the north side.
-                foreach (Transform item in transform.GetChild(1).GetChild(0))
-                {
-                    moveList.Add(item.gameObject);
-                }
-            }
+        //    if (gridPosition.y == 0)
+        //    {
+        //        ///We are on the south side.
+        //        foreach (Transform item in transform.GetChild(1).GetChild(2))
+        //        {
+        //            moveList.Add(item.gameObject);
+        //        }
+        //    }
+        //    else if (gridPosition.y == WorldGenerator.Instance.WorldRows - 1)
+        //    {
+        //        ///We are on the north side.
+        //        foreach (Transform item in transform.GetChild(1).GetChild(0))
+        //        {
+        //            moveList.Add(item.gameObject);
+        //        }
+        //    }
 
-            foreach (GameObject item in moveList)
-            {
-                item.transform.parent = transform.GetChild(2);
-            }
-        }
+        //    foreach (GameObject item in moveList)
+        //    {
+        //        item.transform.parent = transform.GetChild(2);
+        //    }
+        //}
 
         #endregion
 
@@ -241,11 +241,46 @@ public class Room : MonoBehaviour
         }
     }
 
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.layer == 8)
-    //    {
-    //        OpenDoors();
-    //    }
-    //}
+
+    public void RemoveDoors()
+    {
+        List<GameObject> moveList = new List<GameObject>();
+
+        if (!connections[Direction.North])
+        {
+            foreach (Transform item in transform.GetChild(1).GetChild( (int)Direction.North) )
+            {
+                moveList.Add(item.gameObject);
+            }
+        }
+
+        if (!connections[Direction.East])
+        {
+            foreach (Transform item in transform.GetChild(1).GetChild( (int)Direction.East) )
+            {
+                moveList.Add(item.gameObject);
+            }
+        }
+
+        if (!connections[Direction.South])
+        {
+            foreach (Transform item in transform.GetChild(1).GetChild( (int)Direction.South) )
+            {
+                moveList.Add(item.gameObject);
+            }
+        }
+
+        if (!connections[Direction.West])
+        {
+            foreach (Transform item in transform.GetChild(1).GetChild( (int)Direction.West) )
+            {
+                moveList.Add(item.gameObject);
+            }
+        }
+
+        foreach (GameObject item in moveList)
+        {
+            item.transform.parent = transform.GetChild(2);
+        }
+    }
 }

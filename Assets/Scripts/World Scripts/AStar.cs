@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AStar : MonoBehaviour
+public class AStar : SingletonPattern<AStar>
 {
     public int columns = 4;
     public int rows = 4;
 
-    private Room[,] grid;
+    public Room[,] grid;
 
     private Dictionary<string, List<Room>> paths = new Dictionary<string, List<Room>>();
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+
     private void Start()
     {
-        grid = new Room[columns, rows];
+        //grid = new Room[columns, rows];
 
 
         ///After the world has been generated assign the proper values
@@ -35,20 +41,25 @@ public class AStar : MonoBehaviour
                 ///for the edge rooms. Value needs to be 3.
                 else
                     grid[x, z].MaxConnections = 3;
-
             }
         }
     }
+
+
 
     public void GeneratePath(Room startRoom, Room endRoom)
     {
         ///Let's start with the crit path to test
         //paths.Add("Main Path", Algo(startRoom, endRoom));
+        Debug.Log("Start room: " + startRoom.gameObject.transform.parent.name);
+        Debug.Log("End room: " + endRoom.gameObject.transform.parent.name);
+
         List<Room> tempList = Algo(startRoom, endRoom);
 
         for (int i = 0; i < tempList.Count; i++)
         {
             Room currRoom = tempList[i];
+            //Debug.Log("Current room grid position " + currRoom.gridPosition.ToString());
 
             if (i < tempList.Count - 1)
             {
@@ -71,8 +82,6 @@ public class AStar : MonoBehaviour
                         currRoom.connections[Room.Direction.North] = true;
                         nextRoom.connections[Room.Direction.South] = true;
                     }
-
-
                 }
                 else if (nextRoom.gridPosition.y == currRoom.gridPosition.y)
                 {
@@ -95,7 +104,6 @@ public class AStar : MonoBehaviour
             }
         }
     }
-
 
     public List<Room> Algo(Room startRoom, Room endRoom)
     {
@@ -166,6 +174,11 @@ public class AStar : MonoBehaviour
             path.Add(currentRoom);
             currentRoom = currentRoom.parent;
         }
+
+        if (currentRoom == startRoom)
+        {
+            path.Add(currentRoom);
+        }
         
         path.Reverse();
         
@@ -209,8 +222,14 @@ public class AStar : MonoBehaviour
 
     }
 
-    public void MakeConnections()
+    public void RemoveRemainingDoors()
     {
-
+        for (int x = 0; x < 4; x++)
+        {
+            for (int y = 0; y < 4; y++)
+            {
+                grid[x, y].RemoveDoors();
+            }
+        }
     }
 }
