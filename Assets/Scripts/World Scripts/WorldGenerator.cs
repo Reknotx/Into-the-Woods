@@ -39,6 +39,7 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
             Random.InitState(seed);
 
         GenerateRoomList();
+
     }
 
     #region Setup
