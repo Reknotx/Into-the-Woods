@@ -15,13 +15,15 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     public bool manualSeed; // Do you want to force a certain seed?
     public int seed; // What exact randomization seed to use.
 
-    private List<GameObject> FieldRoomPicks = new List<GameObject>(); // The current list of picked field rooms for this world.
-
     public WorldRoomContainer roomContainer; // The ScriptableObject that contains all of our room lists.
 
-    public GameObject[,] roomArrange; // Our selected rooms to instantiate, in the arrangement we're building.
-    public GameObject[,] roomInstances; // The rooms we've instantiated as based FieldRoomPicks.
-    public Room[,] roomScripts; // The instances of roomInstances' scripts, "Room".
+    private List<GameObject> FieldRoomPicks = new List<GameObject>(); // The current list of picked field rooms for this world.
+    //public GameObject[,] roomArrange; // Our selected rooms to instantiate, in the arrangement we're building.
+    private GameObject[,] roomInstances; // The rooms we've instantiated as based FieldRoomPicks.
+    private Room[,] roomScripts; // The instances of roomInstances' scripts, "Room".
+
+    private Room spawnRoom; // The instance of the spawn Room.
+    private Room bossRoom; // The instance of the boss Room.
 
     protected override void Awake()
     {
@@ -72,7 +74,7 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     {
         WorldRoomsParent = new GameObject("WorldRoomsParent").transform;
 
-        roomArrange = new GameObject[WorldColumns, WorldRows];
+        //roomArrange = new GameObject[WorldColumns, WorldRows];
         roomInstances = new GameObject[WorldColumns, WorldRows];
         roomScripts = new Room[WorldColumns, WorldRows];
 
@@ -115,116 +117,11 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     /// </summary>
     public void GenerateRoomList()
     {
-        // =========================================================================================
-        // First, pick random field tiles to use. ("Field" meaning not spawn or boss room.)
-        // These are stored in a list and will be put into a 2D array later for instancing.
-        // Previous iteration just took the entire existing list of field rooms, then
-        // randomly removed the excess until we had the desired number of rooms.
-        // Shuffle this list.
+        // Step 1: Select random Field rooms.
+        // Choose random prefabs to use for the field rooms. ("Field" meaning not spawn or boss room.)
+        // Our choices will be stored in FieldRoomPicks.
 
-        FieldRoomPicks.Clear();
-        FieldRoomPicks.AddRange(roomContainer.roomPrefabs);
-        for (int i = 0; i < (roomContainer.roomPrefabs.Count - ((WorldRows * WorldColumns) - 2)); i++)
-        {
-            // Remove entries from the list until we just have what we need to fill in the map, minus the spawn and boss rooms.
-            FieldRoomPicks.RemoveAt(Random.Range(0, FieldRoomPicks.Count));
-
-        }
-
-
-        // Shuffling the selected field rooms.
-        for (int i = 0; i < FieldRoomPicks.Count; i++)
-        {
-            GameObject temp = FieldRoomPicks[i];
-            int randomIndex = Random.Range(i, FieldRoomPicks.Count);
-            FieldRoomPicks[i] = FieldRoomPicks[randomIndex];
-            FieldRoomPicks[randomIndex] = temp;
-        }
-
-
-        // =========================================================================================           
-        // Second, randomize two points in a 2D array and loop until they're a valid distance.
-        // We have safety checks in void Start so that we never have an infinite loop.
-        // We can do math on the 2D indexes to deduce if they're far enough away from each other,
-        // since the 2D indexes will reflect their placements asides from the physical distance.
-        // One of these will be the spawn, and the other will be the boss.
-        // EDIT: The boss room should be random from a list of boss rooms.
-
-        // Starting with two points.
-        Vector2Int intendedStart = new Vector2Int();
-        Vector2Int intendedEnd = new Vector2Int();
-        do
-        {
-            intendedStart = new Vector2Int(Random.Range(0, WorldColumns), Random.Range(0, WorldRows));
-            intendedEnd = new Vector2Int(Random.Range(0, WorldColumns), Random.Range(0, WorldRows));
-
-        } while (((Mathf.Abs(intendedStart.x - intendedEnd.x)) + (Mathf.Abs(intendedStart.y - intendedEnd.y))) < minimumJourney);
-
-        // Committing to the array.
-        roomArrange[intendedStart.x, intendedStart.y] = roomContainer.spawnRoom;
-        //roomArrange[intendedEnd.x, intendedEnd.y] = roomContainer.bossRoom;
-        roomArrange[intendedEnd.x, intendedEnd.y] = roomContainer.bossRooms[Random.Range(0, roomContainer.bossRooms.Count)]; // Commit a RANDOM boss room.
-
-        // =========================================================================================
-        // Third, fill the empty spaces of the 2D array with the randomized field rooms from earlier.
-
-        List<GameObject> tempRoomList = FieldRoomPicks;
-
-        for (int i = 0; i < roomArrange.GetLength(0); i++)
-        {
-            for (int z = 0; z < roomArrange.GetLength(1); z++)
-            {
-                if (roomArrange[i, z] != null)
-                {
-                    //print(i +"," + z + " was not null; " + roomArrange[i,z]);
-                    // Do nothing?
-                }
-                else
-                {
-                    //print(i + "," + z + " was null.");
-
-                    int randomRoom = Random.Range(0, tempRoomList.Count);
-                    roomArrange[i, z] = tempRoomList[randomRoom];
-                    tempRoomList.RemoveAt(randomRoom);
-
-                    //print(roomArrange[i, z]);
-                }
-            }
-        }
-
-
-        // =========================================================================================
-        // Fourth, instantiate the 2D array of rooms.
-        // Use a second 2D array to refer to the instances.
-
-        for (int i = 0; i < roomArrange.GetLength(0); i++)
-        {
-            for (int z = 0; z < roomArrange.GetLength(1); z++)
-            {
-                // I feel like I've made a redundant amount of room arrays...?
-                roomInstances[i, z] = Instantiate(roomArrange[i, z], new Vector3(i * WorldXScale, 0f, z * WorldZScale), Quaternion.identity);
-                roomInstances[i, z].transform.SetParent(WorldRoomsParent);
-                roomScripts[i, z] = roomInstances[i, z].transform.GetChild(1).GetComponent<Room>();
-                roomScripts[i, z].gridPosition = new Vector2(i, z);
-
-                //Debug.Log(roomScripts[i, z].gameObject.transform.parent.name + " grid position " + roomScripts[i, z].gridPosition.ToString());
-            }
-        }
-
-        AStar.Instance.grid = roomScripts;
-        AStar.Instance.GeneratePath(roomScripts[0, 0], roomScripts[3, 3]);
-        AStar.Instance.GeneratePath(roomScripts[0, 0], roomScripts[1, 3]);
-        AStar.Instance.GeneratePath(roomScripts[0, 0], roomScripts[3, 1]);
-        //AStar.Instance.GeneratePath(roomScripts[0, 0], roomScripts[3, 3]);
-        AStar.Instance.RemoveRemainingDoors();
-
-    }
-
-    public void ChaseWorldGen()
-    {
-        ///Randomly select rooms for spawning
-        ///ADJUST VALUES FOR THE FOR LOOP AS NEEDED
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < ((WorldRows * WorldColumns ) - 2); i++)
         {
             while (true)
             {
@@ -238,7 +135,12 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
             }
         }
 
-        ///Select the spawn position of the boss and spawn room
+
+        // =====================================================================
+        // Step 2: Instantiate Spawn and Boss rooms.
+        // Find viable positions for the two rooms. Then, instantiate them.
+        // Place their script instances in an array.
+
         Vector2Int intendedStart = new Vector2Int();
         Vector2Int intendedEnd = new Vector2Int();
         do
@@ -248,38 +150,55 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
         } while (((Mathf.Abs(intendedStart.x - intendedEnd.x)) + (Mathf.Abs(intendedStart.y - intendedEnd.y))) < minimumJourney);
 
-        ///Instantiate the Boss and Spawn rooms immediately after, 
-        ///and place them in the 2D array roomInstances
-        ///Have a reference point to where the spawn and boss rooms are
-        ///in the area for easy reference with A*
-        ///private Room spawnRoom;
-        ///private Room bossRoom;
+        // Instantiate them both immediately!
+        // Link the instances to the new vars.
+        // Place them in array RoomInstances.
+
+        GameObject temp = null;
+
+        // Spawn Room.
+        temp = Instantiate(roomContainer.spawnRoom, new Vector3(intendedStart.x * WorldXScale, 0f, intendedStart.y * WorldZScale), Quaternion.identity);
+        roomInstances[intendedStart.x, intendedStart.y] = temp;
+        roomInstances[intendedStart.x, intendedStart.y].transform.SetParent(WorldRoomsParent);
+        spawnRoom = temp.GetComponentInChildren<Room>();
+        spawnRoom.gridPosition = intendedStart;
+
+        // Boss Room.
+        temp = Instantiate(roomContainer.bossRooms[Random.Range(0, roomContainer.bossRooms.Count)], new Vector3(intendedEnd.x * WorldXScale, 0f, intendedEnd.y * WorldZScale), Quaternion.identity);
+        roomInstances[intendedEnd.x, intendedEnd.y] = temp;
+        roomInstances[intendedEnd.x, intendedEnd.y].transform.SetParent(WorldRoomsParent);
+        bossRoom = temp.GetComponentInChildren<Room>();
+        bossRoom.gridPosition = intendedEnd;
 
 
-        ///Then, run through FieldRoomPicks until empty
+        // =====================================================================
+        // Step 3: Instantiate Field rooms randomly.
+        
+        ///Run through FieldRoomPicks until empty
         while (FieldRoomPicks.Count != 0)
         {
             int index = Random.Range(0, FieldRoomPicks.Count());
 
-            while(true)
+            while (true)
             {
                 int x = Random.Range(0, WorldRows);
                 int y = Random.Range(0, WorldColumns);
 
                 if (roomInstances[x, y] == null)
                 {
-                    GameObject temp = null;
+                    GameObject temp2 = null;
                     ///Instantiate the obj and store the reference
                     ///Do NOT get the script reference yet
-                    
                     ///DO adjust positioning in world as is needed
-
-                    ///Let's assume we spawned the object
-                    FieldRoomPicks.Remove(temp);
+                    temp2 = Instantiate(FieldRoomPicks[index], new Vector3(x * WorldXScale, 0f, y * WorldZScale), Quaternion.identity);
+                    roomInstances[x, y] = temp2;
+                    roomInstances[x, y].transform.SetParent(WorldRoomsParent);
+                    FieldRoomPicks.Remove(temp2);
                     break;
                 }
             }
         }
+        
 
         ///Spawn in the rest of the rooms and do rest of work.
         for (int x = 0; x < WorldRows; x++)
@@ -288,21 +207,16 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
             {
                 ///Obtain script reference and store in roomScripts array
                 ///Then do the rest of the finalization 
+                roomScripts[x, y] = roomInstances[x, y].transform.GetChild(1).GetComponent<Room>();
+                roomScripts[x, y].gridPosition = new Vector2(x, y);
             }
         }
 
+    
+
+
+
     }
-
-
-    ///Notes for spawning world
-    ///1. Instantiate the rooms selected randomly from the scriptable object.
-    ///2. Make a temporary game object reference for that spawned prefab.
-    ///
-    ///GameObject temp = Instantiate("room", .....);
-    ///
-    ///3. Store the room script from that temp obj in the array
-    ///
-    ///roomScripts[x, y] = temp.transform.GetChild(1).GetComponent<Room>();
 
     #endregion
 
