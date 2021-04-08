@@ -39,6 +39,10 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
             Random.InitState(seed);
 
         GenerateRoomList();
+
+        GeneratePath(spawnRoom, bossRoom);
+
+        RemoveDoors();
     }
 
     #region Setup
