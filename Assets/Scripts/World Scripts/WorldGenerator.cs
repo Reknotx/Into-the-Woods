@@ -39,9 +39,6 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
             Random.InitState(seed);
 
         GenerateRoomList();
-
-
-
     }
 
     #region Setup
@@ -193,7 +190,7 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
                     temp2 = Instantiate(FieldRoomPicks[index], new Vector3(x * WorldXScale, 0f, y * WorldZScale), Quaternion.identity);
                     roomInstances[x, y] = temp2;
                     roomInstances[x, y].transform.SetParent(WorldRoomsParent);
-                    FieldRoomPicks.Remove(temp2);
+                    FieldRoomPicks.RemoveAt(index);
                     break;
                 }
             }
@@ -211,11 +208,6 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
                 roomScripts[x, y].gridPosition = new Vector2(x, y);
             }
         }
-
-    
-
-
-
     }
 
     #endregion
