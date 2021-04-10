@@ -21,6 +21,11 @@ public class PopUp : SingletonPattern<PopUp>
     {
     }
 
+    /// Author: JT Esmond
+    /// Date: 4/8/2021
+    /// <summary>
+    /// Function that updates the values of the pop up variables for the Collectibles
+    /// </summary>
     public void UpdateCollectableInfo(ScriptablePopUp popUp)
     {
         tempPopUp = popUp;
@@ -29,35 +34,17 @@ public class PopUp : SingletonPattern<PopUp>
         artwork.sprite = popUp.art;
     }
 
-    public void UpdateSpellInfo()
+    /// Author: JT Esmond
+    /// Date: 4/10/2021
+    /// <summary>
+    /// function that updates the values of the pop up variables for the interactables
+    /// </summary>
+    public void UpdateInteractableInfo(int x)
     {
-        if(SpellList[0].gameObject.GetComponent<SpellScroll>().spellToLearn)
-        {
-            tempPopUp = PopUpManager.Instance.PopUps[10];
-            nameText.text = tempPopUp.itemName;
-            descriptionText.text = tempPopUp.description;
-            artwork.sprite = tempPopUp.art;
-        }
-        else if(SpellList[1].gameObject.GetComponent<SpellScroll>().spellToLearn)
-        {
-            tempPopUp = PopUpManager.Instance.PopUps[11];
-            nameText.text = tempPopUp.itemName;
-            descriptionText.text = tempPopUp.description;
-            artwork.sprite = tempPopUp.art;
-        }
-        else if(SpellList[2].gameObject.GetComponent<SpellScroll>().spellToLearn)
-        {
-            tempPopUp = PopUpManager.Instance.PopUps[12];
-            nameText.text = tempPopUp.itemName;
-            descriptionText.text = tempPopUp.description;
-            artwork.sprite = tempPopUp.art;
-        }
-        else if(SpellList[3].gameObject.GetComponent<SpellScroll>().spellToLearn)
-        {
-            tempPopUp = PopUpManager.Instance.PopUps[13];
-            nameText.text = tempPopUp.itemName;
-            descriptionText.text = tempPopUp.description;
-            artwork.sprite = tempPopUp.art;
-        }
+        tempPopUp = PopUpManager.Instance.PopUps[x];
+        nameText.text = tempPopUp.itemName;
+        descriptionText.text = tempPopUp.description;
+        artwork.sprite = tempPopUp.art;
     }
+
 }

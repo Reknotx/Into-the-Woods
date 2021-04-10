@@ -40,6 +40,7 @@ public class PotionRecipe : ScriptableObject
     public Sprite potionSprite;
     public string description;
 
+    [HideInInspector] public bool hasCollected;
 
     public bool CanCraft(Inventory PInven)
     {
