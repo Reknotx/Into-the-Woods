@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Pop Up", menuName = "PopUp")]
 public class ScriptablePopUp : ScriptableObject
 {
+    public GameObject ObjRef;
     public string itemName;
     public string description;
     public Sprite art;
