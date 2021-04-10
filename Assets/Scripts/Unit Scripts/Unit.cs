@@ -47,7 +47,7 @@ public class Unit : MonoBehaviour
                 }
                 else if (this is BossA)
                 {
-                    WinLoseUI.Instance.YouWin();
+                    WinLoseUI.Instance.bossDead = true;
                 }
                 else if (this is Enemy enemy && PlayerInfo.CurrentRoom != null)
                 {

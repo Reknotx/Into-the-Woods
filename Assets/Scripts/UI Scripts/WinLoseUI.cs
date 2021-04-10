@@ -14,6 +14,7 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
 
     [HideInInspector] public bool won;
     [HideInInspector] public bool lost;
+    [HideInInspector] public bool bossDead;
 
     protected override void Awake()
     {
@@ -25,6 +26,7 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
 
     private void Start()
     {
+        bossDead = false;
         Time.timeScale = 1f;
     }
 
