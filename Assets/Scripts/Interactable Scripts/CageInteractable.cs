@@ -16,4 +16,12 @@ public class CageInteractable : Interactable
             WinLoseUI.Instance.YouWin();
         }
     }
+
+    public void Update()
+    {
+        if(WinLoseUI.Instance.bossDead == false)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
 }
