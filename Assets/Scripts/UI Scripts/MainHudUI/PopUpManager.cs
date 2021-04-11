@@ -42,14 +42,25 @@ public class PopUpManager : MonoBehaviour
     /// </summary>
     public void PopUpOn(Interactable collected)
     {
-        Time.timeScale = 0f;
-        transform.GetChild(0).gameObject.SetActive(true);
-        foreach (ScriptablePopUp popUp in PopUps)
+        if (collected is AttackCandy || collected is Avocado || collected is BalloonBouquet || collected is Compass || collected is LuckyPenny || collected is NightOwlToken || collected is Totem || collected is TwoPeas)
         {
-            if(collected.GetType() == popUp.ObjRef.GetComponent<Interactable>().GetType())
+            Time.timeScale = 0f;
+            transform.GetChild(0).gameObject.SetActive(true);
+
+            foreach (ScriptablePopUp popUp in PopUps)
             {
-                PopUp.Instance.UpdateCollectableInfo(popUp);
+                if (collected is AttackCandy || collected is Avocado || collected is BalloonBouquet || collected is Compass || collected is LuckyPenny || collected is NightOwlToken || collected is Totem || collected is TwoPeas)
+                {
+                    if (collected.GetType() == popUp.ObjRef.GetComponent<Interactable>().GetType())
+                    {
+                        PopUp.Instance.UpdateCollectableInfo(popUp);
+                    }
+                }
             }
+        }         
+        else
+        {
+            return;
         }
     }
 
