@@ -40,10 +40,17 @@ public class Unit : MonoBehaviour
 
             if (_currHealth <= 0)
             {
-                if (this is Player)
+                if (this is Player player)
                 {
-                    Camera.main.transform.parent = null;
-                    WinLoseUI.Instance.YouLose();
+                    if (player.PInven.HasItem(Inventory.Items.Totem))
+                    {
+                        ((Totem)player.PInven.GetItem(Inventory.Items.Totem)).UseItem();
+                    }
+                    else
+                    {
+                        Camera.main.transform.parent = null;
+                        WinLoseUI.Instance.YouLose();
+                    }
                 }
                 else if (this is BossA)
                 {
@@ -55,7 +62,7 @@ public class Unit : MonoBehaviour
                     PlayerInfo.CurrentRoom.RemoveEnemy(enemy);
                 }
 
-                Destroy(gameObject);
+                if (_currHealth <= 0) Destroy(gameObject);
             }
         }
     }

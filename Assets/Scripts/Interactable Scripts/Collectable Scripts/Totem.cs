@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class Totem : Collectable
 {
+    private bool Used { get; set; }
+
     public override void DropLogic()
     {
-        throw new System.NotImplementedException();
+        if (Used) Destroy(gameObject);
     }
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        base.Interact();
+    }
+
+    public void UseItem()
+    {
+        Used = true;
+        Player.Instance.Health = 20;
+        Player.Instance.PInven.RemoveItem(this);
     }
 }
