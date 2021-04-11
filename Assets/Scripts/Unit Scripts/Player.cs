@@ -435,6 +435,9 @@ public class Player : Unit
     /// <param name="duration">How long the invisibility lasts for.</param>
     public IEnumerator Invisibility(float duration)
     {
+        EffectPopUps.Instance.TurnOn(4, EffectPopUps.Instance.invisibilityActive);
+        EffectPopUps.Instance.invisibilityActive = true;
+
         Color color = GetComponent<MeshRenderer>().material.color;
         color.a = 0.5f;
 
@@ -445,6 +448,8 @@ public class Player : Unit
         color.a = 1f;
         GetComponent<MeshRenderer>().material.color = color;
 
+        EffectPopUps.Instance.TurnOff(EffectPopUps.Instance.invisibilityActive);
+        EffectPopUps.Instance.invisibilityActive = false;
     }
 
     /// Author: Chase O'Connor
@@ -455,6 +460,9 @@ public class Player : Unit
     /// <param name="duration">The length of the double damage effect.</param>
     public IEnumerator DoubleDamage(float duration)
     {
+        EffectPopUps.Instance.TurnOn(1, EffectPopUps.Instance.doubleDamageActive);
+        EffectPopUps.Instance.doubleDamageActive = true;
+
         PlayerInfo.AttackDamage += 5;
         Debug.Log("Player damage is now " + PlayerInfo.AttackDamage);
 
@@ -462,6 +470,10 @@ public class Player : Unit
 
         PlayerInfo.AttackDamage -= 5;
         Debug.Log("Player damage is now " + PlayerInfo.AttackDamage);
+
+        EffectPopUps.Instance.TurnOff(EffectPopUps.Instance.doubleDamageActive);
+        EffectPopUps.Instance.doubleDamageActive = false;
+
     }
 
     /// <summary>
@@ -470,12 +482,18 @@ public class Player : Unit
     /// <param name="duration">The duration of the effect.</param>
     public IEnumerator FrozenHeart(float duration)
     {
+        EffectPopUps.Instance.TurnOn(2, EffectPopUps.Instance.frozenHeartActive);
+        EffectPopUps.Instance.frozenHeartActive = true;
+
         PlayerInfo.SpellFreezeImmune = true;
         Debug.Log("Player immune to spell freezing for " + duration + " seconds");
 
         yield return new WaitForSeconds(duration);
 
         PlayerInfo.SpellFreezeImmune = false;
+
+        EffectPopUps.Instance.TurnOff(EffectPopUps.Instance.frozenHeartActive);
+        EffectPopUps.Instance.frozenHeartActive = false;
     }
 
     /// Author: Chase O'Connor
@@ -484,11 +502,17 @@ public class Player : Unit
     /// <param name="duration">How long the player is unable to cast in seconds.</param>
     public IEnumerator SpellsFrozen(float duration)
     {
+        EffectPopUps.Instance.TurnOn(3, EffectPopUps.Instance.frozenActive);
+        EffectPopUps.Instance.frozenActive = true;
+
         PlayerInfo.SpellsFrozen = true;
 
         yield return new WaitForSeconds(duration);
 
         PlayerInfo.SpellsFrozen = false;
+
+        EffectPopUps.Instance.TurnOff(EffectPopUps.Instance.frozenActive);
+        EffectPopUps.Instance.frozenActive = false;
     }
 
     ///Author: Chase O'Connor
@@ -497,11 +521,17 @@ public class Player : Unit
     /// <param name="duration">How long in seconds does the bleed effect last for.</param>
     public IEnumerator Bleed(int duration)
     {
+        EffectPopUps.Instance.TurnOn(0, EffectPopUps.Instance.bleedActive);
+        EffectPopUps.Instance.bleedActive = true;
+
         for (int i = 0; i < duration; i++)
         {
             yield return new WaitForSeconds(1f);
             Health--;
         }
+
+        EffectPopUps.Instance.TurnOff(EffectPopUps.Instance.bleedActive);
+        EffectPopUps.Instance.bleedActive = false;
     }
     #endregion
 }
