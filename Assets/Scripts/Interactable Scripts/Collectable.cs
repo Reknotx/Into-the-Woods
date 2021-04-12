@@ -29,10 +29,13 @@ public abstract class Collectable : Interactable
     /// </summary>
     protected void PopupCheck()
     {
-        if (!Player.Instance.PInven.HasCollectedBefore(this))
+        if (this is AttackCandy || this is Avocado || this is BalloonBouquet || this is Compass || this is LuckyPenny || this is NightOwlToken || this is Totem || this is TwoPeas)
         {
-            //Debug.Log("Collected before");
-            PopUpManager.Instance.PopUp(this);
+            if (!Player.Instance.PInven.HasCollectedBefore(this))
+            {
+                //Debug.Log("Collected before");
+                PopUpManager.Instance.PopUp(this);
+            }
         }
     }
 }
