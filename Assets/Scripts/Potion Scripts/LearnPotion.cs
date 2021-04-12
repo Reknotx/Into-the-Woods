@@ -15,6 +15,11 @@ public class LearnPotion : Interactable
     public override void Interact()
     {
         BrewingSystem.Instance.AddRecipe(unlockRecipe);
+        if (!unlockRecipe.hasCollected)
+        {
+            PopUpManager.Instance.PotionPopUp(this, unlockRecipe);
+            unlockRecipe.hasCollected = true;
+        }
         Destroy(gameObject);
     }
 }

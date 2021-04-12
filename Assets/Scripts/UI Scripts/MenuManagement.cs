@@ -45,6 +45,7 @@ public class MenuManagement : MonoBehaviour
     /// </summary>
     public void MainMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
         WinLoseUI.Instance.won = false;
         WinLoseUI.Instance.lost = false;

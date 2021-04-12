@@ -254,8 +254,10 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
             {
                 ///Obtain script reference and store in roomScripts array
                 ///Then do the rest of the finalization 
+                ///
                 roomScripts[x, y] = roomInstances[x, y].transform.GetChild(1).GetComponent<Room>();
                 roomScripts[x, y].gridPosition = new Vector2(x, y);
+                
             }
         }
     }
