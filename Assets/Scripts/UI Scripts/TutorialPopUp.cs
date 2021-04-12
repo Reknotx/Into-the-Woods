@@ -63,7 +63,10 @@ public class TutorialPopUp : MonoBehaviour
                 break;
             case 2:
                 description.text = "This is the third page!";
-                
+                break;
+            case 3:
+                break;
+            case 4:
                 break;
             default:
                 print("Default Tutorial case. You shouldn't be seeing this.");
