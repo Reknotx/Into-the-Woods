@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This class contains the functions for changing the game mode from a main menu.
@@ -9,13 +10,58 @@ using UnityEngine;
 /// </summary>
 public class ModeSelect : MonoBehaviour
 {
-
+    // Variables to input before saving.
     public int enterRows;
     public int enterColumns;
     public bool enterUseSeed;
     public int enterSeed;
 
     public int playerDamageMultiplier;
+
+    // Objects to toggle on/off for UI.
+    public GameObject mapCheckmark;
+    public GameObject dmgCheckmark;
+
+    private void Awake()
+    {
+        // Awake will ensure everything is properly enabled/disabled correctly.
+        if (enterRows == 5)
+        {
+            mapCheckmark.SetActive(true);
+        }
+        else
+        {
+            mapCheckmark.SetActive(false);
+            enterRows = 4;
+            enterColumns = 4;
+        }
+        print("World size is " + enterRows + "x" + enterColumns + ".");
+        PlayerPrefs.SetInt("PWorldRows", enterRows);
+        PlayerPrefs.SetInt("PWorldColumns", enterColumns);
+
+        if (playerDamageMultiplier == 2)
+        {
+            dmgCheckmark.SetActive(true);
+        }
+        else
+        {
+            playerDamageMultiplier = 1;
+            dmgCheckmark.SetActive(false);
+        }
+        print("Player damage multiplier is x" + playerDamageMultiplier + ".");
+        PlayerPrefs.SetInt(PrefTags.DmgMulti, playerDamageMultiplier);
+
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("MainGame");
+    }
+
+    public void ToMain()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public void Toggle5x5MapMenu()
     {
@@ -24,11 +70,13 @@ public class ModeSelect : MonoBehaviour
         {
             enterRows = 4;
             enterColumns = 4;
+            mapCheckmark.SetActive(false);
         }
         else
         {
             enterRows = 5;
             enterColumns = 5;
+            mapCheckmark.SetActive(true);
         }
 
         // Save the result to PlayerPrefs!
@@ -44,10 +92,12 @@ public class ModeSelect : MonoBehaviour
         if (playerDamageMultiplier == 2)
         {
             playerDamageMultiplier = 1;
+            dmgCheckmark.SetActive(false);
         }
         else
         {
             playerDamageMultiplier = 2;
+            dmgCheckmark.SetActive(true);
         }
 
         // Save the result to PlayerPrefs!

@@ -198,7 +198,7 @@ public class Player : Unit
 
         /// The player wants to cast a spell.
         if (Input.GetMouseButtonDown(0) && !PlayerInfo.SpellsFrozen && !BrewingSystem.Instance.gameObject.activeSelf) CastSpell();
-        else if (Input.mouseScrollDelta.y > 0)
+        else if (Input.GetKeyDown(KeyCode.E) || Input.mouseScrollDelta.y > 0)
         {
             ///Move to next spell, spell 2 to spell 3
             //Debug.Log("Moving to next spell.");
@@ -208,7 +208,7 @@ public class Player : Unit
 
             SelectedSpell = spells[_spellIndex];
         }
-        else if (Input.mouseScrollDelta.y < 0)
+        else if (Input.GetKeyDown(KeyCode.Q) || Input.mouseScrollDelta.y < 0)
         {
             ///Move to previous spell, spell 3 to spell 2
             //Debug.Log("Moving to previous spell.");
