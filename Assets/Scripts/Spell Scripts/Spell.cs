@@ -78,7 +78,10 @@ public abstract class Spell : MonoBehaviour
     {
         if (collision.gameObject.layer == 27)
         {
-            Debug.Log("hello");
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.layer == 13 && (1 << collision.gameObject.layer) != layerToHit.value)
+        {
             Destroy(gameObject);
         }
 
