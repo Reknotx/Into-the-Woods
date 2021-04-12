@@ -36,8 +36,8 @@ public class ModeSelect : MonoBehaviour
             enterColumns = 4;
         }
         print("World size is " + enterRows + "x" + enterColumns + ".");
-        PlayerPrefs.SetInt("PWorldRows", enterRows);
-        PlayerPrefs.SetInt("PWorldColumns", enterColumns);
+        PlayerPrefs.SetInt(PrefTags.PWorldRows, enterRows);
+        PlayerPrefs.SetInt(PrefTags.PWorldColumns, enterColumns);
 
         if (playerDamageMultiplier == 2)
         {
@@ -80,8 +80,8 @@ public class ModeSelect : MonoBehaviour
         }
 
         // Save the result to PlayerPrefs!
-        PlayerPrefs.SetInt("PWorldRows", enterRows);
-        PlayerPrefs.SetInt("PWorldColumns", enterColumns);
+        PlayerPrefs.SetInt(PrefTags.PWorldRows, enterRows);
+        PlayerPrefs.SetInt(PrefTags.PWorldColumns, enterColumns);
         print("World size is now " + enterRows + "x" + enterColumns + "!");
 
     }
@@ -117,13 +117,13 @@ public class ModeSelect : MonoBehaviour
     {
         if (enterUseSeed)
         {
-            PlayerPrefs.SetInt("useSeed", 1);
-            PlayerPrefs.SetInt("seed", enterSeed);
+            PlayerPrefs.SetInt(PrefTags.UseSeed, 1);
+            PlayerPrefs.SetInt(PrefTags.Seed, enterSeed);
             print("Seed set to " + enterSeed);
         }
         else
         {
-            PlayerPrefs.SetInt("useSeed", 0);
+            PlayerPrefs.SetInt(PrefTags.UseSeed, 0);
             print("Seed will be random.");
         }
 
