@@ -64,7 +64,10 @@ public class EffectPopUps : SingletonPattern<EffectPopUps>
     /// </summary>
     public void TurnOff(bool boolean)
     {
-        listLocation--;
+        if (listLocation > 0)
+        {
+            listLocation--;
+        }
         popUpHolders[listLocation].gameObject.SetActive(false);
     }
 }
