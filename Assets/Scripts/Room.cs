@@ -209,11 +209,9 @@ public class Room : MonoBehaviour
             door.SetActive(true);
         }
 
-        foreach (Enemy enemy in enemies)
-        {
-            //Debug.Log(enemy.gameObject.name);
-            enemy.gameObject.SetActive(true);
-        }
+        StartCoroutine(SpawnDelay());
+
+        
     }
 
     /// <summary> Opens all of the doors in the level. </summary>
@@ -281,6 +279,25 @@ public class Room : MonoBehaviour
         foreach (GameObject item in moveList)
         {
             item.transform.parent = transform.GetChild(2);
+        }
+    }
+
+    IEnumerator SpawnDelay()
+    {
+        //yield return new WaitUntil(() => CameraTransition.Instance.Done == true);
+
+        //while(CameraTransition.Instance.Done == false)
+        //{
+        //    //yield return new WaitForFixedUpdate();
+        //    yield return null;
+        //}
+        yield return new WaitForSeconds(.75f);
+        Debug.Log(CameraTransition.Instance.Done);
+
+        foreach (Enemy enemy in enemies)
+        {
+            //Debug.Log(enemy.gameObject.name);
+            enemy.gameObject.SetActive(true);
         }
     }
 }
