@@ -17,18 +17,15 @@ public class SpellUI : MonoBehaviour
 
 
 
-    #region Booleans
-
-    #endregion
-
     #region Integers
     [HideInInspector] public int listLocation;
     [HideInInspector] public int listSize;
     #endregion
 
 
-    public Text spellText;
+    public Image imageRef;
 
+    public List<Sprite> spriteList = new List<Sprite>();
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -44,24 +41,23 @@ public class SpellUI : MonoBehaviour
     {
         if (spell is AttackSpell)
         {
-            spellText.text = "Attack Spell";
+            imageRef.sprite = spriteList[0];
         }
         else if (spell is BarrierBreakerSpell)
         {
-            spellText.text = "Barrier Breaker Spell";
-
+            imageRef.sprite = spriteList[1];
         }
         else if (spell is FreezeSpell)
         {
-            spellText.text = "Freeze Spell";
+            imageRef.sprite = spriteList[2];
         }
         else if (spell is ProtectionSpell)
         {
-            spellText.text = "Protection Spell";
+            imageRef.sprite = spriteList[3];
         }
         else if (spell is UnlockingSpell)
         {
-            spellText.text = "Unlocking Spell";
+            imageRef.sprite = spriteList[4];
         }
     }
     #endregion
