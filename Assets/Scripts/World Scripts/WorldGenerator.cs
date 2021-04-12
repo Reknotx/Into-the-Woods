@@ -40,6 +40,14 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
         if (manualSeed)
             Random.InitState(seed);
+        else
+        {
+            ///Make a random seed
+            
+            ///then initialize Random to that seed
+            
+            ///Random.InitState(randomSeed);
+        }
 
         GenerateRoomList();
 

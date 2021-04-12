@@ -18,6 +18,9 @@ public class Room : MonoBehaviour
         West
     }
 
+    public GameObject chestOnCompletion;
+
+    public Transform chestSpawnLoc;
 
     public Dictionary<Direction, bool> connections;
 
@@ -195,6 +198,7 @@ public class Room : MonoBehaviour
 
         if (enemies.Count == 0)
         {
+            Instantiate(chestOnCompletion, chestSpawnLoc.position, Quaternion.identity);
             OpenDoors();
         }
     }
