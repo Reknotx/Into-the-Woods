@@ -8,6 +8,8 @@ public class CameraTransition : SingletonPattern<CameraTransition>
 
     public float transSpeed = 1.5f;
 
+    public bool Done { get; set; } = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -16,6 +18,7 @@ public class CameraTransition : SingletonPattern<CameraTransition>
 
     public void TransitionToPoint(Vector3 pos)
     {
+        Done = false;
         StartCoroutine(Transition(pos));
     }
 
@@ -48,7 +51,9 @@ public class CameraTransition : SingletonPattern<CameraTransition>
 
 
             yield return new WaitForFixedUpdate();
+
         }
+        Done = true;
 
         float Lerp(float start_value, float end_value, float pct)
         {

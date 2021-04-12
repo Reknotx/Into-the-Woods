@@ -37,10 +37,16 @@ public class EnemyA : Enemy
 
     }
 
-    protected void FixedUpdate()
+    protected override void FixedUpdate()
     {
         // Rotate towards player if they're in awareness range.
         // If in line of sight, fire projectile.
+        if (IsFrozen) return;
+
+        transform.LookAt(PlayerObject.transform);
+        gameObject.transform.eulerAngles = new Vector3(0f, gameObject.transform.eulerAngles.y, 0f); // reset other rotations asides Y.
+
+
         AimAtPlayer();
 
     }
@@ -59,7 +65,7 @@ public class EnemyA : Enemy
             if (distanceFromPlayer < awarenessRange)
             {
                 // Rotate the aimer towards the player.
-                aimerObj.transform.LookAt(PlayerObject.transform);
+                //aimerObj.transform.LookAt(PlayerObject.transform);
 
                 // Check if line of sight is valid.
 

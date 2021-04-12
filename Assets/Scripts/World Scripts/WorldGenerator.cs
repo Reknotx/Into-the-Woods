@@ -65,13 +65,16 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
                 attempts++;
 
-                if (attempts == 16)
+                if (attempts >= (WorldColumns * WorldRows))
                 {
                     break;
                 }
             }
         }
 
+        //Debug.Log(criticalPath.Count);
+        //Debug.Log(branchingPaths.Count);
+        ConnectEverything();
 
         RemoveDoors();
     }
@@ -282,42 +285,7 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
             {
                 ///A next room exists
                 Room nextRoom = tempList[i + 1];
-                if (nextRoom.gridPosition.x == currRoom.gridPosition.x)
-                {
-                    ///On same Column so we need to look at
-                    ///north or south
-                    if (currRoom.gridPosition.y > nextRoom.gridPosition.y)
-                    {
-                        ///Current room is above the next room so
-                        ///The south door of the current room and the north
-                        ///door of the next are marked as true
-                        currRoom.connections[Room.Direction.South] = true;
-                        nextRoom.connections[Room.Direction.North] = true;
-                    }
-                    else
-                    {
-                        currRoom.connections[Room.Direction.North] = true;
-                        nextRoom.connections[Room.Direction.South] = true;
-                    }
-                }
-                else if (nextRoom.gridPosition.y == currRoom.gridPosition.y)
-                {
-                    ///On same row so we need to look at
-                    ///east or west
-                    if (currRoom.gridPosition.x < nextRoom.gridPosition.x)
-                    {
-                        ///current room is to the left of the next room
-                        ///So the east door of the current room and the west
-                        ///door of the next room need to be marked as true
-                        currRoom.connections[Room.Direction.East] = true;
-                        nextRoom.connections[Room.Direction.West] = true;
-                    }
-                    else
-                    {
-                        currRoom.connections[Room.Direction.West] = true;
-                        nextRoom.connections[Room.Direction.East] = true;
-                    }
-                }
+                ConnectRooms(currRoom, nextRoom);
             }
         }
     }
@@ -445,18 +413,102 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
     }
 
+
+    public void ConnectEverything()
+    {
+        for (int x = 0; x < WorldColumns; x++)
+        {
+            for (int y = 0; y < WorldRows; y++)
+            {
+                Room currRoom = roomScripts[x, y];
+                bool connectionMade = false;
+
+                if (criticalPath.Contains(currRoom) || branchingPaths.Contains(currRoom))
+                {
+                    continue;
+                }
+
+                List<Room> neighbors = Neighbors(currRoom);
+
+                foreach (Room neighbor in neighbors)
+                {
+                    if (neighbor == bossRoom) continue;
+
+                    if (criticalPath.Contains(neighbor) || branchingPaths.Contains(neighbor))
+                    {
+                        ConnectRooms(currRoom, neighbor);
+                        branchingPaths.Add(currRoom);
+                        connectionMade = true;
+                        break;
+                    }
+                }
+
+                if (connectionMade == false)
+                {
+                    int index = Random.Range(0, neighbors.Count);
+
+                    ConnectRooms(currRoom, neighbors[index]);
+                }
+
+            }
+        }
+    }
+
     public void RemoveDoors()
     {
-        for (int x = 0; x < 4; x++)
+        for (int x = 0; x < WorldColumns; x++)
         {
-            for (int y = 0; y < 4; y++)
+            for (int y = 0; y < WorldRows; y++)
             {
                 roomScripts[x, y].RemoveDoors();
             }
         }
     }
 
-
+    /// <summary>
+    /// Connects two rooms together based on their grid position.
+    /// </summary>
+    /// <param name="currRoom"></param>
+    /// <param name="nextRoom"></param>
+    private void ConnectRooms(Room currRoom, Room nextRoom)
+    {
+        if (nextRoom.gridPosition.x == currRoom.gridPosition.x)
+        {
+            ///On same Column so we need to look at
+            ///north or south
+            if (currRoom.gridPosition.y > nextRoom.gridPosition.y)
+            {
+                ///Current room is above the next room so
+                ///The south door of the current room and the north
+                ///door of the next are marked as true
+                currRoom.connections[Room.Direction.South] = true;
+                nextRoom.connections[Room.Direction.North] = true;
+            }
+            else
+            {
+                currRoom.connections[Room.Direction.North] = true;
+                nextRoom.connections[Room.Direction.South] = true;
+            }
+        }
+        else if (nextRoom.gridPosition.y == currRoom.gridPosition.y)
+        {
+            ///On same row so we need to look at
+            ///east or west
+            if (currRoom.gridPosition.x < nextRoom.gridPosition.x)
+            {
+                ///current room is to the left of the next room
+                ///So the east door of the current room and the west
+                ///door of the next room need to be marked as true
+                currRoom.connections[Room.Direction.East] = true;
+                nextRoom.connections[Room.Direction.West] = true;
+            }
+            else
+            {
+                currRoom.connections[Room.Direction.West] = true;
+                nextRoom.connections[Room.Direction.East] = true;
+            }
+        }
+    }
     #endregion
 
 }

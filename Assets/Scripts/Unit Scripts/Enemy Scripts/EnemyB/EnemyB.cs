@@ -31,10 +31,9 @@ public class EnemyB : Enemy
 
     protected override void FixedUpdate()
     {
+        if (IsFrozen) return;
+
         base.FixedUpdate();
-
-
-
         WanderInDirection();
 
     }
