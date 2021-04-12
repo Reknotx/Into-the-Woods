@@ -27,7 +27,6 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
     private void Start()
     {
         bossDead = false;
-        Time.timeScale = 1f;
     }
 
     /// Author: JT Esmond
