@@ -60,7 +60,7 @@ public enum ChestTier
     High
 }
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "New Chest Loot Table", menuName = "Loot Table/Chest Loot Table", order = 51)]
 public class ChestLootTable : LootTable
 {
     public List<ChestLootInfo> chestLoot = new List<ChestLootInfo>();
