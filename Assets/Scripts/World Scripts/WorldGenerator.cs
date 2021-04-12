@@ -25,6 +25,9 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     private Room spawnRoom; // The instance of the spawn Room.
     private Room bossRoom; // The instance of the boss Room.
 
+    private List<Room> criticalPath = new List<Room>();
+    private List<Room> branchingPaths = new List<Room>();
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +43,32 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
         GenerateRoomList();
 
+        GeneratePath(spawnRoom, bossRoom);
+
+        for (int i = 0; i < 3; i++)
+        {
+            int attempts = 0;
+            while (true)
+            {
+                int x = Random.Range(0, WorldColumns);
+                int y = Random.Range(0, WorldColumns);
+                if (roomScripts[x, y] != bossRoom && !criticalPath.Contains(roomScripts[x, y]) && !branchingPaths.Contains(roomScripts[x, y]))
+                {
+                    GeneratePath(spawnRoom, roomScripts[x, y]);
+                    break;
+                }
+
+                attempts++;
+
+                if (attempts == 16)
+                {
+                    break;
+                }
+            }
+        }
+
+
+        RemoveDoors();
     }
 
     #region Setup
@@ -225,6 +254,15 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
         List<Room> tempList = Algo(startRoom, endRoom);
 
+        if (endRoom == bossRoom)
+        {
+            criticalPath.AddRange(tempList);
+        }
+        else
+        {
+            branchingPaths.AddRange(tempList);
+        }
+
         for (int i = 0; i < tempList.Count; i++)
         {
             Room currRoom = tempList[i];
@@ -317,6 +355,11 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
                 if (currentCost < neighbor.gCost || !frontier.Contains(neighbor))
                 {
+
+                    if (neighbor == bossRoom && endRoom != bossRoom)
+                    {
+                        continue;
+                    }
                     neighbor.gCost = currentCost;
                     neighbor.hCost = GetDistCost(neighbor, endRoom);
                     neighbor.parent = currentRoom;
