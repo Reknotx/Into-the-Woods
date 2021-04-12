@@ -158,6 +158,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8630398350011429740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6294559934244366890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e52cfa24995b6e4d929ca3d184a767b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  lootTable: {fileID: 0}
+  tier: 0
 --- !u!1 &8440888646671660364
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +348,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RareChest
       objectReference: {fileID: 0}
+    - target: {fileID: 7369473543905947474, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 7369473543905947476, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -442,6 +462,12 @@ PrefabInstance:
     - {fileID: 7369473543905947479, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1, type: 3}
     - {fileID: 7369473543905947476, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1, type: 3}
+--- !u!1 &6294559934244366890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7369473543905947474, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3539659765899429240}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6294559934244366894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7369473543905947478, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,

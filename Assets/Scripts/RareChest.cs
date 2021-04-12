@@ -15,18 +15,14 @@ public class RareChest : MonoBehaviour
     {
         ///Start chest opening animation
         ///Start item rising animation
-        ///
-
-
+        
         GameObject item = lootTable.Drop(tier);
 
         if (item != null)
         {
             Vector3 spawnPos = new Vector3(transform.position.x, item.transform.position.y + .5f, transform.position.z);
             Instantiate(item, spawnPos, Quaternion.identity);
-
         }
-
 
         Destroy(gameObject);
     }

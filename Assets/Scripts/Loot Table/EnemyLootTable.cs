@@ -28,7 +28,7 @@ public struct LootInfo
 /// The loot table holds all of the loot info for 
 /// the items/drops of the world.
 /// </summary>
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "New Enemy Loot Table", menuName = "Loot Table/Enemy Loot Table", order = 51)]
 public class EnemyLootTable : LootTable
 {
     public List<LootInfo> loot = new List<LootInfo>();
