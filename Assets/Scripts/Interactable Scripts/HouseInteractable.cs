@@ -16,4 +16,12 @@ public class HouseInteractable : Interactable
             ClockUI.Instance.SetTime();
         }
     }
+
+    public void Update()
+    {
+        if(!LightingManager.Instance.night)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
 }
