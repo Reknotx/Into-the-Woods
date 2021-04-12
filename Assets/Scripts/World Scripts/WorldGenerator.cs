@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class WorldGenerator : SingletonPattern<WorldGenerator>
 {
@@ -28,6 +29,8 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     private List<Room> criticalPath = new List<Room>();
     private List<Room> branchingPaths = new List<Room>();
 
+    public TMPro.TMP_Text debug_SeedView; // Debug canvas that displays the seed for sake of playtesters.
+
     protected override void Awake()
     {
         base.Awake();
@@ -45,6 +48,10 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
             seed = Random.Range(0, 100000000);
             Random.InitState(seed);
         }
+
+        // Debug view
+        if (debug_SeedView != null)
+            debug_SeedView.text = "Seed: " + seed + ".";
 
         GenerateRoomList();
 
