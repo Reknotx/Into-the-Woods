@@ -24,7 +24,8 @@ public class MenuManagement : MonoBehaviour
     /// </summary>
     public void PlayGame()
     {
-        SceneManager.LoadScene("MainGame");
+        SceneManager.LoadScene("ModeSelect");
+        // Edited to redirect to new mode select menu. -Paul.
     }
 
     /// Author: JT Esmond

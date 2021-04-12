@@ -40,6 +40,11 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
         if (manualSeed)
             Random.InitState(seed);
+        else
+        {
+            seed = Random.Range(0, 100000000);
+            Random.InitState(seed);
+        }
 
         GenerateRoomList();
 
@@ -81,6 +86,10 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     {
         WorldRows = PlayerPrefs.GetInt("PWorldRows", 4);
         WorldColumns = PlayerPrefs.GetInt("PWorldColumns", 4);
+
+        print("Seeds are currently being manually set in WorldGenerator. Uncomment the comment block in PrefsCheck to enable PlayerPrefs seed entry.");
+        // CURRENTLY TURNED OFF
+        /*
         if (PlayerPrefs.GetInt("useSeed", 0) == 1)
         {
             manualSeed = true;
@@ -90,6 +99,7 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
         {
             manualSeed = false;
         }
+        */
     }
 
     /// Author: Paul Hernandez
