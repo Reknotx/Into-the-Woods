@@ -24,6 +24,11 @@ public class Avocado : Collectable
         }
     }
 
+    private void Start()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
+
     public override void Interact()
     {
         ///On pick up is added to inventory.

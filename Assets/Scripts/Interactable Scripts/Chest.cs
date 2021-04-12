@@ -15,6 +15,7 @@ public class Chest : Interactable
         if (loot != null)
             Instantiate(loot, transform.position, Quaternion.identity);
 
+        Destroy(gameObject);
     }
 
 }

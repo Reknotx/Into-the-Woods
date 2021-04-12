@@ -28,6 +28,8 @@ public class EnemyB_1 : EnemyB
     // Just a repeating random walk around. No other features.
     protected virtual void WanderAround()
     {
+        if (IsFrozen) return;
+
         InvokeRepeating("WanderToPoint", wanderCooldown, wanderCooldown);
     }
 
