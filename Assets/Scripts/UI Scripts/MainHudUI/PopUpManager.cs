@@ -49,12 +49,9 @@ public class PopUpManager : MonoBehaviour
 
             foreach (ScriptablePopUp popUp in PopUps)
             {
-                if (collected is AttackCandy || collected is Avocado || collected is BalloonBouquet || collected is Compass || collected is LuckyPenny || collected is NightOwlToken || collected is Totem || collected is TwoPeas)
+                if (collected.GetType() == popUp.ObjRef.GetComponent<Interactable>().GetType())
                 {
-                    if (collected.GetType() == popUp.ObjRef.GetComponent<Interactable>().GetType())
-                    {
-                        global::PopUp.Instance.UpdateCollectableInfo(popUp);
-                    }
+                    global::PopUp.Instance.UpdateCollectableInfo(popUp);
                 }
             }
         }         
