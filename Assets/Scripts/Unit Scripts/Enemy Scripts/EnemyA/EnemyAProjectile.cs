@@ -27,6 +27,10 @@ public class EnemyAProjectile : MonoBehaviour
         { 
             SpellEffectOnPlayer();
         }
+        else if (other.gameObject.layer == 13 || other.gameObject.layer == 27)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()

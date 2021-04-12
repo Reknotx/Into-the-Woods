@@ -39,6 +39,8 @@ public class EnemyB_2 : EnemyB
 
     protected void DropBomb()
     {
+        if (IsFrozen) return;
+
         if (this.gameObject.activeSelf == true)
         {
             WanderToPoint();
