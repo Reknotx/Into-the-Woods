@@ -40,7 +40,7 @@ public class PopUpManager : MonoBehaviour
     /// <summary>
     /// function that turns on the different pop ups for the items
     /// </summary>
-    public void PopUpOn(Interactable collected)
+    public void PopUp(Interactable collected)
     {
         if (collected is AttackCandy || collected is Avocado || collected is BalloonBouquet || collected is Compass || collected is LuckyPenny || collected is NightOwlToken || collected is Totem || collected is TwoPeas)
         {
@@ -53,7 +53,7 @@ public class PopUpManager : MonoBehaviour
                 {
                     if (collected.GetType() == popUp.ObjRef.GetComponent<Interactable>().GetType())
                     {
-                        PopUp.Instance.UpdateCollectableInfo(popUp);
+                        global::PopUp.Instance.UpdateCollectableInfo(popUp);
                     }
                 }
             }
@@ -81,22 +81,22 @@ public class PopUpManager : MonoBehaviour
                 if (spell == SpellScrolls[0])
                 {
                     listLocation = 10;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
                 else if (spell == SpellScrolls[1])
                 {
                     listLocation = 11;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
                 else if (spell == SpellScrolls[2])
                 {
                     listLocation = 12;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
                 else if (spell == SpellScrolls[3])
                 {
                     listLocation = 13;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
             }
         }
@@ -119,31 +119,31 @@ public class PopUpManager : MonoBehaviour
                 if(potion == PotionRecipes[0])
                 {
                     listLocation = 5;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
                 else if (potion == PotionRecipes[1])
                 {
-                    PopUp.Instance.UpdateInteractableInfo(5);
+                    global::PopUp.Instance.UpdateInteractableInfo(5);
                 }
                 else if (potion == PotionRecipes[2])
                 {
                     listLocation = 8;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
                 else if (potion == PotionRecipes[3])
                 {
                     listLocation = 6;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
                 else if (potion == PotionRecipes[4])
                 {
                     listLocation = 7;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
                 else if (potion == PotionRecipes[5])
                 {
                     listLocation = 9;
-                    PopUp.Instance.UpdateInteractableInfo(listLocation);
+                    global::PopUp.Instance.UpdateInteractableInfo(listLocation);
                 }
             }
         }
