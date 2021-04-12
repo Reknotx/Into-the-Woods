@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AStar : MonoBehaviour
+public class AStar : SingletonPattern<AStar>
 {
     public int columns = 4;
     public int rows = 4;
 
-    private Room[,] grid;
+    public Room[,] grid;
 
     private Dictionary<string, List<Room>> paths = new Dictionary<string, List<Room>>();
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+
     private void Start()
     {
-        grid = new Room[columns, rows];
+        //grid = new Room[columns, rows];
 
 
         ///After the world has been generated assign the proper values
@@ -35,17 +41,69 @@ public class AStar : MonoBehaviour
                 ///for the edge rooms. Value needs to be 3.
                 else
                     grid[x, z].MaxConnections = 3;
-
             }
         }
     }
 
+
+
     public void GeneratePath(Room startRoom, Room endRoom)
     {
         ///Let's start with the crit path to test
-        paths.Add("Main Path", Algo(startRoom, endRoom));
-    }
+        //paths.Add("Main Path", Algo(startRoom, endRoom));
+        Debug.Log("Start room: " + startRoom.gameObject.transform.parent.name);
+        Debug.Log("End room: " + endRoom.gameObject.transform.parent.name);
 
+        List<Room> tempList = Algo(startRoom, endRoom);
+
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            Room currRoom = tempList[i];
+            //Debug.Log("Current room grid position " + currRoom.gridPosition.ToString());
+
+            if (i < tempList.Count - 1)
+            {
+                ///A next room exists
+                Room nextRoom = tempList[i + 1];
+                if (nextRoom.gridPosition.x == currRoom.gridPosition.x)
+                {
+                    ///On same Column so we need to look at
+                    ///north or south
+                    if (currRoom.gridPosition.y > nextRoom.gridPosition.y)
+                    {
+                        ///Current room is above the next room so
+                        ///The south door of the current room and the north
+                        ///door of the next are marked as true
+                        currRoom.connections[Room.Direction.South] = true;
+                        nextRoom.connections[Room.Direction.North] = true;
+                    }
+                    else
+                    {
+                        currRoom.connections[Room.Direction.North] = true;
+                        nextRoom.connections[Room.Direction.South] = true;
+                    }
+                }
+                else if (nextRoom.gridPosition.y == currRoom.gridPosition.y)
+                {
+                    ///On same row so we need to look at
+                    ///east or west
+                    if (currRoom.gridPosition.x < nextRoom.gridPosition.x)
+                    {
+                        ///current room is to the left of the next room
+                        ///So the east door of the current room and the west
+                        ///door of the next room need to be marked as true
+                        currRoom.connections[Room.Direction.East] = true;
+                        nextRoom.connections[Room.Direction.West] = true;
+                    }
+                    else
+                    {
+                        currRoom.connections[Room.Direction.West] = true;
+                        nextRoom.connections[Room.Direction.East] = true;
+                    }
+                }
+            }
+        }
+    }
 
     public List<Room> Algo(Room startRoom, Room endRoom)
     {
@@ -116,6 +174,11 @@ public class AStar : MonoBehaviour
             path.Add(currentRoom);
             currentRoom = currentRoom.parent;
         }
+
+        if (currentRoom == startRoom)
+        {
+            path.Add(currentRoom);
+        }
         
         path.Reverse();
         
@@ -159,8 +222,14 @@ public class AStar : MonoBehaviour
 
     }
 
-    public void MakeConnections()
+    public void RemoveRemainingDoors()
     {
-
+        for (int x = 0; x < 4; x++)
+        {
+            for (int y = 0; y < 4; y++)
+            {
+                grid[x, y].RemoveDoors();
+            }
+        }
     }
 }

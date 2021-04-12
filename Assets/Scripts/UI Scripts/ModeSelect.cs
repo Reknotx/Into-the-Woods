@@ -51,7 +51,8 @@ public class ModeSelect : MonoBehaviour
         }
 
         // Save the result to PlayerPrefs!
-        PlayerPrefs.SetInt("playerDamageMultiplier", playerDamageMultiplier);
+        //PlayerPrefs.SetInt("playerDamageMultiplier", playerDamageMultiplier);
+        PlayerPrefs.SetInt(PrefTags.DmgMulti, playerDamageMultiplier);
         print("Player damage multiplier set to x" + playerDamageMultiplier + "!");
     }
 

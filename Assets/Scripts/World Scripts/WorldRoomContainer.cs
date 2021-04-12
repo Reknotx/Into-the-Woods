@@ -12,7 +12,7 @@ using UnityEngine;
 public class WorldRoomContainer : ScriptableObject
 {
     public GameObject spawnRoom;
-    public GameObject bossRoom;
+    public List<GameObject> bossRooms = new List<GameObject>();
     public List<GameObject> roomPrefabs = new List<GameObject>();
 
 }

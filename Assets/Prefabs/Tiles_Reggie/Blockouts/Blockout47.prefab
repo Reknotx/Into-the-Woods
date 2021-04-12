@@ -28,6 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8194513891367919132}
+  - {fileID: 4487782186188931839}
   m_Father: {fileID: 7729201103662583529}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -373,6 +374,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyC2
       objectReference: {fileID: 0}
+    - target: {fileID: 9074777038068427792, guid: ce79a4d802846204d9e3e661b7df0441,
+        type: 3}
+      propertyPath: lootTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 068d87e65f71e0048b898c2f864c3949,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce79a4d802846204d9e3e661b7df0441, type: 3}
 --- !u!1001 &1907794663776836447
@@ -1131,6 +1138,81 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3669591238905215586}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3729270767728220241
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 350873349818757571}
+    m_Modifications:
+    - target: {fileID: 974684209185446570, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_Name
+      value: Learn Unlocking Spell
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.9669757
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.707
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.97262484
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa8e34a57b11f9f48aeba36b0dc0e763, type: 3}
+--- !u!4 &4487782186188931839 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 974684209185446574, guid: aa8e34a57b11f9f48aeba36b0dc0e763,
+    type: 3}
+  m_PrefabInstance: {fileID: 3729270767728220241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3771038905830269788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1423,6 +1505,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8257540629295502481, guid: a0a35021286a9c546a08ec9144b27632,
+        type: 3}
+      propertyPath: lootTable
+      value: 
+      objectReference: {fileID: 11400000, guid: be17676deb7eeaa46891aa49913e52c1,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0a35021286a9c546a08ec9144b27632, type: 3}
 --- !u!1001 &4718033795901580904
@@ -1507,6 +1595,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1539604544960486082}
     m_Modifications:
+    - target: {fileID: 3108348980762590779, guid: d1b3a9bb99430154699d41911fe6b257,
+        type: 3}
+      propertyPath: lootTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 80b816948f5d6b9438bc83bcf5458eae,
+        type: 2}
     - target: {fileID: 5211695692472448718, guid: d1b3a9bb99430154699d41911fe6b257,
         type: 3}
       propertyPath: m_Name

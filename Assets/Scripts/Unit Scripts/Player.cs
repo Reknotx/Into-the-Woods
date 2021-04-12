@@ -97,14 +97,8 @@ public class Player : Unit
             {
                 if (PInven.HasItem(Inventory.Items.BalloonBouquet))
                 {
-                    foreach (Transform item in PlayerInvenItems.transform)
-                    {
-                        if (item.GetComponent<Collectable>() is BalloonBouquet)
-                        {
-                            item.GetComponent<BalloonBouquet>().Uses--;
-                            break;
-                        }
-                    }
+                    Debug.Log("Has bouquet");
+                    ((BalloonBouquet)PInven.GetItem(Inventory.Items.BalloonBouquet)).Uses--;
                 }
                 ///Removing health
                 else if (_bonusHealth > 0)
@@ -138,16 +132,7 @@ public class Player : Unit
         { 
             if (value < _bonusHealth)
             {
-                ///Try and work on this later, it's not important at the moment
-
-                foreach (Transform item in PlayerInvenItems.transform)
-                {
-                    if (item.GetComponent<Collectable>() is Avocado)
-                    {
-                        item.GetComponent<Avocado>().Uses--;
-                        break;
-                    }
-                }
+                ((Avocado)PInven.GetItem(Inventory.Items.Avocado)).Uses--;
             }
 
             _bonusHealth = value;
@@ -187,11 +172,6 @@ public class Player : Unit
         startPotion.Craft(PInven, true);
 
         List<GameObject> moveList = new List<GameObject>();
-        foreach (Transform playerChildObjs in transform)
-        {
-            Debug.Log(playerChildObjs.name);
-
-        }
     }
 
     #region Updates
@@ -252,6 +232,8 @@ public class Player : Unit
             ///Drop item.
             UI_Inventory.Instance.DropItem();
         }
+
+        //if (Input.GetKeyDown(KeyCode.BackQuote)) Health--;
         
         /// The player wants to interact with an item.
         /// See the note for this function down below.
@@ -398,14 +380,17 @@ public class Player : Unit
     /// Opens the player's inventory when they press tab on their keyboard.
     /// </summary>
     private void OpenInventory() => UI_Inventory.Instance.InventoryDisplay();
-    //private void OpenInventory() => MainHUDManager.Instance.inventoryUI.InventoryDisplay();
     #endregion
 
     public override void TakeDamage(int dmgAmount)
     {
         if (PlayerInfo.IsProtected) return;
 
-        base.TakeDamage(dmgAmount);
+        //Debug.Log(PlayerPrefs.GetInt("playerDamageMultiplier"));
+
+        int multiplier = PlayerPrefs.GetInt(PrefTags.DmgMulti) == 0 ? 1 : PlayerPrefs.GetInt(PrefTags.DmgMulti);
+
+        base.TakeDamage(dmgAmount * multiplier);
 
     }
 
@@ -527,7 +512,7 @@ public class Player : Unit
         for (int i = 0; i < duration; i++)
         {
             yield return new WaitForSeconds(1f);
-            Health--;
+            TakeDamage(1);
         }
 
         EffectPopUps.Instance.TurnOff(EffectPopUps.Instance.bleedActive);
