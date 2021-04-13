@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TutorialPopUp : MonoBehaviour
 {
     private int currentPage = 0;
-    private int maxPages = 6; // Add 1 mentally, since we start at 0.
+    private int maxPages = 7; // Add 1 mentally, since we start at 0.
 
     public GameObject TutorialUI;
     public TMPro.TMP_Text blurb;
@@ -74,14 +74,18 @@ public class TutorialPopUp : MonoBehaviour
                 details.text = "You need to collect ingredients in the forest as you explore, but you have one brewed potion to start. Potions will be sent to your hotbar and can be consumed using 1, 2, and 3.";
                 break;
             case 5:
+                blurb.text = "Status effects will show on the right.";
+                details.text = "This will show you things like if you have been frozen and cannot cast spells, are taking bleed damage, or have a potion effect active.";
+                break;
+            case 6:
                 blurb.text = "It’s fun to explore at night!";
                 details.text = "...but be careful! Keep an eye out for doors that might be closed during the day.";
                 break;
-            case 6:
+            case 7:
                 blurb.text = "Find your master and free him!";
                 details.text = "Travel from room to room and defeat enemies along the way.";
                 break;
-            case 7:
+            case 8:
                 blurb.text = "Time is of the essence!";
                 details.text = "You only have three days to find and free your master before he is gone forever... but beware. You’ll have to defeat his captor first!";
                 break;
