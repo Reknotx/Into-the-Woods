@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossB : EnemyC_3
 {
-    private int currentHealth;
+    private int _currentHealth;
 
     protected override void Start()
     {
@@ -18,13 +18,13 @@ public class BossB : EnemyC_3
 
     public override int Health
     {
-        get => currentHealth;
+        get => _currentHealth;
 
         set
         {
-            currentHealth = value;
+            _currentHealth = value;
 
-            if (currentHealth <= 0)
+            if (_currentHealth <= 0)
             {
                 if (this is Enemy enemy && PlayerInfo.CurrentRoom != null)
                 {
