@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraTransition : SingletonPattern<CameraTransition>
 {
-    float zOffset = 6.2f;
+    [SerializeField]
+    float zOffset = 4.53f;
 
     public float transSpeed = 1.5f;
 
