@@ -5,9 +5,19 @@ using UnityEngine;
 
 public class EnvironmentAssetSwapper : EditorWindow
 {
+    enum WorldType
+    {
+        normal,
+        type1,
+        type2,
+        type3
+    }
+
     readonly int spacing = 7;
 
     Vector2 scrollPos;
+
+    WorldType type = WorldType.normal;
 
     [MenuItem("Window/Environment Asset Swapper")]
     public static void ShowWindow()
@@ -26,7 +36,7 @@ public class EnvironmentAssetSwapper : EditorWindow
 
         EditorGUILayout.Space(spacing);
 
-
+        
 
     }
 

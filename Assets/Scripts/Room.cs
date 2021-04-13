@@ -252,7 +252,13 @@ public class Room : MonoBehaviour
         }
         else if (other.gameObject.layer == 10 && !enemies.Contains(other.gameObject.GetComponent<Enemy>()))
         {
+            if (enemies.Count == 0)
+            {
+                CloseDoors();
+            }
+
             enemies.Add(other.gameObject.GetComponent<Enemy>());
+
         }
     }
 
