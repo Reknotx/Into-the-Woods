@@ -103,10 +103,10 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
         print("Seeds are currently being manually set in WorldGenerator. Uncomment the comment block in PrefsCheck to enable PlayerPrefs seed entry.");
         // CURRENTLY TURNED OFF
         /*
-        if (PlayerPrefs.GetInt("useSeed", 0) == 1)
+        if (PlayerPrefs.GetInt(PrefTags.UseSeed, 0) == 1)
         {
             manualSeed = true;
-            seed = PlayerPrefs.GetInt("seed");
+            seed = PlayerPrefs.GetInt(PrefTags.Seed);
         }
         else
         {
