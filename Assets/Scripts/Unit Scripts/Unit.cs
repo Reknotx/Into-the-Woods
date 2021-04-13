@@ -52,14 +52,6 @@ public class Unit : MonoBehaviour
                         WinLoseUI.Instance.YouLose();
                     }
                 }
-                else if (this is BossA)
-                {
-                    WinLoseUI.Instance.bossDead = true;
-                }
-                else if (this is BossB)
-                {
-                    WinLoseUI.Instance.bossDead = true;
-                }
                 else if (this is Enemy enemy && PlayerInfo.CurrentRoom != null)
                 {
                     enemy.Drop();
