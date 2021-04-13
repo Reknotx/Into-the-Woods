@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7319920427231891631}
-  - component: {fileID: 5380151119445424900}
   - component: {fileID: 2962554021858876735}
   - component: {fileID: 5612588426009593460}
   - component: {fileID: 888956117677198417}
+  - component: {fileID: 181146527523361604}
   m_Layer: 10
   m_Name: BossB_Smol
   m_TagString: Untagged
@@ -35,29 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5380151119445424900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4046133777341551770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5815cf847a66c74a8d387090d58c36c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3.5
-  StartHealth: 5
-  PlayerObject: {fileID: 0}
-  awarenessRange: 15
-  movementSpeed: 8.5
-  contactDamage: 1
-  contactDamageAmount: 4
-  lootTable: {fileID: 0}
-  splitOnDeath: 0
-  SubEnemyPrefab: {fileID: 4046133777341551770}
-  miniSpawnDistance: 0.5
 --- !u!54 &2962554021858876735
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -100,6 +77,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.35496858, y: 1.2703724, z: 0.2769566}
   m_Center: {x: -0.0015428811, y: 0.63503385, z: -0.0060590953}
+--- !u!114 &181146527523361604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4046133777341551770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd870e3d17e5d14f99d070fbb58a002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3.5
+  StartHealth: 5
+  PlayerObject: {fileID: 0}
+  awarenessRange: 15
+  movementSpeed: 8.5
+  contactDamage: 1
+  contactDamageAmount: 4
+  lootTable: {fileID: 0}
+  splitOnDeath: 0
+  SubEnemyPrefab: {fileID: 4046133777341551770}
+  miniSpawnDistance: 0.5
 --- !u!1001 &6948649781341879258
 PrefabInstance:
   m_ObjectHideFlags: 0

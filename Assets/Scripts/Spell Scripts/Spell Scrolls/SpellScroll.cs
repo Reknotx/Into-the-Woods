@@ -14,4 +14,6 @@ public class SpellScroll : ScriptableObject
     [Header("The spell that will be taught to the player.")]
     public GameObject spellToLearn;
 
+    [HideInInspector] public bool hasCollected;
+
 }

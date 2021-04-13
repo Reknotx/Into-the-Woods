@@ -18,6 +18,8 @@ public class LightingManager : SingletonPattern<LightingManager>
 
     //boolean that tracks wether the value of t is incrementing or decrementing to determine time of day
     private bool isIncrementing;
+
+    [HideInInspector] public bool isInRoom;
     #endregion
 
     #region float
