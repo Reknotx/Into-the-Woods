@@ -34,6 +34,8 @@ public class SpellUI : MonoBehaviour
         }
 
         Instance = this;
+
+        imageRef.sprite = spriteList[0];
     }
 
     #region Functions
