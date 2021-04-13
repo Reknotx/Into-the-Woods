@@ -94,8 +94,11 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     /// </summary>
     void PrefsCheck()
     {
-        WorldRows = PlayerPrefs.GetInt(PrefTags.PWorldRows, 4);
-        WorldColumns = PlayerPrefs.GetInt(PrefTags.PWorldColumns, 4);
+        //WorldRows = PlayerPrefs.GetInt("PWorldRows", 4);
+        //WorldColumns = PlayerPrefs.GetInt("PWorldColumns", 4);
+
+        WorldRows = 4;
+        WorldColumns = 4;
 
         print("Seeds are currently being manually set in WorldGenerator. Uncomment the comment block in PrefsCheck to enable PlayerPrefs seed entry.");
         // CURRENTLY TURNED OFF
@@ -279,6 +282,14 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
         if (endRoom == bossRoom)
         {
             criticalPath.AddRange(tempList);
+
+            foreach (Room room in criticalPath)
+            {
+                if (room.gameObject.GetComponent<RoomRestriction>() != null)
+                {
+                    room.gameObject.GetComponent<RoomRestriction>().enabled = false;
+                }
+            }
         }
         else
         {
