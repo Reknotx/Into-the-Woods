@@ -241,10 +241,10 @@ public class Room : MonoBehaviour
             CameraTransition.Instance.TransitionToPoint(transform.position);
             PlayerInfo.CurrentRoom = this;
         }
-        //else if (other.gameObject.layer == 10 && !enemies.Contains(other.gameObject.GetComponent<Enemy>()))
-        //{
-        //    enemies.Add(other.gameObject.GetComponent<Enemy>());
-        //}
+        else if (other.gameObject.layer == 10 && !enemies.Contains(other.gameObject.GetComponent<Enemy>()))
+        {
+            enemies.Add(other.gameObject.GetComponent<Enemy>());
+        }
     }
 
 
