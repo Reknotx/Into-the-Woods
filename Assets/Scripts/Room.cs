@@ -100,6 +100,8 @@ public class Room : MonoBehaviour
     }
     #endregion
 
+    public bool IsBossRoom { get; set; } = false;
+
     private void Awake()
     {
         connections = new Dictionary<Direction, bool>()
@@ -198,7 +200,14 @@ public class Room : MonoBehaviour
 
         if (enemies.Count == 0)
         {
-            Instantiate(chestOnCompletion, chestSpawnLoc.position, Quaternion.identity);
+            if (IsBossRoom)
+            {
+                WinLoseUI.Instance.bossDead = true;
+            }
+            else
+            {
+                Instantiate(chestOnCompletion, chestSpawnLoc.position, Quaternion.identity);
+            }
             OpenDoors();
         }
     }

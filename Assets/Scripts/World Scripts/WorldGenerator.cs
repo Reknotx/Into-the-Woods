@@ -219,6 +219,7 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
         roomInstances[intendedEnd.x, intendedEnd.y].transform.SetParent(WorldRoomsParent);
         bossRoom = temp.GetComponentInChildren<Room>();
         bossRoom.gridPosition = intendedEnd;
+        bossRoom.IsBossRoom = true;
 
 
         // =====================================================================
