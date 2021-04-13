@@ -13,7 +13,7 @@ public class EnemyB : Enemy
 
     [SerializeField] protected float wanderMaxTime;
     protected float wanderMinTime;
-    protected float wanderCooldown; // How often does the unit walk to a random point?
+    [SerializeField] protected float wanderCooldown; // How often does the unit walk to a random point?
 
     //[SerializeField] protected float wanderDistance; // How far to go?
 

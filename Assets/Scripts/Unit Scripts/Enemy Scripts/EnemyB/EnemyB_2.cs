@@ -43,7 +43,7 @@ public class EnemyB_2 : EnemyB
 
         if (this.gameObject.activeSelf == true)
         {
-            WanderToPoint();
+            // WanderToPoint();
             Instantiate(liveBombPrefab, this.transform.position, this.transform.rotation);
         }
         
