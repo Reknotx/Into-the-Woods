@@ -41,7 +41,7 @@ public class EnemyA : Enemy
     {
         // Rotate towards player if they're in awareness range.
         // If in line of sight, fire projectile.
-        if (IsFrozen) return;
+        if (IsFrozen || PlayerInfo.IsInvisible) return;
 
         transform.LookAt(PlayerObject.transform);
         gameObject.transform.eulerAngles = new Vector3(0f, gameObject.transform.eulerAngles.y, 0f); // reset other rotations asides Y.
