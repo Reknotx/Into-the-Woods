@@ -19,6 +19,8 @@ public class EnvironmentAssetSwapper : EditorWindow
 
     WorldType type = WorldType.normal;
 
+    GameObject roomPrefab;
+
     [MenuItem("Window/Environment Asset Swapper")]
     public static void ShowWindow()
     {
@@ -33,10 +35,18 @@ public class EnvironmentAssetSwapper : EditorWindow
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
 
         GUILayout.Label("Room Prefab", EditorStyles.boldLabel);
+        roomPrefab = (GameObject)EditorGUILayout.ObjectField("Room to edit", roomPrefab, typeof(GameObject), false);
 
         EditorGUILayout.Space(spacing);
 
-        
+
+        if (roomPrefab != null && GUILayout.Button("Update Assets"))
+        {
+
+        }
+
+        EditorGUILayout.EndScrollView();
+        EditorGUILayout.EndVertical();
 
     }
 
