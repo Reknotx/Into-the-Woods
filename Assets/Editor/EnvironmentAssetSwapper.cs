@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnvironmentAssetSwapper : EditorWindow
 {
-    enum WorldType
+    public enum WorldType
     {
         normal,
         type1,
@@ -17,7 +17,7 @@ public class EnvironmentAssetSwapper : EditorWindow
 
     Vector2 scrollPos;
 
-    WorldType type = WorldType.normal;
+    public WorldType type = WorldType.normal;
 
     GameObject roomPrefab;
 
@@ -39,14 +39,39 @@ public class EnvironmentAssetSwapper : EditorWindow
 
         EditorGUILayout.Space(spacing);
 
+        type = (WorldType)EditorGUILayout.EnumPopup("World Type:", type);
 
         if (roomPrefab != null && GUILayout.Button("Update Assets"))
         {
-
+            UpdateAssets();
         }
 
         EditorGUILayout.EndScrollView();
         EditorGUILayout.EndVertical();
+
+    }
+
+
+    void UpdateAssets()
+    {
+        GameObject roomScript = roomPrefab.transform.Find("Room Script").gameObject;
+
+        foreach (Transform obj in roomScript.transform)
+        {
+
+
+            if (obj.name == "Doors")
+            {
+
+            }
+            else if (obj.name == "Walls")
+            {
+                if (obj.tag == "Tree" || obj.tag == "Rock")
+                {
+
+                }
+            }
+        }
 
     }
 
