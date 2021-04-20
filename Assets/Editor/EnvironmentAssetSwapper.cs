@@ -21,6 +21,8 @@ public class EnvironmentAssetSwapper : EditorWindow
 
     GameObject roomPrefab;
 
+    AssetsForSwapping assetsSwap;
+
     [MenuItem("Window/Environment Asset Swapper")]
     public static void ShowWindow()
     {
@@ -41,7 +43,11 @@ public class EnvironmentAssetSwapper : EditorWindow
 
         type = (WorldType)EditorGUILayout.EnumPopup("World Type:", type);
 
-        if (roomPrefab != null && GUILayout.Button("Update Assets"))
+        EditorGUILayout.Space(spacing);
+
+        assetsSwap = (AssetsForSwapping)EditorGUILayout.ObjectField("Assets to swap with", assetsSwap, typeof(AssetsForSwapping), false);
+
+        if (roomPrefab != null && assetsSwap != null && GUILayout.Button("Update Assets"))
         {
             UpdateAssets();
         }
@@ -54,7 +60,13 @@ public class EnvironmentAssetSwapper : EditorWindow
 
     void UpdateAssets()
     {
-        GameObject roomScript = roomPrefab.transform.Find("Room Script").gameObject;
+
+        string assetPath = AssetDatabase.GetAssetPath(roomPrefab);
+
+        ///The room prefab instance.
+        GameObject loadedPrefab = PrefabUtility.LoadPrefabContents(assetPath);
+
+        GameObject roomScript = loadedPrefab.transform.Find("Room Script").gameObject;
 
         foreach (Transform obj in roomScript.transform)
         {
@@ -62,16 +74,42 @@ public class EnvironmentAssetSwapper : EditorWindow
 
             if (obj.name == "Doors")
             {
-
+                
             }
             else if (obj.name == "Walls")
             {
-                if (obj.tag == "Tree" || obj.tag == "Rock")
-                {
+                List<GameObject> remove = new List<GameObject>();
 
+                foreach (Transform tree in obj.transform)
+                {
+                    if (tree.tag == "tree")
+                    {
+                        string newAssetPath = AssetDatabase.GetAssetPath(assetsSwap.trees[Random.Range(0, assetsSwap.trees.Count)]);
+
+                        //Debug.Log(newAssetPath);
+
+                        //Debug.Log(PrefabUtility.LoadPrefabContents(newAssetPath).name);
+
+                        GameObject tempAsset = Instantiate(PrefabUtility.LoadPrefabContents(newAssetPath), obj);
+                        tempAsset.transform.position = tree.position;
+
+                        PrefabUtility.UnpackPrefabInstance(tree.gameObject, PrefabUnpackMode.Completely, InteractionMode.UserAction);
+                        
+                        remove.Add(tree.gameObject);
+                    }
                 }
+
+                foreach (GameObject delete in remove)
+                {
+                    DestroyImmediate(delete);
+                }
+                remove.Clear();
+
             }
         }
+
+        PrefabUtility.SaveAsPrefabAsset(loadedPrefab, assetPath);
+        PrefabUtility.UnloadPrefabContents(loadedPrefab);
 
     }
 
