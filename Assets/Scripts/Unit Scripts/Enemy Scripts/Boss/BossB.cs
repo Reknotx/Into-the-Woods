@@ -6,3 +6,4 @@ public class BossB : EnemyC_3
 {
 
 }
+

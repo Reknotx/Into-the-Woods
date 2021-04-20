@@ -18,13 +18,14 @@ public class Enemy : Unit
 
     // Neo Navigation DX
     [SerializeField] protected float movementSpeed;
+    /*
     protected bool wallHugMode;
     protected float rayLength = 1.3f;
     protected bool wallF;
     protected bool wallL;
     protected bool wallR;
     protected bool wallB;
-
+    */
 
     /// <summary> If the enemy is frozen they can't move. </summary>
     public bool IsFrozen { get; set; }
@@ -91,7 +92,7 @@ public class Enemy : Unit
     #endregion
 
     #region Pathfinding
-
+    /*
     protected void StartMovingTo()
     {
         // Rotate to target
@@ -157,7 +158,7 @@ public class Enemy : Unit
             wallB = false;
         }
     }
-
+    */
 
     #endregion
 

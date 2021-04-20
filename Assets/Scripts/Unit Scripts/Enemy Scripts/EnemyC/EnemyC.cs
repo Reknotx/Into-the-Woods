@@ -24,7 +24,7 @@ public class EnemyC : Enemy
 
     protected override void FixedUpdate()
     {
-        if (IsFrozen) return;
+        if (IsFrozen || PlayerInfo.IsInvisible) return;
         base.FixedUpdate();
         MoveToPlayer();
     }

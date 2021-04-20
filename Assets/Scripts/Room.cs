@@ -100,6 +100,8 @@ public class Room : MonoBehaviour
     }
     #endregion
 
+    public bool IsBossRoom { get; set; } = false;
+
     private void Awake()
     {
         connections = new Dictionary<Direction, bool>()
@@ -198,7 +200,14 @@ public class Room : MonoBehaviour
 
         if (enemies.Count == 0)
         {
-            Instantiate(chestOnCompletion, chestSpawnLoc.position, Quaternion.identity);
+            if (IsBossRoom)
+            {
+                WinLoseUI.Instance.bossDead = true;
+            }
+            else
+            {
+                Instantiate(chestOnCompletion, chestSpawnLoc.position, Quaternion.identity);
+            }
             OpenDoors();
         }
     }
@@ -241,10 +250,16 @@ public class Room : MonoBehaviour
             CameraTransition.Instance.TransitionToPoint(transform.position);
             PlayerInfo.CurrentRoom = this;
         }
-        //else if (other.gameObject.layer == 10 && !enemies.Contains(other.gameObject.GetComponent<Enemy>()))
-        //{
-        //    enemies.Add(other.gameObject.GetComponent<Enemy>());
-        //}
+        else if (other.gameObject.layer == 10 && !enemies.Contains(other.gameObject.GetComponent<Enemy>()))
+        {
+            if (enemies.Count == 0)
+            {
+                CloseDoors();
+            }
+
+            enemies.Add(other.gameObject.GetComponent<Enemy>());
+
+        }
     }
 
 
