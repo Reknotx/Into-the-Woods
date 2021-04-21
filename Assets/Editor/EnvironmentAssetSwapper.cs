@@ -89,13 +89,17 @@ public class EnvironmentAssetSwapper : EditorWindow
                         //Debug.Log(newAssetPath);
 
                         //Debug.Log(PrefabUtility.LoadPrefabContents(newAssetPath).name);
+                        GameObject tempP = PrefabUtility.LoadPrefabContents(newAssetPath);
 
-                        GameObject tempAsset = Instantiate(PrefabUtility.LoadPrefabContents(newAssetPath), obj);
+                        GameObject tempAsset = Instantiate(tempP, obj);
+
                         tempAsset.transform.position = tree.position;
 
-                        PrefabUtility.UnpackPrefabInstance(tree.gameObject, PrefabUnpackMode.Completely, InteractionMode.UserAction);
+                        //PrefabUtility.UnpackPrefabInstance(tree.gameObject, PrefabUnpackMode.Completely, InteractionMode.UserAction);
                         
                         remove.Add(tree.gameObject);
+                        PrefabUtility.UnloadPrefabContents(tempP);
+
                     }
                 }
 
@@ -103,6 +107,7 @@ public class EnvironmentAssetSwapper : EditorWindow
                 {
                     DestroyImmediate(delete);
                 }
+
                 remove.Clear();
 
             }
