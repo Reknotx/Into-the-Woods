@@ -19,7 +19,7 @@ public class InteractCollision : MonoBehaviour
 
         if (other.GetComponent<CageInteractable>() != null && WinLoseUI.Instance.bossDead == false)
         {
-
+            return;
         }
         
         
