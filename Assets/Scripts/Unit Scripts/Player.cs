@@ -42,6 +42,9 @@ public class Player : Unit
 
     /// <summary> The cooldown tracker for the player spells. </summary>
     [HideInInspector] public SpellCDTicker spellTicker = new SpellCDTicker();
+
+    [Tooltip("The animator controller for this player's rig")]
+    public Animator animController;
     #endregion
 
     #region Private
@@ -184,7 +187,12 @@ public class Player : Unit
             || Input.GetKey(KeyCode.D)
             || Input.GetKey(KeyCode.A))
         {
+            animController.SetBool("IsWalking", true);
             Move();
+        }
+        else
+        {
+            animController.SetBool("IsWalking", false);
         }
 
     }
@@ -290,6 +298,7 @@ public class Player : Unit
     {
         if (spellTicker.SpellOnCD(SelectedSpell.GetComponent<Spell>())) return;
 
+        animController.SetTrigger("CastAttack");
         List<GameObject> firedSpells = new List<GameObject>();
 
         if (PlayerInfo.DoubleShot)
