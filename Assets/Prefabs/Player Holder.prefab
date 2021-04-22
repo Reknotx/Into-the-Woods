@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5870411653249457433}
   - component: {fileID: 5870411653249457437}
   - component: {fileID: 5870411653249457436}
-  - component: {fileID: 5870411653249457439}
+  - component: {fileID: 4668095963615040318}
   - component: {fileID: 5870411653249457438}
   m_Layer: 8
   m_Name: Player
@@ -252,8 +252,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5870411653249457439
-BoxCollider:
+--- !u!136 &4668095963615040318
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -262,9 +262,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.6256218, z: 1}
-  m_Center: {x: 0, y: 0.8128109, z: 0}
+  m_Radius: 0.5
+  m_Height: 2.631949
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8159745, z: 0}
 --- !u!114 &5870411653249457438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,6 +454,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: db1a1aee16a283d4e934535dac9108dd, type: 2}
+    - target: {fileID: 5866666021909216657, guid: d311a59b7ce009641b6086ce275a8e9d,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d311a59b7ce009641b6086ce275a8e9d, type: 3}
 --- !u!4 &3876957241309126461 stripped

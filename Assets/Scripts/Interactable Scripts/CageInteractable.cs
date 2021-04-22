@@ -11,7 +11,7 @@ public class CageInteractable : Interactable
 {
     public override void Interact()
     {
-        if(WinLoseUI.Instance.bossDead == true)
+        if(WinLoseUI.Instance.bossDead)
         {
             WinLoseUI.Instance.YouWin();
         }

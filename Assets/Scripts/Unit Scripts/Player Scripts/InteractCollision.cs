@@ -17,6 +17,12 @@ public class InteractCollision : MonoBehaviour
     {
         if (other.gameObject.layer != 12) return;
 
+        if (other.GetComponent<CageInteractable>() != null && WinLoseUI.Instance.bossDead == false)
+        {
+
+        }
+        
+        
         if (!Player.Instance.NearbyInteractables.Contains(other.gameObject))
             Player.Instance.NearbyInteractables.Add(other.gameObject);
 
