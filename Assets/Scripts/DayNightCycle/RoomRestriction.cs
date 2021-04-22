@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// Author: JT Esmond
 /// Date: 3/29/2021
@@ -137,4 +138,5 @@ public class RoomRestriction : MonoBehaviour
         yield return new WaitForSeconds(1f);
         PlayerInfo.NightRoom = null;
     }
+
 }
