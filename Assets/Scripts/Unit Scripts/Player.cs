@@ -298,7 +298,17 @@ public class Player : Unit
     {
         if (spellTicker.SpellOnCD(SelectedSpell.GetComponent<Spell>())) return;
 
+        StartCoroutine(CastSpellCR());
+    }
+
+    public bool FireSpell { get; set; } = false;
+
+    IEnumerator CastSpellCR()
+    {
         animController.SetTrigger("CastAttack");
+
+        yield return new WaitUntil(() => FireSpell);
+
         List<GameObject> firedSpells = new List<GameObject>();
 
         if (PlayerInfo.DoubleShot)
@@ -322,6 +332,8 @@ public class Player : Unit
         }
 
         spellTicker.AddToList(firedSpells[0].GetComponent<Spell>());
+
+        FireSpell = false;
     }
 
     /// Author: Chase O'Connor
