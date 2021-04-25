@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class MenuManagement : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class MenuManagement : MonoBehaviour
     public string surveyLink;
     public string bugReportLink;
     private int randomLocation;
+    public AudioMixer mixer;
+    public bool end;
 
     private void Start()
     {
@@ -48,19 +51,21 @@ public class MenuManagement : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
-        WinLoseUI.Instance.won = false;
-        WinLoseUI.Instance.lost = false;
+        if (end)
+        {
+            WinLoseUI.Instance.won = false;
+            WinLoseUI.Instance.lost = false;
+        }
     }
 
     /// Author: JT Esmond
     /// Date: 2/21/2021
     /// <summary>
-    /// function for any Shop button. Shop scene needs to be 3 in the build Index
+    /// function for any Settings Button
     /// </summary>
-    public void Shop()
+    public void Settings()
     {
-        //Opens shop screen
-        //SceneManager.LoadScene("Shop");
+        SceneManager.LoadScene("Settings");
     }
 
     /// Author: JT Esmond

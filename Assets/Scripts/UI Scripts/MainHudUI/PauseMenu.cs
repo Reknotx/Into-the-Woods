@@ -12,8 +12,6 @@ public class PauseMenu : MonoBehaviour
     //static bool for the when the game is paused. Made it static in case it needs to be access in other scripts.
     public static bool GameIsPaused = false;
 
-    //game object reference for the pause menu ui holder
-    public GameObject pauseMenuUI;
 
     // Update is called once per frame
     void Update()
@@ -38,7 +36,11 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     public void Resume()
     {
-        pauseMenuUI.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
+        transform.GetChild(3).gameObject.SetActive(false);
+        transform.GetChild(4).gameObject.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -50,7 +52,11 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     void Pause()
     {
-        pauseMenuUI.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.SetActive(true);
+        transform.GetChild(3).gameObject.SetActive(true);
+        transform.GetChild(4).gameObject.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
