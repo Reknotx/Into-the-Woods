@@ -12,6 +12,8 @@ public abstract class Collectable : Interactable
 
     public abstract void DropLogic();
 
+    public string description; // For hover text in inventory UI.
+
     public override void Interact()
     {
         ///Add to inventory
