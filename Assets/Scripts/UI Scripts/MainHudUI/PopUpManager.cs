@@ -12,7 +12,7 @@ public class PopUpManager : MonoBehaviour
 {
     public static PopUpManager Instance;
 
-    public SpellScroll spellScrollValues;
+
     public List<ScriptablePopUp> PopUps = new List<ScriptablePopUp>();
 
     public List<SpellScroll> SpellScrolls = new List<SpellScroll>();

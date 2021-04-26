@@ -83,13 +83,16 @@ public class LightingManager : SingletonPattern<LightingManager>
         {
             isIncrementing = false;
         }
+
         if(isIncrementing)
         {
             night = false;
+            RoomRestriction.Instance.NightDoors();
         }
-        else
+        else 
         {
             night = true;
+            RoomRestriction.Instance.NightDoors();
         }
     }
 
