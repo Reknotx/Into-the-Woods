@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BossB : EnemyC_3
 {
+    protected override void Start()
+    {
+        base.Start();
 
+        bossSplit = true;
+    }
 }
 
