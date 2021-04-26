@@ -89,7 +89,7 @@ public class MenuManagement : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Main_Menu_Scene");
         if (end)
         {
             WinLoseUI.Instance.won = false;
