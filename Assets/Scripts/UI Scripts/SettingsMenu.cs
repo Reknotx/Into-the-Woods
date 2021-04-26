@@ -85,7 +85,7 @@ public class SettingsMenu : MonoBehaviour
         //checks to see which screen mode the player has selected, then sets the resolution based off of the resolution that is selected
         if (index2 == 0)
         {
-            Screen.SetResolution(width[index], height[index], FullScreenMode.ExclusiveFullScreen);
+            Screen.SetResolution(defaultWidth, defaultHeight, FullScreenMode.ExclusiveFullScreen);
         }
         else if (index2 == 1)
         {
