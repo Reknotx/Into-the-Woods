@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NightOwlToken : Collectable
+public class NightOwlToken : Collectable, IUseable
 {
     public override void DropLogic()
     {
@@ -13,6 +13,10 @@ public class NightOwlToken : Collectable
     {
         RoomRestriction.Instance.nightOwl = true;
         base.Interact();
+    }
+
+    public void UseItem()
+    {
 
     }
 }

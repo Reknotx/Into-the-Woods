@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary> 
 /// A static class that holds all of the info of the player.
 /// </summary>
-public class PlayerInfo
+public static class PlayerInfo
 {
     /// <summary> The damage of the attack spell. </summary>
     public static int AttackDamage { get; set; } = 5;

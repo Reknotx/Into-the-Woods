@@ -115,7 +115,6 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-
         enemies.Clear();
         
         if (doors == null)

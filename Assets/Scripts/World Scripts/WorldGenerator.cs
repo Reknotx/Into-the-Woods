@@ -286,9 +286,9 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
             foreach (Room room in criticalPath)
             {
-                if (room.gameObject.GetComponent<RoomRestriction>() != null)
+                if (room.gameObject.GetComponent<NightRoom>() != null)
                 {
-                    room.gameObject.GetComponent<RoomRestriction>().enabled = false;
+                    room.gameObject.GetComponent<NightRoom>().enabled = false;
                 }
             }
         }
