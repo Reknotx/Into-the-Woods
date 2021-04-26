@@ -14,6 +14,11 @@ public class SettingsMenu : MonoBehaviour
     private List<int> width = new List<int>();
     private List<int> height = new List<int>();
 
+    private int defaultWidth;
+    private int defaultHeight;
+    private int savedWidth;
+    private int savedHeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +27,7 @@ public class SettingsMenu : MonoBehaviour
         //variable for the resolution dropdown, that contains all of the dropdown options
         var resDropdown = transform.GetChild(1).gameObject.GetComponent<TMPro.TMP_Dropdown>();
         resDropdown.options.Clear();
+
 
         // variable for the screen mode dropdown, that contains all of the screen mode dropdown options
         var fullscreenDropdown = transform.GetChild(3).gameObject.GetComponent<TMPro.TMP_Dropdown>();
@@ -35,21 +41,26 @@ public class SettingsMenu : MonoBehaviour
         //gets all of the possible resolutions the players monitor supports
         Resolution[] resolutions = Screen.resolutions;
 
+        defaultWidth = Screen.currentResolution.width;
+        defaultHeight = Screen.currentResolution.height;
         //adds the current resolution to the top of the dropdown menu, and treats it as the default
-        resDropdown.options.Add(new TMPro.TMP_Dropdown.OptionData() { text = (Screen.currentResolution.width.ToString() + "x" + Screen.currentResolution.height.ToString()) });
-        width.Add(Screen.currentResolution.width);
-        height.Add(Screen.currentResolution.height);
+        resDropdown.options.Add(new TMPro.TMP_Dropdown.OptionData() { text = (PlayerPrefs.GetInt("currentWidth", defaultWidth) + "x" + PlayerPrefs.GetInt("currentHeight", defaultHeight)) });
+        width.Add(PlayerPrefs.GetInt("currentWidth", defaultWidth));
+        height.Add(PlayerPrefs.GetInt("currentHeight", defaultHeight));
         
         //adds all of the possible resolutions to the dropdown menu, along with adding the width and heights for each resolution to their own lists
         foreach (var res in resolutions)
         {
-            resDropdown.options.Add(new TMPro.TMP_Dropdown.OptionData() { text = (res.width.ToString() + "x" + res.height.ToString()) });
-            width.Add(res.width);
-            height.Add(res.height);
+            if (res.width >= 1024 && res.height >= 768)
+            {
+                resDropdown.options.Add(new TMPro.TMP_Dropdown.OptionData() { text = (res.width.ToString() + "x" + res.height.ToString()) });
+                width.Add(res.width);
+                height.Add(res.height);
+            }
+            else return;
         }
         //sets the values for both dropdowns to 0 so the player starts at the default
-        resDropdown.value = 0;
-        fullscreenDropdown.value = 0;
+
         DropdownSelected(resDropdown, fullscreenDropdown);
 
         //listener for the resolution and window mode dropdowns
