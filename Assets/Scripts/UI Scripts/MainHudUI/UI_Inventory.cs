@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// Author: JT Esmond
 /// Date: 2/16/2021
@@ -25,6 +26,10 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
 
     /// <summary> The parent game object of the inventory slots. </summary>
     private GameObject inventoryContainer;
+
+    /// <summary> The hover text UI component. Written to by HoverText(). </summary>
+    //public Text hoverTextUI; 
+    public TMPro.TMP_Text hoverTextUI;
 
     protected override void Awake()
     {
@@ -120,6 +125,7 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         //Debug.Log("Focus assigned");
 
         this.focus = focus;
+        HoverText();
     }
 
     public void DropItem()
@@ -129,5 +135,28 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         if (inventory.ItemList.Count < focus) return;
 
         inventory.RemoveItem(inventory.ItemList[focus - 1]);
+    }
+
+    /// <summary>
+    /// This will update the hover text on the Inventory slots.
+    /// </summary>
+    private void HoverText()
+    {
+        // if hovering over something (focus), 
+        if (focus != -1 && inventory.ItemList.Count >= focus)
+        {
+            // Get list of items
+            // RefreshInventoryItems();
+            if (inventory.ItemList[focus-1] != null)
+            {
+                // grab specific focused item's collectible script
+                // then update displayed text and enable UI.
+                hoverTextUI.text = inventory.ItemList[focus - 1].GetComponent<Collectable>().description;
+            }
+        }
+        else if (focus == -1) // else( not hovering over anything) then disable hover UI.
+        {
+            hoverTextUI.text = "";
+        }
     }
 }

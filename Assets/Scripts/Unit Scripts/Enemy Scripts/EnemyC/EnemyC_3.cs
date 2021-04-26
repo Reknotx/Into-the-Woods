@@ -20,6 +20,7 @@ public class EnemyC_3 : EnemyC
     [SerializeField] protected bool splitOnDeath;
     [SerializeField] protected GameObject SubEnemyPrefab;
     [SerializeField] protected float miniSpawnDistance;
+    protected bool bossSplit = false;
 
 
 
@@ -52,6 +53,11 @@ public class EnemyC_3 : EnemyC
                 {
                     Instantiate(SubEnemyPrefab, this.transform.position + new Vector3(miniSpawnDistance, 0f, 0f), this.transform.rotation);
                     Instantiate(SubEnemyPrefab, this.transform.position + new Vector3(-miniSpawnDistance, 0f, 0f), this.transform.rotation);
+                    if (bossSplit)
+                    {
+                        Instantiate(SubEnemyPrefab, this.transform.position + new Vector3(0f, 0f, miniSpawnDistance), this.transform.rotation);
+                        Instantiate(SubEnemyPrefab, this.transform.position + new Vector3(0f, 0f, -miniSpawnDistance), this.transform.rotation);
+                    }
                 }             
 
                 Destroy(gameObject);
