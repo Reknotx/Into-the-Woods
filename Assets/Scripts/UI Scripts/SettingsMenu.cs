@@ -16,6 +16,7 @@ public class SettingsMenu : MonoBehaviour
 
     private int defaultWidth;
     private int defaultHeight;
+    private int currentScreenMode;
     private int savedWidth;
     private int savedHeight;
 
@@ -57,15 +58,30 @@ public class SettingsMenu : MonoBehaviour
                 width.Add(res.width);
                 height.Add(res.height);
             }
-            else return;
-        }
-        //sets the values for both dropdowns to 0 so the player starts at the default
 
-        DropdownSelected(resDropdown, fullscreenDropdown);
+        }
+        currentScreenMode = PlayerPrefs.GetInt("ScreenMode", 0);
+
 
         //listener for the resolution and window mode dropdowns
         resDropdown.onValueChanged.AddListener(delegate { DropdownSelected(resDropdown, fullscreenDropdown); });
         fullscreenDropdown.onValueChanged.AddListener(delegate { DropdownSelected(resDropdown, fullscreenDropdown); });
+        if (currentScreenMode == 0)
+        {
+            return;
+        }
+        else if (currentScreenMode == 1)
+        {
+            Screen.SetResolution(PlayerPrefs.GetInt("currentWidth", defaultWidth), PlayerPrefs.GetInt("currentHeight", defaultHeight), FullScreenMode.FullScreenWindow);
+        }
+        else if (currentScreenMode == 2)
+        {
+            Screen.SetResolution(PlayerPrefs.GetInt("currentWidth", defaultWidth), PlayerPrefs.GetInt("currentHeight", defaultHeight), FullScreenMode.MaximizedWindow);
+        }
+        else if (currentScreenMode == 3)
+        {
+            Screen.SetResolution(PlayerPrefs.GetInt("currentWidth", defaultWidth), PlayerPrefs.GetInt("currentHeight", defaultHeight), FullScreenMode.Windowed);
+        }
         #endregion
     }
 
@@ -86,18 +102,30 @@ public class SettingsMenu : MonoBehaviour
         if (index2 == 0)
         {
             Screen.SetResolution(defaultWidth, defaultHeight, FullScreenMode.ExclusiveFullScreen);
+            PlayerPrefs.SetInt("currentWidth", defaultWidth);
+            PlayerPrefs.SetInt("currentHeight", defaultHeight);
+            PlayerPrefs.SetInt("ScreenMode", 0);
         }
         else if (index2 == 1)
         {
             Screen.SetResolution(width[index], height[index], FullScreenMode.FullScreenWindow);
+            PlayerPrefs.SetInt("currentWidth", width[index]);
+            PlayerPrefs.SetInt("currentHeight", height[index]);
+            PlayerPrefs.SetInt("ScreenMode", 1);
         }
         else if (index2 == 2)
         {
             Screen.SetResolution(width[index], height[index], FullScreenMode.MaximizedWindow);
+            PlayerPrefs.SetInt("currentWidth", width[index]);
+            PlayerPrefs.SetInt("currentHeight", height[index]);
+            PlayerPrefs.SetInt("ScreenMode", 2);
         }
         else if (index2 == 3)
         {
             Screen.SetResolution(width[index], height[index], FullScreenMode.Windowed);
+            PlayerPrefs.SetInt("currentWidth", width[index]);
+            PlayerPrefs.SetInt("currentHeight", height[index]);
+            PlayerPrefs.SetInt("ScreenMode", 3);
         }
     }
 
