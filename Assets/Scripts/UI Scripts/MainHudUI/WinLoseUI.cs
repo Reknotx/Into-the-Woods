@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// Author: JT Esmond
 /// Date: 02/22/2021
@@ -9,8 +10,6 @@ using UnityEngine;
 /// </summary>
 public class WinLoseUI : SingletonPattern<WinLoseUI>
 {
-    private GameObject youWin;
-    private GameObject youLose;
 
     [HideInInspector] public bool won;
     [HideInInspector] public bool lost;
@@ -20,8 +19,6 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
     {
         base.Awake();
 
-        youWin = transform.GetChild(0).gameObject;
-        youLose = transform.GetChild(1).gameObject;
     }
 
     private void Start()
@@ -36,7 +33,9 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
     /// </summary>
     public void YouWin()
     {
-        youWin.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.SetActive(true);
         Time.timeScale = 0f;
         won = true;
     }
@@ -48,7 +47,9 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
     /// </summary>
     public void YouLose()
     {
-        youLose.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(3).gameObject.SetActive(true);
         Time.timeScale = 0f;
         lost = true;
     }
