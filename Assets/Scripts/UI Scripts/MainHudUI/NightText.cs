@@ -14,12 +14,20 @@ public class NightText : SingletonPattern<NightText>
     {
         textObj = transform.GetChild(0).gameObject;
     }
-    public void On()
+
+    private IEnumerator delay()
     {
         textObj.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        textObj.SetActive(false);
+    }
+    public void On()
+    {
+        StartCoroutine(delay());
     }
     public void Off()
     {
         textObj.SetActive(false);
+        StopCoroutine(delay());
     }
 }

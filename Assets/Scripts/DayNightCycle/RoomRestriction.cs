@@ -52,26 +52,19 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
     /// </summary>
     public void NightDoors()
     {
-        if (!open)
+        if (LightingManager.Instance.night == true || nightOwl == true || PlayerInfo.NightRoom == this)
         {
-            if (LightingManager.Instance.night == true || nightOwl == true || PlayerInfo.NightRoom == this)
+            foreach (GameObject door in _doors)
             {
-                foreach (GameObject door in _doors)
-                {
-                    door.SetActive(false);
-                }
-                open = true;
+                door.SetActive(false);
             }
         }
-        else
+
+        else if (LightingManager.Instance.night == false && nightOwl == false && PlayerInfo.NightRoom == null)
         {
-            if (LightingManager.Instance.night == false && nightOwl == false && PlayerInfo.NightRoom == null)
+            foreach (GameObject door in _doors)
             {
-                foreach (GameObject door in _doors)
-                {
-                    door.SetActive(true);
-                }
-                open = false;
+                door.SetActive(true);
             }
         }
     }
