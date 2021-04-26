@@ -60,7 +60,22 @@ public class EnemyLootTable : LootTable
         {
             if (num <= info.rate)
             {
-                return info.item;
+                if (info.nightOnly)
+                {
+                    if (LightingManager.Instance.night)
+                    {
+                        return info.item;
+                    }
+                    else
+                    {
+                        num -= info.rate;
+                    }
+                }
+                else
+                {
+                    return info.item;
+                }
+
             }
             else
             {

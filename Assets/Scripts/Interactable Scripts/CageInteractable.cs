@@ -11,18 +11,9 @@ public class CageInteractable : Interactable
 {
     public override void Interact()
     {
-        if(WinLoseUI.Instance.bossDead == true)
+        if(WinLoseUI.Instance.bossDead)
         {
             WinLoseUI.Instance.YouWin();
-        }
-    }
-
-    public void Update()
-    {
-        Debug.Log("Boss Dead: " + WinLoseUI.Instance.bossDead);
-        if(WinLoseUI.Instance.bossDead == false)
-        {
-            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }

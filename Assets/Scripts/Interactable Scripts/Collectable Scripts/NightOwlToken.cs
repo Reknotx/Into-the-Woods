@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NightOwlToken : Collectable
+public class NightOwlToken : Collectable, IUseable
 {
     public override void DropLogic()
     {
-        throw new System.NotImplementedException();
+        RoomRestriction.Instance.nightOwl = false;
     }
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        RoomRestriction.Instance.nightOwl = true;
+        base.Interact();
+    }
+
+    public void UseItem()
+    {
+
     }
 }

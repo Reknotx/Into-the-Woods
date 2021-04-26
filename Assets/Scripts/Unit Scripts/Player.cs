@@ -42,6 +42,9 @@ public class Player : Unit
 
     /// <summary> The cooldown tracker for the player spells. </summary>
     [HideInInspector] public SpellCDTicker spellTicker = new SpellCDTicker();
+
+    [Tooltip("The animator controller for this player's rig")]
+    public Animator animController;
     #endregion
 
     #region Private
@@ -184,7 +187,12 @@ public class Player : Unit
             || Input.GetKey(KeyCode.D)
             || Input.GetKey(KeyCode.A))
         {
+            animController.SetBool("IsWalking", true);
             Move();
+        }
+        else
+        {
+            animController.SetBool("IsWalking", false);
         }
 
     }
@@ -290,6 +298,17 @@ public class Player : Unit
     {
         if (spellTicker.SpellOnCD(SelectedSpell.GetComponent<Spell>())) return;
 
+        StartCoroutine(CastSpellCR());
+    }
+
+    public bool FireSpell { get; set; } = false;
+
+    IEnumerator CastSpellCR()
+    {
+        animController.SetTrigger("CastAttack");
+
+        yield return new WaitUntil(() => FireSpell);
+
         List<GameObject> firedSpells = new List<GameObject>();
 
         if (PlayerInfo.DoubleShot)
@@ -313,6 +332,8 @@ public class Player : Unit
         }
 
         spellTicker.AddToList(firedSpells[0].GetComponent<Spell>());
+
+        FireSpell = false;
     }
 
     /// Author: Chase O'Connor

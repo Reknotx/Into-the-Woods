@@ -115,58 +115,6 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        ///Don't forget to uncomment this
-        #region Door Removal
-
-        //if (gridPosition.x == 0
-        //    || gridPosition.x == WorldGenerator.Instance.WorldColumns - 1
-        //    || gridPosition.y == 0
-        //    || gridPosition.y == WorldGenerator.Instance.WorldRows - 1)
-        //{
-        //    List<GameObject> moveList = new List<GameObject>();
-
-        //    if (gridPosition.x == 0)
-        //    {
-        //        ///We are on the west side.
-        //        foreach (Transform item in transform.GetChild(1).GetChild(3))
-        //        {
-        //            moveList.Add(item.gameObject);
-        //        }
-        //    }
-        //    else if (gridPosition.x == WorldGenerator.Instance.WorldColumns - 1)
-        //    {
-        //        ///We are on the east side.
-        //        foreach (Transform item in transform.GetChild(1).GetChild(1))
-        //        {
-        //            moveList.Add(item.gameObject);
-        //        }
-        //    }
-
-        //    if (gridPosition.y == 0)
-        //    {
-        //        ///We are on the south side.
-        //        foreach (Transform item in transform.GetChild(1).GetChild(2))
-        //        {
-        //            moveList.Add(item.gameObject);
-        //        }
-        //    }
-        //    else if (gridPosition.y == WorldGenerator.Instance.WorldRows - 1)
-        //    {
-        //        ///We are on the north side.
-        //        foreach (Transform item in transform.GetChild(1).GetChild(0))
-        //        {
-        //            moveList.Add(item.gameObject);
-        //        }
-        //    }
-
-        //    foreach (GameObject item in moveList)
-        //    {
-        //        item.transform.parent = transform.GetChild(2);
-        //    }
-        //}
-
-        #endregion
-
         enemies.Clear();
         
         if (doors == null)
@@ -267,12 +215,19 @@ public class Room : MonoBehaviour
     {
         List<GameObject> moveList = new List<GameObject>();
 
+        int labelX = 0;
+        int labelZ = 0;
+
         if (!connections[Direction.North])
         {
             foreach (Transform item in transform.GetChild(1).GetChild( (int)Direction.North) )
             {
                 moveList.Add(item.gameObject);
             }
+        }
+        else
+        {
+            labelZ = 5;
         }
 
         if (!connections[Direction.East])
@@ -282,6 +237,10 @@ public class Room : MonoBehaviour
                 moveList.Add(item.gameObject);
             }
         }
+        else
+        {
+            labelX = 7;
+        }
 
         if (!connections[Direction.South])
         {
@@ -289,6 +248,10 @@ public class Room : MonoBehaviour
             {
                 moveList.Add(item.gameObject);
             }
+        }
+        else
+        {
+            labelZ = -5;
         }
 
         if (!connections[Direction.West])
@@ -298,11 +261,27 @@ public class Room : MonoBehaviour
                 moveList.Add(item.gameObject);
             }
         }
+        else
+        {
+            labelX = -7;
+        }
 
         foreach (GameObject item in moveList)
         {
             item.transform.parent = transform.GetChild(2);
         }
+
+        if (IsBossRoom)
+        {
+            foreach (Transform child in transform.parent)
+            {
+                if (child.gameObject.layer == 5)
+                {
+                    child.transform.localPosition = new Vector3(labelX, 3, labelZ);
+                }
+            }
+        }
+
     }
 
     IEnumerator SpawnDelay()

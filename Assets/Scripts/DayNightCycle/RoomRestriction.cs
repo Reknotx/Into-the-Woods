@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// Author: JT Esmond
 /// Date: 3/29/2021
 /// <summary>
 /// Class that restricts access to different rooms depending on the time of day.
 /// </summary>
-public class RoomRestriction : MonoBehaviour
+public class RoomRestriction : SingletonPattern<RoomRestriction>
 {
 
     #region List
@@ -20,61 +21,51 @@ public class RoomRestriction : MonoBehaviour
     private string searchTag = "Door";
     #endregion
 
-    #region Script References
-    //reference for the room script
-    private Room roomRef;
-    #endregion
+    [HideInInspector] public bool nightOwl;
+    private bool open;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        //assigns the room script reference
-        roomRef = gameObject.GetComponent<Room>();
-        
-        //assigns all of the doors in the gameobject to the list
-        if(searchTag != null)
+        open = true;
+        _doors.Clear();
+
+        var nightRooms = FindObjectsOfType<NightRoom>();
+
+        foreach (NightRoom nightRoom in nightRooms)
         {
-            FindObjectWithTag(searchTag);
+            Transform parent = nightRoom.transform;
+            GetChildObject(parent, searchTag);
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //checks if it is night or its the players current room and determines wether to open or close the doors
-        if (LightingManager.Instance.night == true || PlayerInfo.NightRoom == this)
-        {
-            OpenNightDoors();
-        }
-        else
-        {
-            CloseNightDoors();
-        }
-
-    }
 
     /// Author: JT Esmond
     /// Date: 3/29/2021
     /// <summary>
-    /// opens the doors in the gameobject
+    /// functionality for the night doors
     /// </summary>
-    private void OpenNightDoors()
+    public void NightDoors()
     {
-        foreach (GameObject door in _doors)
+        if (LightingManager.Instance.night == true || nightOwl == true || PlayerInfo.NightRoom == this)
         {
-            door.SetActive(false);
+            foreach (GameObject door in _doors)
+            {
+                door.SetActive(false);
+            }
         }
-    }
-    /// Author: JT Esmond
-    /// Date: 3/29/2021
-    /// <summary>
-    /// closes the doors in the gameobject
-    /// </summary>
-    private void CloseNightDoors()
-    {
-        foreach (GameObject door in _doors)
+
+        else if (LightingManager.Instance.night == false && nightOwl == false && PlayerInfo.NightRoom == null)
         {
-            door.SetActive(true);
+            foreach (GameObject door in _doors)
+            {
+                door.SetActive(true);
+            }
         }
     }
 
@@ -137,4 +128,5 @@ public class RoomRestriction : MonoBehaviour
         yield return new WaitForSeconds(1f);
         PlayerInfo.NightRoom = null;
     }
+
 }

@@ -10,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public class BrewingSystem : SingletonPattern<BrewingSystem>
 {
+    #region Fields
     public List<PotionRecipe> recipes;
 
     /// <summary> The brewing option prefab. </summary>
@@ -19,6 +20,7 @@ public class BrewingSystem : SingletonPattern<BrewingSystem>
     private List<GameObject> brewingOptions = new List<GameObject>();
 
     private int _brewingIndex = 0;
+    #endregion
 
     protected override void Awake()
     {
