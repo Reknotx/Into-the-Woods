@@ -39,8 +39,11 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
 
         foreach (NightRoom nightRoom in nightRooms)
         {
-            Transform parent = nightRoom.transform;
-            GetChildObject(parent, searchTag);
+            if (nightRoom.enabled)
+            {
+                Transform parent = nightRoom.transform;
+                GetChildObject(parent, searchTag);
+            }
         }
     }
 
