@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class MenuManagement : MonoBehaviour
 {
@@ -9,12 +10,53 @@ public class MenuManagement : MonoBehaviour
     public string surveyLink;
     public string bugReportLink;
     private int randomLocation;
+    public AudioMixer mixer;
+    public bool end;
+
+    private bool hasSet;
+
+    private int defaultwidth;
+    private int defaultheight;
+    private int currentWidth;
+    private int currentHeight;
+    private int currentScreenMode;
 
     private void Start()
     {
+
         ///Limits the game's refresh rate to our current monitors refresh rate to 
         ///avoid having the game eating up our system.
         Application.targetFrameRate = Screen.currentResolution.refreshRate;
+
+        if(defaultwidth == 0 && defaultheight == 0)
+        {
+            defaultwidth = Screen.currentResolution.width;
+            defaultheight = Screen.currentResolution.height;
+            
+        }
+        currentWidth = PlayerPrefs.GetInt("currentWidth", defaultwidth);
+        currentHeight = PlayerPrefs.GetInt("currentHeight", defaultheight);
+        currentScreenMode = PlayerPrefs.GetInt("ScreenMode", 0);
+
+        if(currentScreenMode == 0)
+        {
+            return;
+        }
+        else if (currentScreenMode == 1)
+        {
+            Screen.SetResolution(currentWidth, currentHeight, FullScreenMode.FullScreenWindow);
+            hasSet = false;
+        }
+        else if (currentScreenMode == 2)
+        {
+            Screen.SetResolution(currentWidth, currentHeight, FullScreenMode.MaximizedWindow);
+            hasSet = false;
+        }
+        else if (currentScreenMode == 3)
+        {
+            Screen.SetResolution(currentWidth, currentHeight, FullScreenMode.Windowed);
+            hasSet = false;
+        }
     }
 
     /// Author: JT Esmond
@@ -47,20 +89,22 @@ public class MenuManagement : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
-        WinLoseUI.Instance.won = false;
-        WinLoseUI.Instance.lost = false;
+        SceneManager.LoadScene("Main_Menu_Scene");
+        if (end)
+        {
+            WinLoseUI.Instance.won = false;
+            WinLoseUI.Instance.lost = false;
+        }
     }
 
     /// Author: JT Esmond
     /// Date: 2/21/2021
     /// <summary>
-    /// function for any Shop button. Shop scene needs to be 3 in the build Index
+    /// function for any Settings Button
     /// </summary>
-    public void Shop()
+    public void Settings()
     {
-        //Opens shop screen
-        //SceneManager.LoadScene("Shop");
+        SceneManager.LoadScene("Settings");
     }
 
     /// Author: JT Esmond

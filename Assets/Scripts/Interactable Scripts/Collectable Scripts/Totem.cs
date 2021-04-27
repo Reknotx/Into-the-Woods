@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Totem : Collectable
+public class Totem : Collectable, IUseable
 {
     private bool Used { get; set; }
 

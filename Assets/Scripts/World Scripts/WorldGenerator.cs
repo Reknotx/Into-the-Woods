@@ -275,8 +275,8 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     {
         ///Let's start with the crit path to test
         //paths.Add("Main Path", Algo(startRoom, endRoom));
-        Debug.Log("Start room: " + startRoom.gameObject.transform.parent.name);
-        Debug.Log("End room: " + endRoom.gameObject.transform.parent.name);
+        //Debug.Log("Start room: " + startRoom.gameObject.transform.parent.name);
+        //Debug.Log("End room: " + endRoom.gameObject.transform.parent.name);
 
         List<Room> tempList = Algo(startRoom, endRoom);
 
@@ -286,9 +286,9 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
             foreach (Room room in criticalPath)
             {
-                if (room.gameObject.GetComponent<RoomRestriction>() != null)
+                if (room.gameObject.TryGetComponent(out NightRoom night))
                 {
-                    room.gameObject.GetComponent<RoomRestriction>().enabled = false;
+                    night.gameObject.GetComponent<NightRoom>().enabled = false;
                 }
             }
         }

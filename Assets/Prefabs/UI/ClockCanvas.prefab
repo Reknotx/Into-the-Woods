@@ -30,12 +30,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8431429091897837173}
-  m_Father: {fileID: 8431429091687232929}
+  m_Father: {fileID: 8431429092002828015}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 893.9217, y: 329.20035}
+  m_AnchoredPosition: {x: -66.243164, y: -210.70694}
   m_SizeDelta: {x: 125, y: 110}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &8431429090476337672
@@ -104,12 +104,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: -0.006851198}
   m_LocalScale: {x: 0.65196764, y: 0.65196764, z: 0.65196764}
   m_Children: []
-  m_Father: {fileID: 8431429091687232929}
+  m_Father: {fileID: 8431429092002828015}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 929.82184, y: 510.10034}
+  m_AnchoredPosition: {x: -30.342773, y: -29.806824}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &8431429091161792806
@@ -149,52 +149,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &8431429091687232930
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8431429091687232929}
-  - component: {fileID: 8431429091687232928}
-  m_Layer: 0
-  m_Name: Clock
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8431429091687232929
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8431429091687232930}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8431429090476337674}
-  - {fileID: 8431429091161792800}
-  - {fileID: 8431429091816494317}
-  m_Father: {fileID: 8431429092002828015}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8431429091687232928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8431429091687232930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef19dbabb2883bd4fb4ef4a769913b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8431429091816494318
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,12 +178,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.65196764}
   m_Children: []
-  m_Father: {fileID: 8431429091687232929}
+  m_Father: {fileID: 8431429092002828015}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 831.4219, y: 422.3004}
+  m_AnchoredPosition: {x: -128.74298, y: -117.60693}
   m_SizeDelta: {x: 15, y: 50}
   m_Pivot: {x: 0.5000019, y: 0.0000002514571}
 --- !u!222 &8431429091816494307
@@ -359,6 +313,7 @@ GameObject:
   - component: {fileID: 8431429092002828008}
   - component: {fileID: 8431429092002828009}
   - component: {fileID: 8431429092002828010}
+  - component: {fileID: 1088668732878194780}
   m_Layer: 5
   m_Name: ClockCanvas
   m_TagString: Untagged
@@ -377,7 +332,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 8431429091687232929}
+  - {fileID: 8431429090476337674}
+  - {fileID: 8431429091161792800}
+  - {fileID: 8431429091816494317}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -446,3 +403,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1088668732878194780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431429092002828011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef19dbabb2883bd4fb4ef4a769913b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
