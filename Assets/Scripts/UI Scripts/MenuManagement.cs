@@ -13,11 +13,50 @@ public class MenuManagement : MonoBehaviour
     public AudioMixer mixer;
     public bool end;
 
+    private bool hasSet;
+
+    private int defaultwidth;
+    private int defaultheight;
+    private int currentWidth;
+    private int currentHeight;
+    private int currentScreenMode;
+
     private void Start()
     {
+
         ///Limits the game's refresh rate to our current monitors refresh rate to 
         ///avoid having the game eating up our system.
         Application.targetFrameRate = Screen.currentResolution.refreshRate;
+
+        if(defaultwidth == 0 && defaultheight == 0)
+        {
+            defaultwidth = Screen.currentResolution.width;
+            defaultheight = Screen.currentResolution.height;
+            
+        }
+        currentWidth = PlayerPrefs.GetInt("currentWidth", defaultwidth);
+        currentHeight = PlayerPrefs.GetInt("currentHeight", defaultheight);
+        currentScreenMode = PlayerPrefs.GetInt("ScreenMode", 0);
+
+        if(currentScreenMode == 0)
+        {
+            return;
+        }
+        else if (currentScreenMode == 1)
+        {
+            Screen.SetResolution(currentWidth, currentHeight, FullScreenMode.FullScreenWindow);
+            hasSet = false;
+        }
+        else if (currentScreenMode == 2)
+        {
+            Screen.SetResolution(currentWidth, currentHeight, FullScreenMode.MaximizedWindow);
+            hasSet = false;
+        }
+        else if (currentScreenMode == 3)
+        {
+            Screen.SetResolution(currentWidth, currentHeight, FullScreenMode.Windowed);
+            hasSet = false;
+        }
     }
 
     /// Author: JT Esmond
@@ -50,7 +89,7 @@ public class MenuManagement : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Main_Menu_Scene");
         if (end)
         {
             WinLoseUI.Instance.won = false;
