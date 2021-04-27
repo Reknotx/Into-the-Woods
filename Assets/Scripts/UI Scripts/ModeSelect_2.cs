@@ -18,15 +18,23 @@ public class ModeSelect_2 : MonoBehaviour
 
     public int playerDamageMultiplier;
 
+    public int envTheme;
+
     // Objects to toggle on/off for UI.
     public GameObject normalCheck;
     public GameObject bigCheck;
     public GameObject hardCheck;
     public GameObject bighardCheck;
 
+    public GameObject theme0Check;
+    public GameObject theme1Check;
+    public GameObject theme2Check;
+    public GameObject theme3Check;
+
     private void Awake()
     {
         CheckNormal();
+        CheckTheme0();
     }
 
     #region Mode Modifier Buttons 
@@ -75,6 +83,42 @@ public class ModeSelect_2 : MonoBehaviour
         bighardCheck.SetActive(true);
     }
 
+    public void CheckTheme0()
+    {
+        envTheme = 0;
+        print("Setting Environment theme to " + envTheme);
+        CommitPrefs();
+        RefreshThemeUI();
+        theme0Check.SetActive(true);
+    }
+
+    public void CheckTheme1()
+    {
+        envTheme = 1;
+        print("Setting Environment theme to " + envTheme);
+        CommitPrefs();
+        RefreshThemeUI();
+        theme1Check.SetActive(true);
+    }
+
+    public void CheckTheme2()
+    {
+        envTheme = 2;
+        print("Setting Environment theme to " + envTheme);
+        CommitPrefs();
+        RefreshThemeUI();
+        theme2Check.SetActive(true);
+    }
+
+    public void CheckTheme3()
+    {
+        envTheme = 3;
+        print("Setting Environment theme to " + envTheme);
+        CommitPrefs();
+        RefreshThemeUI();
+        theme3Check.SetActive(true);
+    }
+
     public void ToMain()
     {
         SceneManager.LoadScene("MainMenu");
@@ -96,6 +140,7 @@ public class ModeSelect_2 : MonoBehaviour
         PlayerPrefs.SetInt(PrefTags.PWorldRows, enterRows);
         PlayerPrefs.SetInt(PrefTags.PWorldColumns, enterColumns);
         PlayerPrefs.SetInt(PrefTags.DmgMulti, playerDamageMultiplier);
+        PlayerPrefs.SetInt(PrefTags.EnvironmentTheme, envTheme);
     }
 
     private void RefreshModeUI()
@@ -104,6 +149,14 @@ public class ModeSelect_2 : MonoBehaviour
         bigCheck.SetActive(false);
         hardCheck.SetActive(false);
         bighardCheck.SetActive(false);
+    }
+
+    private void RefreshThemeUI()
+    {
+        theme0Check.SetActive(false);
+        theme1Check.SetActive(false);
+        theme2Check.SetActive(false);
+        theme3Check.SetActive(false);
     }
 
     #endregion
