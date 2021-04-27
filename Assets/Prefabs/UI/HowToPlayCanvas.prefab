@@ -221,7 +221,6 @@ GameObject:
   - component: {fileID: 2895999993776869305}
   - component: {fileID: 6214654510513018364}
   - component: {fileID: 7615763302702980503}
-  - component: {fileID: 1014443542859605132}
   m_Layer: 5
   m_Name: HowToPlayCanvas
   m_TagString: Untagged
@@ -310,22 +309,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1014443542859605132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2242953096173288123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fcaf50be4f260b4dbb2b72ee42f50e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  surveyLink: 
-  bugReportLink: 
-  mixer: {fileID: 0}
-  end: 0
 --- !u!1 &3119550947029092591
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +429,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1014443542859605132}
+      - m_Target: {fileID: 0}
         m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
