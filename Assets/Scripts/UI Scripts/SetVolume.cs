@@ -18,11 +18,21 @@ public class SetVolume : MonoBehaviour
     public Slider musicSlider;
     public Slider effectSlider;
 
+    static bool FirstStart = true;
+
+
     private void Start()
     {
         //sets the volume levels to the values of the player prefs for consistency
-        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", .05f);
-        effectSlider.value = PlayerPrefs.GetFloat("EffectVolume", .05f);
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", .25f);
+        effectSlider.value = PlayerPrefs.GetFloat("EffectVolume", .25f);
+        MusicLevel(musicSlider.value);
+
+        if (FirstStart)
+        {
+            transform.parent.gameObject.SetActive(false);
+            FirstStart = false;
+        }
     }
 
     /// Author: JT Esmond
