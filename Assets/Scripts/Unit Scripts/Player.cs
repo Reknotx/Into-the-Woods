@@ -133,7 +133,7 @@ public class Player : Unit
 
         set 
         { 
-            if (value < _bonusHealth)
+            if (value < _bonusHealth && PInven.HasItem(Inventory.Items.Avocado))
             {
                 ((Avocado)PInven.GetItem(Inventory.Items.Avocado)).Uses--;
             }

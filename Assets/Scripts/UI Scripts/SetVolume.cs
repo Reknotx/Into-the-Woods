@@ -20,6 +20,10 @@ public class SetVolume : MonoBehaviour
 
     static bool FirstStart = true;
 
+    private void Awake()
+    {
+        FirstStart = true;
+    }
 
     private void Start()
     {
