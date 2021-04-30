@@ -71,7 +71,6 @@ public abstract class Spell : MonoBehaviour
         GetComponent<Rigidbody>().MovePosition(newPos);
 
         distTraveled += posDelta;
-
     }
 
     private void OnCollisionEnter(Collision collision)
