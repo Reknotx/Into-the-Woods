@@ -21,6 +21,11 @@ public class MenuManagement : MonoBehaviour
     private int currentHeight;
     private int currentScreenMode;
 
+    private void Awake()
+    {
+        Time.timeScale = 1f;
+    }
+
     private void Start()
     {
 

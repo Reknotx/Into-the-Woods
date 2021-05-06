@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
+    public string sceneToLoad;
     public Slider slider;
 
     private void Awake()
     {
-        LoadLevel("MainGame");
+        LoadLevel(sceneToLoad);
     }
 
     public void LoadLevel(string sceneName)
