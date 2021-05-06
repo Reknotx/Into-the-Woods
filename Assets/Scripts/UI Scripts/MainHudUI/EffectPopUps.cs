@@ -19,7 +19,8 @@ public class EffectPopUps : SingletonPattern<EffectPopUps>
     public List<ScriptableEffectPopUp> effectPopUps = new List<ScriptableEffectPopUp>();
     //list for the image game objects
     public List<Image> images = new List<Image>();
-
+    //list for the text game objects
+    public List<TMPro.TMP_Text> text = new List<TMPro.TMP_Text>();
     // int used to determine which holder to turn on
     private int listLocation = 0;
 
@@ -49,6 +50,7 @@ public class EffectPopUps : SingletonPattern<EffectPopUps>
             popUpHolders[listLocation].gameObject.SetActive(true);
             temp = effectPopUps[x];
             images[listLocation].sprite = temp.Art;
+            text[listLocation].text = temp.text;
             listLocation++;
         }
         else

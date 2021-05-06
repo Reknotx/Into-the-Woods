@@ -27,6 +27,8 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
     /// <summary> The parent game object of the inventory slots. </summary>
     private GameObject inventoryContainer;
 
+    private GameObject inventoryBackground;
+
     /// <summary> The hover text UI component. Written to by HoverText(). </summary>
     //public Text hoverTextUI; 
     public TMPro.TMP_Text hoverTextUI;
@@ -36,8 +38,10 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
         base.Awake();
 
         inventoryContainer = transform.GetChild(0).gameObject;
+        inventoryBackground = transform.GetChild(1).gameObject;
 
         inventoryContainer.SetActive(false);
+        inventoryBackground.SetActive(false);
     }
 
     // SetInventory function that 
@@ -114,8 +118,11 @@ public class UI_Inventory : SingletonPattern<UI_Inventory>
     /// <summary>
     /// Turns the inventory item slots on or of depending on their state.
     /// </summary>
-    public void InventoryDisplay() => inventoryContainer.SetActive(!inventoryContainer.activeSelf);
-
+    public void InventoryDisplay()
+    {
+        inventoryContainer.SetActive(!inventoryContainer.activeSelf);
+        inventoryBackground.SetActive(!inventoryBackground.activeSelf);
+    }
 
     /// <summary> The integer that shows the focus of dropping an item from inventory. </summary>
     private int focus = -1;
