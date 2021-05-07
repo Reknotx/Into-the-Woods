@@ -55,7 +55,7 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
     /// </summary>
     public void NightDoors()
     {
-        if (LightingManager.Instance.night == true || nightOwl == true || PlayerInfo.NightRoom == this)
+        if (LightingManager.Instance.night || nightOwl || PlayerInfo.NightRoom == this)
         {
             foreach (GameObject door in _doors)
             {
@@ -63,7 +63,7 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
             }
         }
 
-        else if (LightingManager.Instance.night == false && nightOwl == false && PlayerInfo.NightRoom == null)
+        else if (!LightingManager.Instance.night && !nightOwl && PlayerInfo.NightRoom == null)
         {
             foreach (GameObject door in _doors)
             {
@@ -102,22 +102,6 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
             {
                 GetChildObject(child, _tag);
             }
-        }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.layer == 8)
-        {
-            PlayerInfo.NightRoom = this;
-        }
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.layer == 8)
-        {
-            StartCoroutine(Delay());
         }
     }
 

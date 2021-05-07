@@ -42,7 +42,7 @@ public class EnemyB_3 : EnemyB
         if (!isShielded)
         {
             base.TakeDamage(dmgAmount);
-            print(dmgAmount);
+            //print(dmgAmount);
         }
     }
 

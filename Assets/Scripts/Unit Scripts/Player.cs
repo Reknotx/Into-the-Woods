@@ -45,6 +45,8 @@ public class Player : Unit
 
     [Tooltip("The animator controller for this player's rig")]
     public Animator animController;
+
+    public AudioSource attackSource;
     #endregion
 
     #region Private
@@ -309,6 +311,7 @@ public class Player : Unit
 
         yield return new WaitUntil(() => FireSpell);
 
+        attackSource.Play();
         List<GameObject> firedSpells = new List<GameObject>();
 
         if (PlayerInfo.DoubleShot)

@@ -294,7 +294,7 @@ public class Room : MonoBehaviour
         //    yield return null;
         //}
         yield return new WaitForSeconds(.75f);
-        Debug.Log(CameraTransition.Instance.Done);
+        //Debug.Log(CameraTransition.Instance.Done);
 
         foreach (Enemy enemy in enemies)
         {
