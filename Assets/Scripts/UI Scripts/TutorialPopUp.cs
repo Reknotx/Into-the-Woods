@@ -30,6 +30,26 @@ public class TutorialPopUp : MonoBehaviour
         RefreshUIChoice();
     }
 
+    private void Update()
+    {
+        if(PauseMenu.GameIsPaused)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                StartCoroutine(Delay());
+                Time.timeScale = 1f;
+                TutorialUI.SetActive(false);
+
+            }
+        }
+    }
+
+    private IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(1f);
+        PauseMenu.GameIsPaused = false;
+    }
+
     #region ButtonFunctions
     public void ScrollRight()
     {
