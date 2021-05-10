@@ -41,6 +41,7 @@ public class PauseMenu : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(false);
         transform.GetChild(3).gameObject.SetActive(false);
         transform.GetChild(4).gameObject.SetActive(false);
+        transform.GetChild(5).gameObject.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -57,6 +58,7 @@ public class PauseMenu : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(true);
         transform.GetChild(3).gameObject.SetActive(true);
         transform.GetChild(4).gameObject.SetActive(true);
+        transform.GetChild(5).gameObject.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
