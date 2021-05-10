@@ -94,11 +94,11 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
     /// </summary>
     void PrefsCheck()
     {
-        //WorldRows = PlayerPrefs.GetInt("PWorldRows", 4);
-        //WorldColumns = PlayerPrefs.GetInt("PWorldColumns", 4);
+        WorldRows = PlayerPrefs.GetInt("PWorldRows", 4);
+        WorldColumns = PlayerPrefs.GetInt("PWorldColumns", 4);
 
-        WorldRows = 4;
-        WorldColumns = 4;
+        //WorldRows = 4;
+        //WorldColumns = 4;
 
         print("Seeds are currently being manually set in WorldGenerator. Uncomment the comment block in PrefsCheck to enable PlayerPrefs seed entry.");
         // CURRENTLY TURNED OFF
@@ -179,8 +179,19 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
                 if (!FieldRoomPicks.Contains(roomContainer.roomPrefabs[index]))
                 {
-                    FieldRoomPicks.Add(roomContainer.roomPrefabs[index]);
-                    break;
+                    if (roomContainer.roomPrefabs[index] != null)
+                    {
+                        FieldRoomPicks.Add(roomContainer.roomPrefabs[index]);
+                        break;
+                    }
+                    else
+                    {
+                        // Adding an error message on null entries because we keep losing 
+                        // our level prefabs SOMEHOW. - Paul, 5/4/2021.
+                        print("roomPrefabs[" + index + "] was null. Did you forget some room prefabs?");
+                        i--; // Subtract loop counter so we try again.
+                        break;
+                    }
                 }
             }
         }
