@@ -51,8 +51,8 @@ public class LightingManager : SingletonPattern<LightingManager>
         _mainLight = GetComponent<Light>();
 
         //assign the values of the day and night color variables
-        _perfectDay = new Color(152f, 149f, 98f);
-        _perfectNight = new Color(25f, 20f, 188f);
+        _perfectDay = new Color(142f, 136f, 81f);
+        _perfectNight = new Color(44f, 42f, 91f);
     }
 
     private void Update()
