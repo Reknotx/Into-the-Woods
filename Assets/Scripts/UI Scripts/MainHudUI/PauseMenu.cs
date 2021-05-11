@@ -18,7 +18,10 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(GameIsPaused)
+        {
+            Time.timeScale = 0f;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused  && !TurnOn.GameIsPaused && !BrewingEscape.GameIsPaused && !PopUpManager.GameIsPaused)
