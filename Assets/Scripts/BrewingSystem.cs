@@ -20,6 +20,8 @@ public class BrewingSystem : SingletonPattern<BrewingSystem>
     private List<GameObject> brewingOptions = new List<GameObject>();
 
     private int _brewingIndex = 0;
+
+    public List<Sprite> ingredientSprites = new List<Sprite>();
     #endregion
 
     protected override void Awake()
@@ -56,30 +58,45 @@ public class BrewingSystem : SingletonPattern<BrewingSystem>
         tempOption.potionName.text = recipe.GetName().ToString();
         tempOption.description.text = recipe.description.ToString();
 
-        string reqText;
+        //string reqText;
+
+        //if (recipe.Requirements.Count == 1)
+        //{
+        //    reqText = "Requires " + recipe.Requirements[0].Amount + " ingredient " + recipe.GetIngredientInit(recipe.Requirements[0].requirement);
+        //}
+        //else
+        //{
+        //    reqText = "Requires ingredients ";
+
+        //    for (int i = 0; i < recipe.Requirements.Count; i++)
+        //    {
+        //        RecipeItem requirement = recipe.Requirements[i];
+
+        //        reqText += recipe.GetIngredientInit(requirement.requirement);
+
+        //        if (i < recipe.Requirements.Count - 1)
+        //        {
+        //            reqText += " & ";
+        //        }
+        //    }
+        //}'
 
         if (recipe.Requirements.Count == 1)
         {
-            reqText = "Requires " + recipe.Requirements[0].Amount + " ingredient " + recipe.GetIngredientInit(recipe.Requirements[0].requirement);
+            int index = (int)recipe.Requirements[0].requirement;
+            tempOption.ingredientSprites[0].sprite = ingredientSprites[index];
+            tempOption.ingredientSprites[1].sprite = ingredientSprites[index];
         }
         else
         {
-            reqText = "Requires ingredients ";
+            int indexOne = (int)recipe.Requirements[0].requirement;
+            int indexTwo = (int)recipe.Requirements[1].requirement;
 
-            for (int i = 0; i < recipe.Requirements.Count; i++)
-            {
-                RecipeItem requirement = recipe.Requirements[i];
-
-                reqText += recipe.GetIngredientInit(requirement.requirement);
-
-                if (i < recipe.Requirements.Count - 1)
-                {
-                    reqText += " & ";
-                }
-            }
+            tempOption.ingredientSprites[0].sprite = ingredientSprites[indexOne];
+            tempOption.ingredientSprites[1].sprite = ingredientSprites[indexTwo];
         }
 
-        tempOption.requirements.text = reqText;
+        //tempOption.requirements.text = reqText;
         tempOption.potionImage.sprite = recipe.potionSprite;
 
         tempOption.brewButton.onClick.AddListener(() => recipe.Craft(Player.Instance.PInven));
