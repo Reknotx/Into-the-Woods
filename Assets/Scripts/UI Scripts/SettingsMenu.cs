@@ -32,6 +32,7 @@ public class SettingsMenu : MonoBehaviour
 
         // variable for the screen mode dropdown, that contains all of the screen mode dropdown options
         var fullscreenDropdown = transform.GetChild(3).gameObject.GetComponent<TMPro.TMP_Dropdown>();
+        fullscreenDropdown.options.Clear();
 
         //adds in all of the values for the screen mode dropdown options
         fullscreenDropdown.options.Add(new TMPro.TMP_Dropdown.OptionData() { text = "Fullscreen" });
