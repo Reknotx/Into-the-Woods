@@ -42,6 +42,7 @@ public class TurnOn : MonoBehaviour
         if (GameIsPaused)
         {
             GameIsPaused = false;
+            PauseMenu.GameIsPaused = true;
             foreach (GameObject child in children)
             {
                 gameObject.SetActive(false);
