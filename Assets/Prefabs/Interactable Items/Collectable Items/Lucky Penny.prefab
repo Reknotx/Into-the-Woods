@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8034526616434981731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875840315715749972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556cfa5bcc55e2e4e934afdfd238c490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateObject: {fileID: 8484706252855341641}
+  UItoOffset: {fileID: 7286946454708326546}
+--- !u!114 &-7845659998163293361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875840315715749972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2829925f685ccee41a2cf27d5ded3347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UISprite: {fileID: 21300000, guid: 7e48c073849545542ab1e4212c0ce74c, type: 3}
+  description: Lucky Penny
 --- !u!1001 &5814496583856428634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84,6 +112,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 514bec005d871c6448930f877dee337b, type: 3}
+--- !u!1 &8484706252855341641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2670219737610740755, guid: 514bec005d871c6448930f877dee337b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5814496583856428634}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8957083448304936710
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,9 +207,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1, type: 3}
+--- !u!1 &1875840315715749972 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7369473543905947474, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8957083448304936710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1875840315715749968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7369473543905947478, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8957083448304936710}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7286946454708326546 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1832292979735377812, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
     type: 3}
   m_PrefabInstance: {fileID: 8957083448304936710}
   m_PrefabAsset: {fileID: 0}

@@ -13,7 +13,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UISprite: {fileID: 21300000, guid: 3fcc75d9424b86f4b89a29be36d3d7c7, type: 3}
-  description: 
+  description: Some bunny is looking out for you!
+--- !u!114 &6062029391526859096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277947664929558568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556cfa5bcc55e2e4e934afdfd238c490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateObject: {fileID: 8172945479512873975}
+  UItoOffset: {fileID: 9003621482322987246}
 --- !u!1001 &725467570533743624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98,6 +112,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 998ef90c71f0d0d4eb4d02cacdc73f1e, type: 3}
+--- !u!1 &8172945479512873975 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8898341513046878207, guid: 998ef90c71f0d0d4eb4d02cacdc73f1e,
+    type: 3}
+  m_PrefabInstance: {fileID: 725467570533743624}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7322526203538161530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,6 +201,12 @@ GameObject:
 --- !u!4 &277947664929558572 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7369473543905947478, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7322526203538161530}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9003621482322987246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1832292979735377812, guid: 52ab33ea2214c8c4a9e3a3cf392d55d1,
     type: 3}
   m_PrefabInstance: {fileID: 7322526203538161530}
   m_PrefabAsset: {fileID: 0}

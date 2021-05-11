@@ -159,6 +159,11 @@ public class Room : MonoBehaviour
             {
                 Instantiate(chestOnCompletion, chestSpawnLoc.position, Quaternion.identity);
             }
+            if(GetComponent<NightRoom>() != null)
+            {
+                gameObject.GetComponent<NightRoom>().enabled = false;
+                RoomRestriction.Instance.NightDoorUpdate();
+            }
             OpenDoors();
         }
     }
