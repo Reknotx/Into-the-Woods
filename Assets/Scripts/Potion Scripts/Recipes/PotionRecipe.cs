@@ -130,38 +130,6 @@ public class PotionRecipe : ScriptableObject
         return name;
     }
 
-
-    /// Author: Chase O'Connor
-    /// Date: 2/18/2021
-    /// <summary>
-    /// Gets the initial of the ingredient requirement.
-    /// </summary>
-    /// <param name="potion">The potion ingredient requirement.</param>
-    /// <returns>A character with the initial of the potion ingredient.</returns>
-    /// Note: This will probably need to be changed to return a string instead
-    /// if Olivia wants to change the name of the ingredients so that they aren't
-    /// just A, B, C, and D
-    public char GetIngredientInit(Requirement potion)
-    {
-        switch (potion)
-        {
-            case Requirement.IngredientA:
-                return 'A';
-
-            case Requirement.IngredientB:
-                return 'B';
-
-            case Requirement.IngredientC:
-                return 'C';
-
-            case Requirement.IngredientD:
-                return 'D';
-
-            default:
-                return 'n';
-        }
-    }
-
     public Potion MakePotion()
     {
         Potion potion = null;
