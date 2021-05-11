@@ -18,6 +18,10 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
 
     public WorldRoomContainer roomContainer; // The ScriptableObject that contains all of our room lists.
 
+    // Borders for the world.
+    public GameObject NormalSizeBorder;
+    public GameObject AdventureSizeBorder;
+
     private List<GameObject> FieldRoomPicks = new List<GameObject>(); // The current list of picked field rooms for this world.
     //public GameObject[,] roomArrange; // Our selected rooms to instantiate, in the arrangement we're building.
     private GameObject[,] roomInstances; // The rooms we've instantiated as based FieldRoomPicks.
@@ -84,6 +88,8 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
         ConnectEverything();
 
         RemoveDoors();
+
+        BuildBorder();
     }
 
     #region Setup
@@ -542,5 +548,17 @@ public class WorldGenerator : SingletonPattern<WorldGenerator>
         }
     }
     #endregion
+
+    private void BuildBorder()
+    {
+        if (PlayerPrefs.GetInt(PrefTags.PWorldRows) == 5)
+        {
+            Instantiate(AdventureSizeBorder);
+        }
+        else
+        {
+            Instantiate(NormalSizeBorder);
+        }
+    }
 
 }
