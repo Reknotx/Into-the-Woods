@@ -52,7 +52,7 @@ public class LightingManager : SingletonPattern<LightingManager>
 
         //assign the values of the day and night color variables
         _perfectDay = new Color(152f, 149f, 98f);
-        _perfectNight = new Color(38f, 37f, 67f);
+        _perfectNight = new Color(25f, 20f, 188f);
     }
 
     private void Update()
