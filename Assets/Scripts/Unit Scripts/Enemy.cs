@@ -39,6 +39,8 @@ public class Enemy : Unit
 
     public EnemyLootTable lootTable;
 
+    public List<GameObject> flashMeshes;
+
     //protected bool isDamageFlashing; // If the unit is currently flashing from damage.
 
     /// Author: Paul Hernandez
@@ -219,20 +221,36 @@ public class Enemy : Unit
     /// <returns></returns>
     IEnumerator FlashColor()
     {
-        if (GetComponent<MeshRenderer>() != null)
+        foreach (GameObject meshes in flashMeshes)
         {
-            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
-            yield return new WaitForSeconds(0.1f);
-            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
+            if (meshes.GetComponent<SkinnedMeshRenderer>() != null)
+            {
+                meshes.GetComponent<SkinnedMeshRenderer>().material.SetColor("_EmissionColor", Color.red);
+            }
+        }
+        yield return new WaitForSeconds(0.1f);
+        foreach (GameObject meshes in flashMeshes)
+        {
+            if (meshes.GetComponent<SkinnedMeshRenderer>() != null)
+            {
+                meshes.GetComponent<SkinnedMeshRenderer>().material.SetColor("_EmissionColor", Color.black);
+            }
+        }
+
+        //if (GetComponent<MeshRenderer>() != null)
+        //{
+        //    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
+        //    yield return new WaitForSeconds(0.1f);
+        //    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
 
 
-        }
-        else // Look in children objects instead, such as in the case of the current level designer versions of enemy objects.
-        {
-            GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
-            yield return new WaitForSeconds(0.1f);
-            GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.black);
-        }
+        //}
+        //else // Look in children objects instead, such as in the case of the current level designer versions of enemy objects.
+        //{
+        //    GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.red);
+        //    yield return new WaitForSeconds(0.1f);
+        //    GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.black);
+        //}
     }
 
     public void Drop()
