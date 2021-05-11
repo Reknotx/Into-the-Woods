@@ -13,4 +13,6 @@ public class BrewingOption : MonoBehaviour
     public Button brewButton;
 
     public PotionRecipe recipe;
+
+    public List<Image> ingredientSprites;
 }
