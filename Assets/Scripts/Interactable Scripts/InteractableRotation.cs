@@ -18,6 +18,7 @@ public class InteractableRotation : MonoBehaviour
     protected float bobSpeed;
     protected float originalY;
     protected float timeOffset;
+    public GameObject UItoOffset;
 
     void Awake()
     {
@@ -39,7 +40,8 @@ public class InteractableRotation : MonoBehaviour
 
             if (rotateObject == this.gameObject) // If the root gameObject is also the model, then offset the rotation of the popup.
             {
-                this.gameObject.transform.GetChild(0).transform.Rotate(0f, -rotationSpeed, 0f, Space.World);
+                //this.gameObject.transform.GetChild(0).transform.Rotate(0f, -rotationSpeed, 0f, Space.World);
+                UItoOffset.transform.Rotate(0f, -rotationSpeed, 0f, Space.World);
             }
 
             transform.position = new Vector3(transform.position.x, originalY + ((float)Math.Sin(Time.time - timeOffset) * bobHeight), transform.position.z);
