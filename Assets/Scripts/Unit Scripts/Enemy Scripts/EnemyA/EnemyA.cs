@@ -22,6 +22,7 @@ public class EnemyA : Enemy
     [SerializeField] protected float shotCooldown; // How long to wait before firing again.
     // protected float shotVelocity; // How fast does the bullet fire?
 
+    public Animator animController;
 
 
     protected override void Start()
@@ -77,6 +78,8 @@ public class EnemyA : Enemy
                 bulletInstance.GetComponent<Transform>().rotation = aimerObj.transform.rotation;
                 // Push the bullet forward.
                 bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * (bulletForce), ForceMode.Impulse);
+
+                animController.SetTrigger("CastAttack");
 
                 StartCoroutine(fireCooldown(shotCooldown));
 
