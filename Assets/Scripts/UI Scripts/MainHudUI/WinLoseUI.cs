@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// Author: JT Esmond
 /// Date: 02/22/2021
@@ -33,10 +34,7 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
     /// </summary>
     public void YouWin()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.SetActive(true);
-        transform.GetChild(2).gameObject.SetActive(true);
-        Time.timeScale = 0f;
+        SceneManager.LoadScene("Good_End_Scene");
         won = true;
         MusicManager.Instance.PlayEndClip(true);
 
@@ -49,10 +47,7 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
     /// </summary>
     public void YouLose()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.SetActive(true);
-        transform.GetChild(3).gameObject.SetActive(true);
-        Time.timeScale = 0f;
+        SceneManager.LoadScene("Bad_End_Scene");
         lost = true;
         MusicManager.Instance.PlayEndClip(false);
     }

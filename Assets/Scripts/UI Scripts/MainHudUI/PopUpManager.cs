@@ -20,6 +20,9 @@ public class PopUpManager : MonoBehaviour
 
     private int listLocation;
     private string test;
+
+    public static bool GameIsPaused;
+
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -35,6 +38,18 @@ public class PopUpManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameIsPaused && !PauseMenu.GameIsPaused && !TurnOn.GameIsPaused && !BrewingEscape.GameIsPaused)
+            {
+                PopUpResume();
+            }
+            else return;
+        }
+    }
+
     /// Author: JT Esmond
     /// Date: 3/8/2021
     /// <summary>
@@ -46,7 +61,7 @@ public class PopUpManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             transform.GetChild(0).gameObject.SetActive(true);
-
+            GameIsPaused = true;
             foreach (ScriptablePopUp popUp in PopUps)
             {
                 if (collected.GetType() == popUp.ObjRef.GetComponent<Interactable>().GetType())
@@ -69,6 +84,7 @@ public class PopUpManager : MonoBehaviour
     public void SpellPopUp(Interactable collected, SpellScroll spell)
     {
         Time.timeScale = 0f;
+        GameIsPaused = true;
         transform.GetChild(0).gameObject.SetActive(true);
         foreach (ScriptablePopUp popUp in PopUps)
         {
@@ -107,6 +123,7 @@ public class PopUpManager : MonoBehaviour
     public void PotionPopUp(Interactable collected, PotionRecipe potion)
     {
         Time.timeScale = 0f;
+        GameIsPaused = true;
         transform.GetChild(0).gameObject.SetActive(true);
         foreach (ScriptablePopUp popUp in PopUps)
         {
@@ -156,6 +173,7 @@ public class PopUpManager : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(false);
         Time.timeScale = 1f;
+        GameIsPaused = false;
     }
     #endregion
 }

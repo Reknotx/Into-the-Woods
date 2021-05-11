@@ -6,4 +6,5 @@ using UnityEngine;
 public class ScriptableEffectPopUp : ScriptableObject
 {
     public Sprite Art;
+    public string text;
 }

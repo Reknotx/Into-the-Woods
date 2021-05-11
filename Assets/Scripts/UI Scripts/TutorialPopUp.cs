@@ -23,12 +23,20 @@ public class TutorialPopUp : MonoBehaviour
     public Texture tut7;
     public Texture tut8;
 
+
     private void Awake()
     {
-        Time.timeScale = 0f;
-        PauseMenu.GameIsPaused = true;
+
         RefreshUIChoice();
     }
+    private void Start()
+    {
+        Time.timeScale = 0f;
+    }
+
+
+
+
 
     #region ButtonFunctions
     public void ScrollRight()
@@ -53,7 +61,6 @@ public class TutorialPopUp : MonoBehaviour
 
     public void CloseTutorial()
     {
-        PauseMenu.GameIsPaused = false;
         Time.timeScale = 1f;
         TutorialUI.SetActive(false);
     }
