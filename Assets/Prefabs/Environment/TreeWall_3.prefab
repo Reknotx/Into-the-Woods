@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2474074241012496679}
-  - {fileID: 7314448530233988610}
+  - {fileID: 1697447502398844775}
   - {fileID: 2589769205375055906}
   - {fileID: 8126542604331768726}
   m_Father: {fileID: 0}
@@ -234,7 +234,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &6554311666742222490
+--- !u!1001 &2952452680049272831
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -244,7 +244,7 @@ PrefabInstance:
     - target: {fileID: 4416051090645133476, guid: a03837054cf503843a403f319effb4a4,
         type: 3}
       propertyPath: m_Name
-      value: tree_6
+      value: BLTree3_model
       objectReference: {fileID: 0}
     - target: {fileID: 4416051090645133476, guid: a03837054cf503843a403f319effb4a4,
         type: 3}
@@ -258,8 +258,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4573321392021817496, guid: a03837054cf503843a403f319effb4a4,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.011824
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573321392021817496, guid: a03837054cf503843a403f319effb4a4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.011824
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573321392021817496, guid: a03837054cf503843a403f319effb4a4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.011824
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573321392021817496, guid: a03837054cf503843a403f319effb4a4,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.116
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4573321392021817496, guid: a03837054cf503843a403f319effb4a4,
         type: 3}
@@ -308,11 +323,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a03837054cf503843a403f319effb4a4, type: 3}
---- !u!4 &7314448530233988610 stripped
+--- !u!4 &1697447502398844775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4573321392021817496, guid: a03837054cf503843a403f319effb4a4,
     type: 3}
-  m_PrefabInstance: {fileID: 6554311666742222490}
+  m_PrefabInstance: {fileID: 2952452680049272831}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7969282366400077208
 PrefabInstance:
@@ -325,6 +340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree3_model
+      objectReference: {fileID: 0}
+    - target: {fileID: 478243662985503209, guid: c0052232daa0d8b4a9dc3b389fa4ffe5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5534142735527830719, guid: c0052232daa0d8b4a9dc3b389fa4ffe5,
         type: 3}
