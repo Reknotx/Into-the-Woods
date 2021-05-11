@@ -45,6 +45,8 @@ public class Player : Unit
 
     [Tooltip("The animator controller for this player's rig")]
     public Animator animController;
+
+    public AudioSource attackSource;
     #endregion
 
     #region Private
@@ -286,7 +288,7 @@ public class Player : Unit
 
         if (hit.collider == null) return;
 
-        transform.LookAt(new Vector3(hit.point.x, 1f, hit.point.z));
+        transform.LookAt(new Vector3(hit.point.x, transform.parent.position.y, hit.point.z));
     }
     #endregion
 
@@ -309,6 +311,7 @@ public class Player : Unit
 
         yield return new WaitUntil(() => FireSpell);
 
+        attackSource.Play();
         List<GameObject> firedSpells = new List<GameObject>();
 
         if (PlayerInfo.DoubleShot)
@@ -411,7 +414,11 @@ public class Player : Unit
 
         int multiplier = PlayerPrefs.GetInt(PrefTags.DmgMulti) == 0 ? 1 : PlayerPrefs.GetInt(PrefTags.DmgMulti);
 
+        GetComponent<AudioSource>().Play();
+        
         base.TakeDamage(dmgAmount * multiplier);
+
+
 
     }
 

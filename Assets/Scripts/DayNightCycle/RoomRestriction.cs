@@ -63,7 +63,7 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
             }
         }
 
-        else if (LightingManager.Instance.night == false && nightOwl == false && PlayerInfo.NightRoom == null)
+        else if (!LightingManager.Instance.night && !nightOwl && PlayerInfo.NightRoom == null)
         {
             foreach (GameObject door in _doors)
             {
@@ -104,7 +104,6 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
             }
         }
     }
-
 
 
 }

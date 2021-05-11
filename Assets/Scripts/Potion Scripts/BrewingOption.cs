@@ -8,9 +8,11 @@ public class BrewingOption : MonoBehaviour
 
     public Text potionName;
     public Text description;
-    public Text requirements;
+    //public Text requirements;
     public Image potionImage;
     public Button brewButton;
 
     public PotionRecipe recipe;
+
+    public List<Image> ingredientSprites;
 }
