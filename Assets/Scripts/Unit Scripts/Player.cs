@@ -414,7 +414,11 @@ public class Player : Unit
 
         int multiplier = PlayerPrefs.GetInt(PrefTags.DmgMulti) == 0 ? 1 : PlayerPrefs.GetInt(PrefTags.DmgMulti);
 
+        GetComponent<AudioSource>().Play();
+        
         base.TakeDamage(dmgAmount * multiplier);
+
+
 
     }
 

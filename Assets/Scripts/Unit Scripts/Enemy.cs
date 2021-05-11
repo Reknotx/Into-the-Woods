@@ -39,10 +39,6 @@ public class Enemy : Unit
 
     public EnemyLootTable lootTable;
 
-    public AudioSource hitSource;
-
-
-
     //protected bool isDamageFlashing; // If the unit is currently flashing from damage.
 
     /// Author: Paul Hernandez
@@ -211,7 +207,6 @@ public class Enemy : Unit
     {
         base.TakeDamage(dmgAmount);
         StartCoroutine(FlashColor());
-        hitSource.Play();
     }
 
 
