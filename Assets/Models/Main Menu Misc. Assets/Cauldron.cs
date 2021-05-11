@@ -10,5 +10,6 @@ public class Cauldron : Interactable
     public override void Interact()
     {
         BrewingSystem.Instance.gameObject.SetActive(true);
+        BrewingEscape.GameIsPaused = true;
     }
 }

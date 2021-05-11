@@ -23,32 +23,20 @@ public class TutorialPopUp : MonoBehaviour
     public Texture tut7;
     public Texture tut8;
 
+
     private void Awake()
     {
-        Time.timeScale = 0f;
-        PauseMenu.GameIsPaused = true;
+
         RefreshUIChoice();
     }
-
-    private void Update()
+    private void Start()
     {
-        if(PauseMenu.GameIsPaused)
-        {
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                StartCoroutine(Delay());
-                Time.timeScale = 1f;
-                TutorialUI.SetActive(false);
-
-            }
-        }
+        Time.timeScale = 0f;
     }
 
-    private IEnumerator Delay()
-    {
-        yield return new WaitForSeconds(1f);
-        PauseMenu.GameIsPaused = false;
-    }
+
+
+
 
     #region ButtonFunctions
     public void ScrollRight()
@@ -73,7 +61,6 @@ public class TutorialPopUp : MonoBehaviour
 
     public void CloseTutorial()
     {
-        PauseMenu.GameIsPaused = false;
         Time.timeScale = 1f;
         TutorialUI.SetActive(false);
     }

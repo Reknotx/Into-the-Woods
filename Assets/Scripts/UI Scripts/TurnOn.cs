@@ -5,20 +5,27 @@ using UnityEngine;
 public class TurnOn : MonoBehaviour
 {
     public List<GameObject> children = new List<GameObject>();
+
+    public static bool GameIsPaused;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(GameIsPaused)
+        {
+            Time.timeScale = 0f;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (PauseMenu.GameIsPaused)
+            if (GameIsPaused && !PauseMenu.GameIsPaused && !BrewingEscape.GameIsPaused && !PopUpManager.GameIsPaused)
             {
-                StartCoroutine(Delay());
+                GameIsPaused = false;
                 foreach (GameObject child in children)
                 {
                     gameObject.SetActive(false);
@@ -26,37 +33,36 @@ public class TurnOn : MonoBehaviour
                 Time.timeScale = 1f;
 
             }
+            else return;
         }
     }
 
-    private IEnumerator Delay()
-    {
-        yield return new WaitForSeconds(2f);
-        PauseMenu.GameIsPaused = false;
-    }
     public void off()
     {
-        if (PauseMenu.GameIsPaused)
+        if (GameIsPaused)
         {
+            GameIsPaused = false;
             foreach (GameObject child in children)
             {
                 gameObject.SetActive(false);
             }
             Time.timeScale = 1f;
-            PauseMenu.GameIsPaused = false;
+            
         }
     }
 
     public void On()
     {
-        if (PauseMenu.GameIsPaused)
+        if (!GameIsPaused)
         {
+            Time.timeScale = 0f;
+            GameIsPaused = true;
             foreach (GameObject child in children)
             {
                 gameObject.SetActive(true);
             }
-            Time.timeScale = 1f;
-            PauseMenu.GameIsPaused = true;
+
+            
         }
     }
 }

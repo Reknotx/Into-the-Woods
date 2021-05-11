@@ -5,23 +5,20 @@ using UnityEngine;
 public class BrewingEscape : MonoBehaviour
 {
 
+    public static bool GameIsPaused;
     // Update is called once per frame
     void Update()
     {
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(PauseMenu.GameIsPaused)
+            if (GameIsPaused &&  !PauseMenu.GameIsPaused && !TurnOn.GameIsPaused && !PopUpManager.GameIsPaused)
             {
-                StartCoroutine(Delay());
+                GameIsPaused = false;
                 gameObject.SetActive(false);
                 Time.timeScale = 1f;
-
             }
+            else return;
         }
-    }
-    private IEnumerator Delay()
-    {
-        yield return new WaitForSeconds(1f);
-        PauseMenu.GameIsPaused = false;
     }
 }

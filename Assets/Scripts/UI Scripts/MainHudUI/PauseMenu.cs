@@ -11,23 +11,30 @@ public class PauseMenu : MonoBehaviour
 {
     //static bool for the when the game is paused. Made it static in case it needs to be access in other scripts.
     public static bool GameIsPaused = false;
-
+    public static bool BrewScreen = false;
+    public static bool TutorialScreen = false;
+    public static bool SettingsScreen = false;
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GameIsPaused); 
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (GameIsPaused  && !TurnOn.GameIsPaused && !BrewingEscape.GameIsPaused && !PopUpManager.GameIsPaused)
             {
                 Resume();
+            }
+            else if( TurnOn.GameIsPaused || BrewingEscape.GameIsPaused || PopUpManager.GameIsPaused)
+            {
+                return;
             }
             else
             {
                 Pause();
             }
         }
+
     }
 
     /// Author: JT Esmond
