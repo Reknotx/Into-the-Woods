@@ -15,6 +15,7 @@ public class EnemyB : Enemy
     protected float wanderMinTime;
     [SerializeField] protected float wanderCooldown; // How often does the unit walk to a random point?
 
+    [SerializeField] protected GameObject myModel;
     //[SerializeField] protected float wanderDistance; // How far to go?
 
     protected int wanderDirection;
@@ -69,8 +70,14 @@ public class EnemyB : Enemy
             else // 3, Right
             {
                 this.GetComponent<Rigidbody>().AddForce(this.transform.right * movementSpeed * 0.1f, ForceMode.Impulse);
+                
             }
         }
+
+        myModel.transform.LookAt(this.transform.position + this.GetComponent<Rigidbody>().velocity);
+        //Vector3 dir = new Vector3();
+        //dir.x = th
+        //transform.rotation = Quaternion.LookRotation(this.GetComponent<Rigidbody>())
 
     }
 
