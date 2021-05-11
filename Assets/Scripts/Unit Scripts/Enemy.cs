@@ -245,7 +245,7 @@ public class Enemy : Unit
 
         if (item != null)
         {
-            Debug.Log("Success");
+            //Debug.Log("Success");
             Instantiate(item, transform.position, Quaternion.identity);
         }
     }

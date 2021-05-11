@@ -17,6 +17,7 @@ public class NightOwlToken : Collectable, IUseable
 
     public void UseItem()
     {
-
+        DropLogic();
+        Player.Instance.PInven.RemoveItem(this);
     }
 }

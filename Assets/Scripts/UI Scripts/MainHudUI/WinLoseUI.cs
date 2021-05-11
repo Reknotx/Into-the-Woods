@@ -36,6 +36,8 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
     {
         SceneManager.LoadScene("Good_End_Scene");
         won = true;
+        MusicManager.Instance.PlayEndClip(true);
+
     }
 
     /// Author: JT Esmond
@@ -47,5 +49,6 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
     {
         SceneManager.LoadScene("Bad_End_Scene");
         lost = true;
+        MusicManager.Instance.PlayEndClip(false);
     }
 }

@@ -102,6 +102,8 @@ public class Room : MonoBehaviour
 
     public bool IsBossRoom { get; set; } = false;
 
+    public AudioClip bossDeath;
+
     private void Awake()
     {
         connections = new Dictionary<Direction, bool>()
@@ -151,6 +153,7 @@ public class Room : MonoBehaviour
             if (IsBossRoom)
             {
                 WinLoseUI.Instance.bossDead = true;
+                GetComponent<AudioSource>().PlayOneShot(bossDeath);
             }
             else
             {
@@ -193,6 +196,12 @@ public class Room : MonoBehaviour
             if (enemies.Count != 0)
             {
                 CloseDoors();
+            }
+
+            if (IsBossRoom)
+            {
+                GetComponent<AudioSource>().Play();
+                MusicManager.Instance.PlayBossMusic();
             }
 
             CameraTransition.Instance.TransitionToPoint(transform.position);
@@ -294,7 +303,7 @@ public class Room : MonoBehaviour
         //    yield return null;
         //}
         yield return new WaitForSeconds(.75f);
-        Debug.Log(CameraTransition.Instance.Done);
+        //Debug.Log(CameraTransition.Instance.Done);
 
         foreach (Enemy enemy in enemies)
         {

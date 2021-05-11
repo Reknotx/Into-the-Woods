@@ -14,7 +14,7 @@ public class AttackCandy : Collectable
         if (Player.Instance.PInven.AddItem(this))
         {
             PlayerInfo.AttackDamage++;
-            Debug.Log("Player Attack now: " + PlayerInfo.AttackDamage);
+            //Debug.Log("Player Attack now: " + PlayerInfo.AttackDamage);
         }
 
         PopupCheck();
