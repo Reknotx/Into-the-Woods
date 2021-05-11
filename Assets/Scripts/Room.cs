@@ -162,6 +162,7 @@ public class Room : MonoBehaviour
             if(GetComponent<NightRoom>() != null)
             {
                 gameObject.GetComponent<NightRoom>().enabled = false;
+                RoomRestriction.Instance.NightDoorUpdate();
             }
             OpenDoors();
         }

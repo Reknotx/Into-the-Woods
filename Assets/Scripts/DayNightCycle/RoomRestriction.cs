@@ -47,6 +47,20 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
         }
     }
 
+    public void NightDoorUpdate()
+    {
+        _doors.Clear();
+        var nightRooms = FindObjectsOfType<NightRoom>();
+
+        foreach (NightRoom nightroom in nightRooms)
+        {
+            if (nightroom.enabled)
+            {
+                Transform parent = nightroom.transform;
+                GetChildObject(parent, searchTag);
+            }
+        }
+    }
 
     /// Author: JT Esmond
     /// Date: 3/29/2021
