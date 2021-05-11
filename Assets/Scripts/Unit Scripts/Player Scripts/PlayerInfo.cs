@@ -45,7 +45,7 @@ public static class PlayerInfo
     public static Room CurrentRoom { get; set; }
 
     /// <summary> The room the player is currently in, used for the night room restrictions </summary>
-    public static RoomRestriction NightRoom { get; set; }
+    public static NightRoom NightRoom { get; set; }
 
     public static void Reset()
     {
