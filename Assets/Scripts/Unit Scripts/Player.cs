@@ -288,7 +288,7 @@ public class Player : Unit
 
         if (hit.collider == null) return;
 
-        transform.LookAt(new Vector3(hit.point.x, 1f, hit.point.z));
+        transform.LookAt(new Vector3(hit.point.x, transform.parent.position.y, hit.point.z));
     }
     #endregion
 

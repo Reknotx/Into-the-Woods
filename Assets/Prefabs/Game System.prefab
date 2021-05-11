@@ -270,8 +270,9 @@ GameObject:
   - component: {fileID: 2104068608566019388}
   - component: {fileID: 3652020173111444631}
   - component: {fileID: 1068333514814965352}
-  - component: {fileID: 4934495240281913318}
   - component: {fileID: 1332556351143736441}
+  - component: {fileID: 4934495240281913318}
+  - component: {fileID: 8857695932624047745}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -405,20 +406,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &4934495240281913318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5216479485506411337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f11451a04087404983a5a9ac630e028, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zOffset: 7.94
-  transSpeed: 1.5
 --- !u!82 &1332556351143736441
 AudioSource:
   m_ObjectHideFlags: 0
@@ -516,6 +503,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4934495240281913318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5216479485506411337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f11451a04087404983a5a9ac630e028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zOffset: 7.94
+  transSpeed: 1.5
+--- !u!114 &8857695932624047745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5216479485506411337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb1d65734e70b4c986d54fc9696a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 1332556351143736441}
+  musicClips:
+    bossMusic: {fileID: 0}
+    winClip: {fileID: 8300000, guid: 3e4f32fc889b84f4eb54b31fe8ec1744, type: 3}
+    loseClip: {fileID: 8300000, guid: 0c3bb37e8e5bff74f8ab99498359ed80, type: 3}
 --- !u!1 &7116821315028050180
 GameObject:
   m_ObjectHideFlags: 0
@@ -3291,9 +3309,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b09bd6b9da5ba88499f1d0b4d80a1aef, type: 3}
---- !u!114 &1143531140772051113 stripped
+--- !u!114 &8192411440750200 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6140611369182327074, guid: b09bd6b9da5ba88499f1d0b4d80a1aef,
+  m_CorrespondingSourceObject: {fileID: 6553983163247450099, guid: b09bd6b9da5ba88499f1d0b4d80a1aef,
     type: 3}
   m_PrefabInstance: {fileID: 6550896884092160395}
   m_PrefabAsset: {fileID: 0}
@@ -3303,15 +3321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &3811098894359348759 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7929370282193227676, guid: b09bd6b9da5ba88499f1d0b4d80a1aef,
-    type: 3}
-  m_PrefabInstance: {fileID: 6550896884092160395}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8192411440750200 stripped
+--- !u!114 &1143531140772051113 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6553983163247450099, guid: b09bd6b9da5ba88499f1d0b4d80a1aef,
+  m_CorrespondingSourceObject: {fileID: 6140611369182327074, guid: b09bd6b9da5ba88499f1d0b4d80a1aef,
     type: 3}
   m_PrefabInstance: {fileID: 6550896884092160395}
   m_PrefabAsset: {fileID: 0}
@@ -3333,6 +3345,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3811098894359348759 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7929370282193227676, guid: b09bd6b9da5ba88499f1d0b4d80a1aef,
+    type: 3}
+  m_PrefabInstance: {fileID: 6550896884092160395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7502316294971700124
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -38,6 +38,8 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
         transform.GetChild(2).gameObject.SetActive(true);
         Time.timeScale = 0f;
         won = true;
+        MusicManager.Instance.PlayEndClip(true);
+
     }
 
     /// Author: JT Esmond
@@ -52,5 +54,6 @@ public class WinLoseUI : SingletonPattern<WinLoseUI>
         transform.GetChild(3).gameObject.SetActive(true);
         Time.timeScale = 0f;
         lost = true;
+        MusicManager.Instance.PlayEndClip(false);
     }
 }
