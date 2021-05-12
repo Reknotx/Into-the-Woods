@@ -91,6 +91,7 @@ MonoBehaviour:
   bullet: {fileID: 1773860605470565557, guid: 16c6016a7a1e55245a17880a3f9211f1, type: 3}
   bulletForce: 5
   shotCooldown: 3
+  animController: {fileID: 9134250896063264633}
 --- !u!65 &9013042058659185807
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -197,11 +198,22 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: e1776172e42a7454e99420ec8f31b9b9, type: 2}
+    - target: {fileID: 5866666021909216657, guid: d3f0563424936eb4dbc135043daade95,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3f0563424936eb4dbc135043daade95, type: 3}
 --- !u!4 &2892239085627845891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d3f0563424936eb4dbc135043daade95,
+    type: 3}
+  m_PrefabInstance: {fileID: 3434545994633857768}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9134250896063264633 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: d3f0563424936eb4dbc135043daade95,
     type: 3}
   m_PrefabInstance: {fileID: 3434545994633857768}
   m_PrefabAsset: {fileID: 0}

@@ -7,6 +7,12 @@ public class BrewingEscape : MonoBehaviour
 
     public static bool GameIsPaused;
     // Update is called once per frame
+
+    private void Start()
+    {
+        GameIsPaused = false;
+    }
+
     void Update()
     {
 

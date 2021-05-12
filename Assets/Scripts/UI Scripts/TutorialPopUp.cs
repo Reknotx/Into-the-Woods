@@ -34,10 +34,6 @@ public class TutorialPopUp : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-
-
-
-
     #region ButtonFunctions
     public void ScrollRight()
     {

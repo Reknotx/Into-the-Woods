@@ -11,6 +11,7 @@ public class TurnOn : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0f;
+        GameIsPaused = false;
     }
 
     // Update is called once per frame

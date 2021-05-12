@@ -8,11 +8,8 @@ using UnityEngine.UI;
 /// <summary>
 /// class that holds the functions for the different pop up descriptions for items
 /// </summary>
-public class PopUpManager : MonoBehaviour
+public class PopUpManager : SingletonPattern<PopUpManager>
 {
-    public static PopUpManager Instance;
-
-
     public List<ScriptablePopUp> PopUps = new List<ScriptablePopUp>();
 
     public List<SpellScroll> SpellScrolls = new List<SpellScroll>();
@@ -23,19 +20,10 @@ public class PopUpManager : MonoBehaviour
 
     public static bool GameIsPaused;
 
-    public void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        Instance = this;
-    }
-
-    private void Start()
-    {
-
+        base.Awake();
+        GameIsPaused = false;
     }
 
     private void Update()
