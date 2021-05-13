@@ -309,7 +309,7 @@ public class Player : Unit
     {
         animController.SetTrigger("CastAttack");
 
-        yield return new WaitUntil(() => FireSpell);
+        //yield return new WaitUntil(() => FireSpell);
 
         attackSource.Play();
         List<GameObject> firedSpells = new List<GameObject>();
