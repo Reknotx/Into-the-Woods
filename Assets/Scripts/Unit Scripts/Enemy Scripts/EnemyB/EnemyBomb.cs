@@ -46,48 +46,4 @@ public class EnemyBomb : MonoBehaviour
         Destroy(this.gameObject);
 
     }
-
-    /*
-    public enum EnemyVariant
-    {
-        A,
-        B,
-        C
-    }
-
-    public EnemyVariant enemyVariant = EnemyVariant.A;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == 8) // If "Player" layer.
-        {
-            SpellEffectOnPlayer();
-        }
-    }
-
-    
-    private void SpellEffectOnPlayer()
-    {
-        switch (enemyVariant)
-        {
-            case EnemyVariant.A:
-                ///Deal damage
-                Player.Instance.TakeDamage(1);
-                break;
-            
-            case EnemyVariant.B:
-                ///damage and freeze spell casting
-                break;
-            
-            case EnemyVariant.C:
-                ///Bleed damage only
-                break;
-            
-            default:
-                break;
-        }
-
-        Destroy(this.gameObject);
-    }
-    */
 }

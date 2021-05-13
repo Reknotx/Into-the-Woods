@@ -61,6 +61,7 @@ MonoBehaviour:
   bullet: {fileID: 1828166905602745274, guid: 689f1c5eaa1f79247b1027e16e2c0981, type: 3}
   bulletForce: 5
   shotCooldown: 3
+  animController: {fileID: 8373671826441808377}
 --- !u!54 &2617135100252584021
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -201,6 +202,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 653a978752cd74b4496db013234c187a, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 1699a98ed879d8746bcddb51813b8cd1,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6527661783626334796, guid: 1699a98ed879d8746bcddb51813b8cd1,
         type: 3}
       propertyPath: m_DynamicOccludee
@@ -221,6 +227,12 @@ PrefabInstance:
 --- !u!4 &2510034402881270659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1699a98ed879d8746bcddb51813b8cd1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2693108050755196008}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8373671826441808377 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1699a98ed879d8746bcddb51813b8cd1,
     type: 3}
   m_PrefabInstance: {fileID: 2693108050755196008}
   m_PrefabAsset: {fileID: 0}

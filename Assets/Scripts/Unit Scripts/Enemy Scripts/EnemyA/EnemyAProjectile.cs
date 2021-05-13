@@ -58,16 +58,16 @@ public class EnemyAProjectile : MonoBehaviour
             case EnemyVariant.V2:
                 ///damage and freeze spell casting
                 Player.Instance.StartCoroutine(Player.Instance.SpellsFrozen(3f));
-                Player.Instance.TakeDamage(2);
+                Player.Instance.TakeDamage(DMG);
                 break;
             
             case EnemyVariant.V3:
                 ///Bleed damage only
-                Player.Instance.StartCoroutine(Player.Instance.Bleed(3));
+                Player.Instance.StartCoroutine(Player.Instance.Bleed(DMG));
                 break;
 
             case EnemyVariant.Boss:
-                Player.Instance.StartCoroutine(Player.Instance.Bleed(5));
+                Player.Instance.StartCoroutine(Player.Instance.Bleed(DMG));
                 Player.Instance.StartCoroutine(Player.Instance.SpellsFrozen(5f));
                 break;
             
