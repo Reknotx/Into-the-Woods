@@ -22,7 +22,6 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
     #endregion
 
     [HideInInspector] public bool nightOwl;
-    private bool open;
 
     protected override void Awake()
     {
@@ -32,7 +31,6 @@ public class RoomRestriction : SingletonPattern<RoomRestriction>
     // Start is called before the first frame update
     void Start()
     {
-        open = true;
         _doors.Clear();
 
         var nightRooms = FindObjectsOfType<NightRoom>();
