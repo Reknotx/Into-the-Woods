@@ -223,7 +223,7 @@ public class Inventory
 
                 Ray ray = Camera.main.ViewportPointToRay(Camera.main.WorldToViewportPoint(dropPos));
 
-                int layerMask = ~((1 << 30) | (1 << 0));
+                int layerMask = ~((1 << 30) | (1 << 0) | (1 << 15));
 
                 Physics.Raycast(ray, out RaycastHit hit, 1000f, layerMask);
 
