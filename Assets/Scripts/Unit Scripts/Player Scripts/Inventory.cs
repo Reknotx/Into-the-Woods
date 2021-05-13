@@ -246,7 +246,7 @@ public class Inventory
         #endregion
     }
 
-
+    #region Has Item
     /// Author: Chase O'Connor
     /// Date: 2/17/2021
     /// <summary>
@@ -336,8 +336,9 @@ public class Inventory
 
         return returnVal;
     }
+    #endregion
 
-
+    #region Get Item
     public Collectable GetItem(Collectable item)
     {
         foreach (Collectable invenItem in itemList)
@@ -419,6 +420,7 @@ public class Inventory
 
         return returnVal;
     }
+    #endregion
 
     /// <summary>
     /// Checks to see if the collected item has been picked up
