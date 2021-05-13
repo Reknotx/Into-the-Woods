@@ -310,6 +310,7 @@ public class Player : Unit
         animController.SetTrigger("CastAttack");
 
         yield return new WaitUntil(() => FireSpell);
+        yield return null;
 
         attackSource.Play();
         List<GameObject> firedSpells = new List<GameObject>();
@@ -417,9 +418,6 @@ public class Player : Unit
         GetComponent<AudioSource>().Play();
         
         base.TakeDamage(dmgAmount * multiplier);
-
-
-
     }
 
     #region Special Effects. Put in special class later!!!

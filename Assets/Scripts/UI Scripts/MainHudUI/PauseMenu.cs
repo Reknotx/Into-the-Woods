@@ -15,6 +15,11 @@ public class PauseMenu : MonoBehaviour
     public static bool TutorialScreen = false;
     public static bool SettingsScreen = false;
 
+    private void Start()
+    {
+        GameIsPaused = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -47,12 +52,10 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     public  void Resume()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(1).gameObject.SetActive(false);
-        transform.GetChild(2).gameObject.SetActive(false);
-        transform.GetChild(3).gameObject.SetActive(false);
-        transform.GetChild(4).gameObject.SetActive(false);
-        transform.GetChild(5).gameObject.SetActive(false);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -64,12 +67,10 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     public void Pause()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.SetActive(true);
-        transform.GetChild(2).gameObject.SetActive(true);
-        transform.GetChild(3).gameObject.SetActive(true);
-        transform.GetChild(4).gameObject.SetActive(true);
-        transform.GetChild(5).gameObject.SetActive(true);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
