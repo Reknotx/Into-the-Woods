@@ -21,12 +21,17 @@ _**Loot**_
 There are many different items that can be collected in the game and it will be another feature that is random for the player each time that they play. These different items include…
 
   Totem - Will grant the player an extra life.
-  \n /n
+  
   Lucky Penny - When harvesting potion ingredients from plants in the forest, the player will obtain 2 ingredients instead of 1.
+  
   Attack Candy - Gives the player +1 damage to their attack spell for as long as they have it in their inventory. Can be collected from chests.
+  
   Balloon Bouquet - Will equip the player with 3 balloons and absorbs 3 hits before the player takes damage. Can be obtained from chests.
+  
   Heart - Will regenerate a singular heart to the player’s HP. Two Peas in a Pod - Allows the player to have a double shot of their attack spell.
+  
   Compass - Spells cast by the player will now track the enemies.
+  
   Avocado - Will give players one extra heart in their health bar (the same way that an extra heart is given with a golden apple in Minecraft).
 
 _**Enemies**_
