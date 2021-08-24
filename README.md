@@ -21,19 +21,19 @@ One of the resources in the game is time. The day-night cycle will limit players
 _**Loot**_
 There are many different items that can be collected in the game and it will be another feature that is random for the player each time that they play. These different items include…
 
-  Totem - Will grant the player an extra life.
+  * Totem - Will grant the player an extra life.
   
-  Lucky Penny - When harvesting potion ingredients from plants in the forest, the player will obtain 2 ingredients instead of 1.
+  * Lucky Penny - When harvesting potion ingredients from plants in the forest, the player will obtain 2 ingredients instead of 1.
   
-  Attack Candy - Gives the player +1 damage to their attack spell for as long as they have it in their inventory. Can be collected from chests.
+  * Attack Candy - Gives the player +1 damage to their attack spell for as long as they have it in their inventory. Can be collected from chests.
   
-  Balloon Bouquet - Will equip the player with 3 balloons and absorbs 3 hits before the player takes damage. Can be obtained from chests.
+  * Balloon Bouquet - Will equip the player with 3 balloons and absorbs 3 hits before the player takes damage. Can be obtained from chests.
   
-  Heart - Will regenerate a singular heart to the player’s HP. Two Peas in a Pod - Allows the player to have a double shot of their attack spell.
+  * Heart - Will regenerate a singular heart to the player’s HP. Two Peas in a Pod - Allows the player to have a double shot of their attack spell.
   
-  Compass - Spells cast by the player will now track the enemies.
+  * Compass - Spells cast by the player will now track the enemies.
   
-  Avocado - Will give players one extra heart in their health bar (the same way that an extra heart is given with a golden apple in Minecraft).
+  * Avocado - Will give players one extra heart in their health bar (the same way that an extra heart is given with a golden apple in Minecraft).
 
 _**Enemies**_
 There are nine different enemies in the game and two different boss battles that the player can encounter. Each class of the enemies has a unique trait plus some additional behavior to vary. Class A enemies are stationary turret enemies with additional behaviors such as freezing your spell cast and enacting bleed damage. Class B enemies are mobile enemies with no particular pattern. Their additional behaviors include dropping bombs around the map and putting up a short shield that will inhibit the player from dealing damage to them. Class C enemies will chase the player around the map. Additional behaviors include exploding on contact and splitting into two. The two different bosses are reminiscent of the Class A and the Class C enemies. Boss A is a turret enemy that will deal bleeding and freezing status effects to the player. Boss B is achasing and splitting enemy that exists in three waves of a split.
