@@ -1,7 +1,8 @@
 # Into-The-Woods
  
  **Short Description**
- Into the Woods is a top-down, randomly generated, tile-based dungeon crawler in which players will be tasked with exploring the map to defeat the boss and find their missing master, all in a matter of 3 in-game days. Within this adventure, the players will be able to cast spells, brew potions, and collect items that will make defeating combatants and the final boss an easier mission. 
+ 
+Into the Woods is a top-down, randomly generated, tile-based dungeon crawler in which players will be tasked with exploring the map to defeat the boss and find their missing master, all in a matter of 3 in-game days. Within this adventure, the players will be able to cast spells, brew potions, and collect items that will make defeating combatants and the final boss an easier mission. 
 
 **Long Description**
 
@@ -48,10 +49,10 @@ Memory: 16GB RAM
 Storage: 50GB available hard drive space
 
 **Installation**
-First, download the “Into the Woods” zip folder.
-After the download is complete, drag the zip folder onto your desktop.
-Right-click the folder and select “Extract All”. Choose the destination where you would like to put the game.
-Open the extracted folder and double click the application called “Into The Woods.exe”. There you go! You’re off on a woodland adventure!
+ 1. First, download the “Into the Woods” zip folder.
+ 2. After the download is complete, drag the zip folder onto your desktop.
+ 3. Right-click the folder and select “Extract All”. Choose the destination where you would like to put the game.
+ 4. Open the extracted folder and double click the application called “Into The Woods.exe”. There you go! You’re off on a woodland adventure!
 
 **Number of Players**
 Single-player game
