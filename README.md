@@ -1,6 +1,6 @@
 # Into-The-Woods
  
-## **Short Description**
+# **Short Description**
  
 Into the Woods is a top-down, randomly generated, tile-based dungeon crawler in which players will be tasked with exploring the map to defeat the boss and find their missing master, all in a matter of 3 in-game days. Within this adventure, the players will be able to cast spells, brew potions, and collect items that will make defeating combatants and the final boss an easier mission. 
 
